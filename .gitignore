@@ -1,4 +1,4 @@
 .vscode/
 
-#statics
-images/
+# bin
+*.jpg
