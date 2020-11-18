@@ -1,2 +1,2 @@
-# great-portfolio
+# Great Personal Website
 This contains blog
