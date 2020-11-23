@@ -63,6 +63,9 @@ cite{
 #mainNav .navbar-toggler:hover{
 	color:#2641A7;
 }
+#mainNav .nav-item{
+	text-align: center;
+}
 
 #mainNav .nav-item a{
 	color:#000000;
@@ -84,11 +87,14 @@ cite{
 	}
 
 	#mainNav .nav-item a{
-		color:#FFFFFF;
+		color:#FFFFFF; 
+		border-radius: 5px;
 	}
 
 	#mainNav .nav-item a:hover{
-		color:#2641A7;
+		background-color:#2641A7;
+		color: #FFFFFF;
+		border-radius:10px;
 	}	
 }
 
@@ -125,7 +131,7 @@ header.masthead .overlay{
 	color: #ccc;
 }
 
-/* MAIN CONTENT*/
+/* INDEX MAIN CONTENT*/
 .post-preview{
 	margin:50px auto 0px auto;
 }
@@ -141,4 +147,36 @@ header.masthead .overlay{
 .post-meta a{
 	font-style: normal;
 }
+
+/*POST MAIN CONTENT*/
+.post-content{
+	margin:50px auto 0px auto;
+}
+.subheading{
+	font-weight:normal;
+}
+.post-meta-inside{
+	color: #FFFFFF;
+}
+
+
+/*MORE POST*/
+.more-post{
+	margin: 50px auto; 
+}
+
+.more-post__link{
+	float: right;
+	border:2px solid #2641A7;
+	border-radius: 20px;
+	padding: 5px 10px;
+}
+
+/* ABOUT CONTENT*/
+.about-content{
+	margin:50px auto;
+}
+
+
+/*FOOTER CONTENT*/
 
