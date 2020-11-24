@@ -126,7 +126,30 @@ header.masthead .overlay{
 
 .blockquote q{
 	font-size: 35px;
+	animation: colors;
+	animation-duration: 30s;
+	animation-iteration-count: infinite; 
 }
+
+@keyframes colors{
+	0%{ 
+		color:#FFFFFF;
+	}
+	25%{
+		color:#bbf9ff;
+	}
+	50%{
+		color:#d2ffa0;
+	}
+	75%{
+		color:#f3dd8d;
+	}
+	100%{
+		color:#FFFFFF;
+	}
+}
+
+
 .blockquote footer cite{
 	color: #ccc;
 }
