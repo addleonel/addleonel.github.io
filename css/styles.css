@@ -1,6 +1,7 @@
 body{
 	font-size: 20px;
-  	color: #212529;
+  	color: #f6f9fb;
+	background-color: #000c1c;
 	font-family: 'Lora', 'Times New Roman', sans-serif;
 }
 
@@ -24,13 +25,13 @@ q{
 
 
 a {
-  color: #212529;
+  color: #d3dfff;
   transition: all 0.2s;
   text-decoration: none !important;
 }
 
 a:focus, a:hover {
-  color: #2641A7;
+  color: #e4e4e4;
 }
 
 cite{
@@ -42,13 +43,13 @@ cite{
 #mainNav{
 	position: absolute;
 	font-family: 'Open Sans', sans-serif;
-	background-color: #FFFFFF;
+	background-color: #021b3b;
 	transition: 0.4s;
 }
 
 #mainNav .navbar-brand{
 	font-weight: bold;
-	color:#000000;
+	color:#ffffff;
 }
 
 #mainNav .navbar-toggler {
@@ -56,24 +57,28 @@ cite{
   font-weight: 800;
   padding: 8px;
   text-transform: uppercase;
-  color: #343a40;
-  border:0;
+  color: #ffffff;
 }
 
 #mainNav .navbar-toggler:hover{
-	color:#2641A7;
+	color: #e9f0f6;
 }
+
 #mainNav .nav-item{
 	text-align: center;
 }
 
 #mainNav .nav-item a{
-	color:#000000;
+	color:#ffffff;
 	font-size:15px;
 	font-weight: bold;
 }
 #mainNav .nav-item a:hover{
-	color:#2641A7;
+	color:#e5eafb;
+}
+
+.nav-link--focussed{
+	box-shadow: 0px 5px 0px 0px #617ce0;
 }
 
 @media only screen and (min-width: 992px){
@@ -88,13 +93,12 @@ cite{
 
 	#mainNav .nav-item a{
 		color:#FFFFFF; 
-		border-radius: 5px;
+		margin: 0px 9px;
 	}
 
 	#mainNav .nav-item a:hover{
-		background-color:#2641A7;
 		color: #FFFFFF;
-		border-radius:10px;
+		box-shadow: 5px 7px 0px 0px #2641A7;
 	}	
 }
 
@@ -106,13 +110,15 @@ header.masthead{
 	background-position: center;
 	background-repeat: no-repeat;
 	position:relative;
+	max-width:1140px;
+	width: 100%;
+	margin: 0 auto;
 }
 
 header.masthead .overlay{
 	position: absolute;
 	top: 0;
 	left: 0;
-	background-color:#212529;
 	opacity: 0.5;
 	width: 100%;
 	height: 100%;
@@ -125,7 +131,7 @@ header.masthead .overlay{
 }
 
 .blockquote q{
-	font-size: 35px;
+	font-size: 30px;
 	animation: colors;
 	animation-duration: 30s;
 	animation-iteration-count: infinite; 
@@ -136,13 +142,13 @@ header.masthead .overlay{
 		color:#FFFFFF;
 	}
 	25%{
-		color:#bbf9ff;
+		color:#c5eaee;
 	}
 	50%{
-		color:#d2ffa0;
+		color:#e2fbc6;
 	}
 	75%{
-		color:#f3dd8d;
+		color:#fae8a6;
 	}
 	100%{
 		color:#FFFFFF;
@@ -154,32 +160,65 @@ header.masthead .overlay{
 	color: #ccc;
 }
 
+/* MAIN */
+main{
+	padding-bottom: 100px;
+}
+
 /* INDEX MAIN CONTENT*/
+.last-posts{
+	display: flex;
+	align-items: flex-start;
+	border-bottom: 6px solid #2641A7;
+}
+
 .post-preview{
-	margin:50px auto 0px auto;
+	margin:10px auto 0px auto;
+	padding: 15px 25px;
+	background-color: #091b35;
+	transition: 0.4s;
+	border-radius:5px;
+}
+
+.post-title{
+	font-size: 27px;
 }
 
 .post-subtitle{
 	font-weight: normal;
+	font-size: 20px;
+	margin: 0;
 }
 
 .post-meta{
-	font-style: italic;
-	color: #908d8d;
+	color: #b4b0b0;
+	font-size: 15px;
+	margin: 8px 0;
+	font-family: 'Share Tech Mono', monospace;
 }
+
 .post-meta a{
 	font-style: normal;
 }
 
 /*POST MAIN CONTENT*/
+.post-image{
+	width: 100%;
+	height: 300px;
+	object-fit: cover;
+}
+
 .post-content{
 	margin:50px auto 0px auto;
+	padding: 9px 15px;
+	background-color: #091b35;
 }
 .subheading{
 	font-weight:normal;
 }
 .post-meta-inside{
 	color: #FFFFFF;
+	font-family: 'Share Tech Mono', monospace;
 }
 
 
@@ -190,11 +229,13 @@ header.masthead .overlay{
 
 .more-post__link{
 	float: right;
-	border:2px solid #2641A7;
-	border-radius: 20px;
-	padding: 5px 10px;
+	border:4px solid #2641A7;
+	padding: 6px 15px;
 }
 
+.more-post__link:hover{
+	box-shadow: 8px 8px 0px 0px #2641A7;
+}
 /* ABOUT CONTENT*/
 .about-content{
 	margin:50px auto;
@@ -202,4 +243,7 @@ header.masthead .overlay{
 
 
 /*FOOTER CONTENT*/
-
+.footer-container{
+   	width:100%;
+   	height:160px;
+}
