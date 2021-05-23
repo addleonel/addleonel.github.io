@@ -1,7 +1,7 @@
 body{
 	font-size: 20px;
   	color: #f6f9fb;
-	background-color: #000c1c;
+	background-color: #0d0d17;
 	font-family: 'Lora', 'Times New Roman', sans-serif;
 }
 
@@ -175,7 +175,7 @@ main{
 .post-preview{
 	margin:10px auto 0px auto;
 	padding: 15px 25px;
-	background-color: #091b35;
+	background-color: #101030;
 	transition: 0.4s;
 	border-radius:5px;
 }
@@ -211,7 +211,6 @@ main{
 .post-content{
 	margin:50px auto 0px auto;
 	padding: 9px 15px;
-	background-color: #091b35;
 }
 .subheading{
 	font-weight:normal;
