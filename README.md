@@ -6,3 +6,4 @@ This contains a blog
 - Python basics
 - Python Features
 - C++ Basics
+- Django
