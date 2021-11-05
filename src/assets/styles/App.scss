@@ -1,0 +1,42 @@
+@import '~bootstrap/scss/bootstrap';
+
+body{
+	font-size: 20px;
+  	color: #f6f9fb;
+	background-color: #0d0d17;
+	font-family: 'Lora', 'Times New Roman', sans-serif;
+}
+
+p{
+	line-height: 1.5;
+	margin:30px 0px;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6{
+  font-weight: 800;
+  font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+q{
+  font-family: 'Roboto Mono', monospace;
+}
+
+
+a {
+  color: #d3dfff;
+  transition: all 0.2s;
+  text-decoration: none !important;
+}
+
+a:focus, a:hover {
+  color: #e4e4e4;
+}
+
+cite{
+	font-weight: normal;
+	font-style: italic;
+}
