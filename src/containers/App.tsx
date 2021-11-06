@@ -1,4 +1,9 @@
-import React from 'react';
+import * as React from 'react';
+import {
+    BrowserRouter as Router,
+    Routes,
+    Route,
+} from 'react-router-dom';
 
 // Components
 import Header from '../components/Header';
@@ -10,8 +15,21 @@ import '../assets/styles/App.scss';
 const App: React.FC = () => {
     return (
         <React.Fragment>
-            <Header />
-            <Footer />
+            <Router>
+                <Header />
+                <div className="wrap">
+                    <div className="main">
+                        <Routes>
+                            <Route exact path="/"/>
+                            <Route path="/about"  />
+                            <Route path="/contact"/>
+                        </Routes>
+                    </div>
+                </div>
+                <div className="footer">
+                    <Footer />
+                </div>
+            </Router>
         </React.Fragment>
     )
 }

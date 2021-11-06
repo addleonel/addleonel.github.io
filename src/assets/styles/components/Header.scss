@@ -1,62 +1,57 @@
 /*NAVIGATION*/
+$principal_color: #1355ca;
 #mainNav{
-	position: absolute;
 	font-family: 'Open Sans', sans-serif;
-	background-color: #021b3b;
 	transition: 0.4s;
 }
 
-#mainNav .navbar-brand{
+.navbar-brand{
 	font-weight: bold;
-	color:#ffffff;
 }
 
-#mainNav .navbar-toggler {
+.navbar-toggler {
   font-size: 30px;
   font-weight: 800;
   padding: 8px;
   text-transform: uppercase;
-  color: #ffffff;
 }
 
-#mainNav .navbar-toggler:hover{
-	color: #e9f0f6;
+.navbar-toggler:focus {
+	box-shadow: none !important;
 }
 
-#mainNav .nav-item{
+.nav-link{
+	font-size: 15px;
+	font-weight: bold;
 	text-align: center;
 }
-
-#mainNav .nav-item a{
-	color:#ffffff;
-	font-size:15px;
-	font-weight: bold;
-}
-#mainNav .nav-item a:hover{
-	color:#e5eafb;
+.nav-link:hover{
+	color: $principal_color !important;
 }
 
 .nav-link--focussed{
-	box-shadow: 0px 5px 0px 0px #617ce0;
+	box-shadow: 0px 5px 0px 0px $principal_color;
 }
 
 @media only screen and (min-width: 992px){
 	#mainNav{
-		background:transparent;
+		background: transparent;
 		transition: 0.4s;
+		box-shadow: rgba(33, 35, 38, 0.1) 0px 10px 10px -10px;
 	}
 
-	#mainNav .navbar-brand{
-		color:#FFFFFF;
+	.navbar-brand:hover {
+		color: $principal_color !important;
 	}
 
-	#mainNav .nav-item a{
-		color:#FFFFFF; 
+	.nav-link{ 
 		margin: 0px 9px;
+		transition: .4s;
+		border-radius: 10px;
 	}
 
-	#mainNav .nav-item a:hover{
-		color: #FFFFFF;
-		box-shadow: 5px 7px 0px 0px #2641A7;
+	.nav-link:hover{
+		color: #FFFFFF !important;
+		background-color: $principal_color;
 	}	
 }
