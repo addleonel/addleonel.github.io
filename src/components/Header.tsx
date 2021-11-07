@@ -1,5 +1,6 @@
 import React from 'react';
 import { Container, Nav, Navbar } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 // styles
 import '../assets/styles/components/Header.scss';
@@ -9,15 +10,15 @@ const Header: React.FC = () => {
         <React.Fragment>
             <Navbar id="mainNav" collapseOnSelect expand="lg">
                 <Container>
-                    <Navbar.Brand className="navbar-brand" href="#home">A.D.Leonel</Navbar.Brand>
+                    <Link className="navbar-brand" to="/">A.D.Leonel</Link>
                     <Navbar.Toggle className="navbar-toggler" aria-controls="responsive-navbar-nav" />
                     <Navbar.Collapse id="responsive-navbar-nav">
                         <Nav className="me-auto" />
-                        <Nav >
-                            <Nav.Link className="nav-link" href="#deets">Home</Nav.Link>
-                            <Nav.Link className="nav-link" href="#c">Posts</Nav.Link>
-                            <Nav.Link className="nav-link" href="#asdcs">About</Nav.Link>
-                            <Nav.Link className="nav-link" href="#sd">Contact</Nav.Link>
+                        <Nav>
+                            <Link className="nav-link" to="/">Home</Link>
+                            <Link className="nav-link" to="/posts">Posts</Link>
+                            <Link className="nav-link" to="/about">About</Link>
+                            <Link className="nav-link" to="/contact">Contact</Link>
                         </Nav>
                     </Navbar.Collapse>
                 </Container>

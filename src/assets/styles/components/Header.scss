@@ -1,5 +1,6 @@
 /*NAVIGATION*/
-$principal_color: #1355ca;
+@import '../App.scss';
+
 #mainNav{
 	font-family: 'Open Sans', sans-serif;
 	transition: 0.4s;
@@ -37,7 +38,7 @@ $principal_color: #1355ca;
 	#mainNav{
 		background: transparent;
 		transition: 0.4s;
-		box-shadow: rgba(33, 35, 38, 0.1) 0px 10px 10px -10px;
+		box-shadow: rgba(17, 17, 26, 0.1) 0px 1px 0px;
 	}
 
 	.navbar-brand:hover {
