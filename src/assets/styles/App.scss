@@ -1,0 +1,58 @@
+@import '~bootstrap/scss/bootstrap';
+@import url('https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&display=swap');
+
+$principal_color: #1355ca;
+$hover_background_color: #cbdeff;
+$text_color: #071020;
+$text_color_hover: #0e2246;
+
+body {
+	margin: 0;
+	padding: 0;
+	font-size: 20px;
+	background-color: #ffffff;
+	font-family: 'Roboto', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+	// font-family: 'Libre Caslon Text', 'Lora', 'Times New Roman', sans-serif;
+}
+
+p {	
+	color: $text_color;
+	line-height: 1.5;
+	margin:30px 0px;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	color: $text_color;
+	font-weight: 700;
+	font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+q {
+	font-weight: bold;
+  	font-family: 'Roboto Mono', monospace;
+}
+
+cite {
+	font-family: 'Lora', 'Libre Caslon Text', 'Times New Roman', sans-serif;
+	font-weight: normal;
+	font-style: normal;
+}
+
+.wrap {
+    min-height: 100vh;
+}
+
+.main {
+    padding-bottom: 130px;
+}
+
+.footer {
+    position: relative;
+    margin-top: -130px;
+    height: 130px;
+}
