@@ -1,5 +1,6 @@
 import React from 'react';
 import { CodeBlock } from 'react-code-blocks';
+import { Helmet } from 'react-helmet';
 // styles
 import '../../assets/styles/components/PostContent.scss';
 
@@ -10,7 +11,10 @@ const PostContent: React.FC = () => {
     const startingLineNumber: number = 1;
     const wrapLines: Boolean= true;
     return (
-        <React.Fragment>	
+        <React.Fragment>
+        <Helmet>
+            <title>Full-Text Search | Django | Postgres</title>
+        </Helmet>
         <div className="container">
             <div className="row">
                 <div className="col-lg-8 col-md-10 mx-auto">

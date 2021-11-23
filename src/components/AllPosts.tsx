@@ -1,4 +1,5 @@
 import React from 'react';
+import { Helmet } from 'react-helmet';
 
 // components
 import PostPreview from './PostPreview';
@@ -6,6 +7,9 @@ import PostPreview from './PostPreview';
 const AllPosts: React.FC = () => {
     return (
         <React.Fragment>
+            <Helmet>
+                <title>All publications</title> 
+            </Helmet>
             <main className="container">
                 <div className="row">
                     <div className="col-lg-8 col-md-10 mx-auto">

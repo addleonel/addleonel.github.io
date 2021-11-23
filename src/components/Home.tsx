@@ -1,5 +1,5 @@
 import React from 'react';
-
+import { Helmet } from 'react-helmet';
 import PostPreview from './PostPreview';
 // styles
 
@@ -10,6 +10,9 @@ const Home: React.FC = () => {
 
     return (
         <React.Fragment>
+            <Helmet>
+                <title>A.D.Leonel's website</title> 
+            </Helmet>
             <header className="masthead">
                 <div className="overlay"></div>
                 <div className="container">
