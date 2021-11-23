@@ -36,7 +36,7 @@ const PostContent: React.FC = () => {
                 <div className="col-lg-8 mx-auto">
                     <section className="post-content">
                         <h3>What is Full-Text Search?</h3>
-                        <p> <a className="link-text mark-text" target="_blank" href="http://infocenter.sybase.com/help/index.jsp?topic=/com.sybase.help.sqlanywhere.12.0.1/dbusage/full-text-search-what-is-it.html">
+                        <p> <a className="link-text mark-text" rel="noreferrer" target="_blank" href="http://infocenter.sybase.com/help/index.jsp?topic=/com.sybase.help.sqlanywhere.12.0.1/dbusage/full-text-search-what-is-it.html">
                             Full-text search</a> 
                             refers to techniques for searching a single computer-stored document or a collection in a full-text database. Full-text search is distinguished from searches based on metadata or on parts of the original texts represented in databases (such as titles, abstracts, selected sections, or bibliographical references).
                         </p>
@@ -47,7 +47,7 @@ const PostContent: React.FC = () => {
                         </p>
                         <p>For use this tools is most easily to setup an example with a simple app into Django
                         </p>
-                        <p>Read more about <a className="link-text mark-text" target="_blank" href="https://docs.djangoproject.com/en/3.2/ref/contrib/postgres/">postgresSQL support</a></p>
+                        <p>Read more about <a className="link-text mark-text" rel="noreferrer" target="_blank" href="https://docs.djangoproject.com/en/3.2/ref/contrib/postgres/">postgresSQL support</a></p>
                         <h3>Create a Model</h3>
                         <figure>
                         <pre>
@@ -183,7 +183,7 @@ urlpatterns = [
                         /> 
                         </code>
                         </pre>
-                        <p>For more information about <a className="link-text mark-text" target="_blank" href="https://docs.djangoproject.com/en/3.2/ref/contrib/postgres/search/#searchvector">SearchVector</a>.</p>
+                        <p>For more information about <a className="link-text mark-text" rel="noreferrer" target="_blank" href="https://docs.djangoproject.com/en/3.2/ref/contrib/postgres/search/#searchvector">SearchVector</a>.</p>
                         <p>Now in our view code that we created above.</p>
                         <pre>
                         <code>
@@ -233,7 +233,7 @@ def search(request):
                             /> 
                             </code>
                         </pre>				
-                        <p>For more information about <a className="link-text mark-text" target="_blank" href="https://docs.djangoproject.com/en/3.2/ref/contrib/postgres/search/#searchquery">SearchQuery</a>.</p>
+                        <p>For more information about <a className="link-text mark-text" rel="noreferrer" target="_blank" href="https://docs.djangoproject.com/en/3.2/ref/contrib/postgres/search/#searchquery">SearchQuery</a>.</p>
                         <p>Now in our view code that we created above</p>
                         <pre>
                             <code>
@@ -287,7 +287,7 @@ def search(request):
                             />
                             </code>
                         </pre>
-                        <p>For more information about <a className="link-text mark-text" target="_blank" href="https://docs.djangoproject.com/en/3.2/ref/contrib/postgres/search/#searchrank">SearchRank</a>.</p>
+                        <p>For more information about <a className="link-text mark-text" rel="noreferrer" target="_blank" href="https://docs.djangoproject.com/en/3.2/ref/contrib/postgres/search/#searchrank">SearchRank</a>.</p>
                         <p>Now in our view code that we created above</p>
                         <pre>
                         <code>
@@ -410,7 +410,7 @@ urlpatterns = [
                             /> 
                             </code>
                         </pre>
-                        <p>If you want to read yourself from the <a className="link-text mark-text" target="_blank" href="https://docs.djangoproject.com/en/3.2/ref/contrib/postgres/search/#full-text-search">Django docs</a> just do it.</p>
+                        <p>If you want to read yourself from the <a className="link-text mark-text" rel="noreferrer" target="_blank" href="https://docs.djangoproject.com/en/3.2/ref/contrib/postgres/search/#full-text-search">Django docs</a> just do it.</p>
                     </section>
                 </div>
             </div>
