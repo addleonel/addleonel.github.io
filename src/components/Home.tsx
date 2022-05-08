@@ -13,6 +13,9 @@ const Home: React.FC = () => {
             <Helmet>
                 <title>A.D.Leonel's website</title> 
             </Helmet>
+            <link itemProp="thumbnailUrl" href="https://raw.githubusercontent.com/addleonel/addleonel.github.io/master/public/og_image.png"/>
+            <span itemProp="thumbnail" itemScope itemType="http://schema.org/ImageObject"/>
+            <link itemProp="url" href="https://raw.githubusercontent.com/addleonel/addleonel.github.io/master/public/og_image.png"></link>
             <header className="masthead">
                 <div className="overlay"></div>
                 <div className="container">
