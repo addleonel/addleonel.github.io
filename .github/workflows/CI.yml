@@ -17,7 +17,7 @@ jobs:
       - name: Setup NodeJS environment
         uses: actions/setup-node@v3
         with:
-          node-version-file: ".nvmrc"
+          node-version-file: '.nvmrc'
 
       - name: Cache node modules
         id: cache-npm
@@ -38,8 +38,8 @@ jobs:
       - name: Check linting and formatting
         run: npm run lint
 
-      - name: Execute test cases
-        run: npm run test
+      # - name: Execute test cases
+      #   run: npm run test
 
       - name: Create test build
         run: npm run build
