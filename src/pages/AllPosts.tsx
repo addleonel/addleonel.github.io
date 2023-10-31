@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Helmet } from 'react-helmet';
 
 // components
-import PostPreview from './PostPreview';
+import PostPreview from '../components/PostPreview';
 
 const AllPosts: React.FC = () => {
 	return (

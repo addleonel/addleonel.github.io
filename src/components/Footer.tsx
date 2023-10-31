@@ -4,7 +4,6 @@ import * as React from 'react';
 import '../assets/styles/components/Footer.scss';
 
 import githubicon from '../assets/static/icon/github.svg';
-import twittericon from '../assets/static/icon/twitter.svg';
 import youtubeicon from '../assets/static/icon/youtube.svg';
 
 const Footer: React.FC = () => {
@@ -30,18 +29,6 @@ const Footer: React.FC = () => {
 								<li className="list-inline-item">
 									<a
 										className="footer-link"
-										href="https://twitter.com/addleonel"
-									>
-										<img
-											className="footer-icon"
-											src={twittericon}
-											alt="twitter"
-										/>
-									</a>
-								</li>
-								<li className="list-inline-item">
-									<a
-										className="footer-link"
 										href="https://www.youtube.com/channel/UCG8LbrI4Ugs0zAIEiGHTTeA"
 									>
 										<img
@@ -52,7 +39,7 @@ const Footer: React.FC = () => {
 									</a>
 								</li>
 							</ul>
-							<p className="text-center">A.D.Leonel &copy; 2021 - 2023</p>
+							<p className="text-center">Leunel &copy; 2023</p>
 						</div>
 					</div>
 				</div>

@@ -4,11 +4,11 @@ import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 // Components
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import Home from '../components/Home';
-import AllPosts from '../components/AllPosts';
-import About from '../components/About';
-import Contact from '../components/Contact';
-import PostContent from '../components/posts/PostContent';
+import Home from '../pages/Home';
+import AllPosts from '../pages/AllPosts';
+import About from '../pages/About';
+import Contact from '../pages/Contact';
+import PostContent from '../pages/posts/PostContent';
 
 // styles
 import '../assets/styles/App.scss';
@@ -18,7 +18,6 @@ const App: React.FC = () => {
 		<React.Fragment>
 			<Router>
 				<Header />
-
 				<div className="wrap">
 					<div className="main">
 						<Routes>

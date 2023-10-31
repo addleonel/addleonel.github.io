@@ -11,6 +11,7 @@ const Contact: React.FC = () => {
 				<div className="row">
 					<div className="col-lg-8 col-md-10 mx-auto">
 						<h2 style={{ marginBottom: '30px' }}>Contact me</h2>
+						<p>You can find me on Youtube </p>
 					</div>
 				</div>
 			</main>
