@@ -10,13 +10,15 @@ const About: React.FC = () => {
 			<main className="container">
 				<div className="row">
 					<div className="col-lg-8 col-md-10 mx-auto">
-						<h2 style={{ marginBottom: '30px' }}>About me</h2>
+						<h2 style={{ marginBottom: '30px' }}>Hi</h2>
 						<p>
-							I am a software developer with a passion for web development. I
-							have a strong background in web development and have worked with
-							many different languages and frameworks. I am currently working on
-							a project that is a web application for a local business.
+							Hi my name is Leunel I am a software programmer with a passion for
+							web development, Artificial Inteligence, and IoT.
 						</p>
+						<img
+							src="https://avatars.githubusercontent.com/u/62483482?v=4"
+							width={'100px'}
+						/>
 					</div>
 				</div>
 			</main>

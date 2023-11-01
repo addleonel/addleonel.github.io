@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Helmet } from 'react-helmet';
-import PostPreview from './PostPreview';
+import PostPreview from '../components/PostPreview';
 // styles
 
 import '../assets/styles/components/Home.scss';
@@ -10,7 +10,7 @@ const Home: React.FC = () => {
 	return (
 		<React.Fragment>
 			<Helmet>
-				<title>A.D.Leonel&apos;s website</title>
+				<title>Leunel&apos;s website</title>
 			</Helmet>
 			<link
 				itemProp="thumbnailUrl"
@@ -25,7 +25,7 @@ const Home: React.FC = () => {
 				itemProp="url"
 				href="https://raw.githubusercontent.com/addleonel/addleonel.github.io/master/public/og_image.png"
 			></link>
-			<header className="masthead">
+			{/* <header className="masthead">
 				<div className="overlay"></div>
 				<div className="container">
 					<div className="row">
@@ -45,7 +45,7 @@ const Home: React.FC = () => {
 						</div>
 					</div>
 				</div>
-			</header>
+			</header> */}
 			<main className="container">
 				<div className="row">
 					<div className="col-lg-8 col-md-10 mx-auto">
