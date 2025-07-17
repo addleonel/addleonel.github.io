@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import * as React from 'react';
+import { useState } from 'react';
 import { InlineMath } from 'react-katex';
 import { Helmet } from 'react-helmet';
 import 'katex/dist/katex.min.css';
