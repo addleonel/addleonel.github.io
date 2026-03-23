@@ -1,13 +1,37 @@
-# Great Personal Website
+# Leunel
 
-![CI-blind](https://github.com/addleonel/addleonel.github.io/actions/workflows/CI.yml/badge.svg)
-![CD-blind](https://github.com/addleonel/addleonel.github.io/actions/workflows/deploy.yml/badge.svg)
+![Deploy](https://github.com/addleonel/addleonel.github.io/actions/workflows/deploy.yml/badge.svg)
 
-This contains a blog
-## What will you find here?
+<p align="center">
+  <img src="public/favicon.svg" alt="Leunel" width="80" />
+</p>
 
-- Programming Languages
-- Python basics
-- Python Features
-- C++ Basics
-- Django
+Personal website and blog built with [Astro](https://astro.build). Brutalist design, dark/light theme, bilingual (EN/ES).
+
+## Stack
+
+- **Astro v6** — Static site generation
+- **Three.js** — 3D vector space visualization
+- **React** — Interactive islands (KaTeX)
+- **SCSS** — Custom brutalist styles
+- **GitHub Pages** — Deployment via GitHub Actions
+
+## Topics
+
+- LLMs, RAG, and Agents
+- Embeddings and vector spaces
+- Software development
+- AI engineering
+
+## Development
+
+```bash
+npm install
+npm run dev       # Dev server
+npm run build     # Build to dist/
+npm run preview   # Preview build
+```
+
+## License
+
+MIT
