@@ -31,7 +31,3 @@ npm run dev       # Dev server
 npm run build     # Build to dist/
 npm run preview   # Preview build
 ```
-
-## License
-
-MIT
