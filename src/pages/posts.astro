@@ -1,0 +1,25 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PostPreview from '../components/PostPreview.astro';
+import { t } from '../i18n/utils';
+import { getCollection } from 'astro:content';
+
+const tr = t('en');
+const posts = await getCollection('posts', ({ data }) => data.locale === 'en');
+---
+
+<BaseLayout title="All publications">
+	<main class="container">
+		<div class="content-wrapper">
+			<h2 class="page-title">{tr.posts.title}</h2>
+			{posts.map((post) => (
+				<PostPreview
+					title={post.data.title}
+					content={post.data.description}
+					date={`${tr.posts.postedOn} ${post.data.date}`}
+					href={`/posts/${post.data.slug}`}
+				/>
+			))}
+		</div>
+	</main>
+</BaseLayout>

@@ -1,0 +1,90 @@
+---
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import '../styles/global.scss';
+import { getLocaleFromPath, switchLocalePath } from '../i18n/utils';
+
+interface Props {
+	title: string;
+	description?: string;
+	image?: string;
+}
+
+const {
+	title,
+	description = "Leunel — Software developer focused on LLMs, RAG, Agents, embeddings, and AI engineering.",
+	image = "/og_image.png",
+} = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const locale = getLocaleFromPath(Astro.url.pathname);
+const alternatePath = switchLocalePath(Astro.url.pathname);
+const alternateURL = new URL(alternatePath, Astro.site);
+const ogImageURL = new URL(image, Astro.site);
+---
+
+<!doctype html>
+<html lang={locale}>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>{title}</title>
+		<meta name="description" content={description} />
+		<meta name="author" content="Leunel" />
+		<meta name="generator" content={Astro.generator} />
+		<meta name="theme-color" content="#1566d6" />
+		<meta name="keywords" content="LLMs, RAG, Agents, embeddings, transformers, AI, machine learning, deep learning, software development" />
+
+		<!-- Canonical & i18n alternates -->
+		<link rel="canonical" href={canonicalURL.href} />
+		<link rel="alternate" hreflang={locale === 'en' ? 'en' : 'es'} href={canonicalURL.href} />
+		<link rel="alternate" hreflang={locale === 'en' ? 'es' : 'en'} href={alternateURL.href} />
+		<link rel="alternate" hreflang="x-default" href={new URL(locale === 'en' ? Astro.url.pathname : alternatePath, Astro.site).href} />
+
+		<!-- Favicon -->
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="icon" type="image/x-icon" href="/favicon.ico" />
+		<link rel="manifest" href="/manifest.json" />
+
+		<!-- Open Graph -->
+		<meta property="og:type" content="website" />
+		<meta property="og:url" content={canonicalURL.href} />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:image" content={ogImageURL.href} />
+		<meta property="og:image:width" content="1200" />
+		<meta property="og:image:height" content="630" />
+		<meta property="og:site_name" content="Leunel" />
+		<meta property="og:locale" content={locale === 'en' ? 'en_US' : 'es_ES'} />
+		<meta property="og:locale:alternate" content={locale === 'en' ? 'es_ES' : 'en_US'} />
+
+		<!-- Twitter -->
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content={title} />
+		<meta name="twitter:description" content={description} />
+		<meta name="twitter:image" content={ogImageURL.href} />
+
+		<!-- Theme script (prevent FOUC) -->
+		<script is:inline>
+			(function() {
+				var stored = localStorage.getItem('theme') || 'system';
+				var theme = stored;
+				if (stored === 'system') {
+					theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+				}
+				document.documentElement.setAttribute('data-theme', theme);
+			})();
+		</script>
+	</head>
+	<body>
+		<Header currentPath={Astro.url.pathname} />
+		<div class="wrap">
+			<div class="main">
+				<slot />
+			</div>
+		</div>
+		<div class="footer-wrapper">
+			<Footer />
+		</div>
+	</body>
+</html>

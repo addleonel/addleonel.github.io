@@ -1,0 +1,141 @@
+@use '../global' as *;
+
+#mainNav {
+	border-bottom: $border;
+	background: $bg;
+	position: sticky;
+	top: 0;
+	z-index: 100;
+	transition: background-color 0.2s;
+}
+
+.nav-container {
+	max-width: 1100px;
+	margin: 0 auto;
+	padding: 0 1.5rem;
+	display: flex;
+	align-items: stretch;
+	justify-content: space-between;
+}
+
+.navbar-brand {
+	font-family: 'Inter', sans-serif;
+	font-weight: 900;
+	font-size: 1.5rem;
+	text-transform: uppercase;
+	letter-spacing: -0.03em;
+	padding: 1rem 0;
+	text-decoration: none;
+	color: $fg;
+	border-right: $border;
+	padding-right: 2rem;
+
+	&:hover {
+		color: $accent;
+	}
+}
+
+.navbar-toggler {
+	display: none;
+	font-size: 1.5rem;
+	font-weight: 900;
+	padding: 1rem;
+	background: none;
+	border: none;
+	border-left: $border;
+	cursor: pointer;
+	font-family: 'Space Mono', monospace;
+	color: $fg;
+
+	&:hover {
+		background: $fg;
+		color: $bg;
+	}
+}
+
+.nav-right {
+	display: flex;
+	align-items: stretch;
+}
+
+.nav-links {
+	list-style: none;
+	display: flex;
+	margin: 0;
+	padding: 0;
+}
+
+.nav-actions {
+	display: flex;
+	align-items: stretch;
+}
+
+.nav-link {
+	font-family: 'Space Mono', monospace;
+	font-size: 0.85rem;
+	font-weight: 700;
+	text-transform: uppercase;
+	letter-spacing: 0.05em;
+	text-decoration: none;
+	display: flex;
+	align-items: center;
+	padding: 1rem 1.5rem;
+	color: $fg;
+	border-left: $border;
+	transition: background 0.15s, color 0.15s;
+
+	&:hover {
+		background: $fg;
+		color: $bg;
+	}
+
+	&.active {
+		background: var(--accent);
+		color: #ffffff;
+	}
+}
+
+@media (max-width: 768px) {
+	.navbar-toggler {
+		display: flex;
+		align-items: center;
+	}
+
+	.nav-right {
+		display: none;
+		flex-direction: column;
+		width: 100%;
+		border-top: $border;
+
+		&.open {
+			display: flex;
+		}
+	}
+
+	.nav-container {
+		flex-wrap: wrap;
+	}
+
+	.navbar-brand {
+		border-right: none;
+		padding-right: 0;
+	}
+
+	.nav-links {
+		flex-direction: column;
+	}
+
+	.nav-link {
+		border-left: none;
+		border-bottom: $border;
+		padding: 1rem 1.5rem;
+		justify-content: flex-start;
+	}
+
+	.nav-actions {
+		border-top: $border;
+		justify-content: center;
+		padding: 0.75rem;
+		gap: 0.75rem;
+	}
+}

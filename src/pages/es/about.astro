@@ -1,0 +1,15 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { t } from '../../i18n/utils';
+
+const tr = t('es');
+---
+
+<BaseLayout title="Acerca de mi">
+	<main class="container">
+		<div class="content-wrapper">
+			<h2 class="page-title">{tr.about.title}</h2>
+			<p>{tr.about.bio}</p>
+		</div>
+	</main>
+</BaseLayout>

@@ -1,0 +1,38 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import '../../../styles/components/post-content.scss';
+import { t } from '../../../i18n/utils';
+
+export async function getStaticPaths() {
+	const allPosts = await getCollection('posts');
+	const esPosts = allPosts.filter((p) => p.data.locale === 'es');
+	return esPosts.map((post) => ({
+		params: { slug: post.data.slug },
+		props: { post },
+	}));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+const tr = t('es');
+---
+
+<BaseLayout title={post.data.title} description={post.data.description}>
+	<div class="container">
+		<div class="content-wrapper">
+			<div class="post-header">
+				<h2>{post.data.title}</h2>
+				<p class="post-meta-inside">{tr.posts.postedOn} {post.data.date}</p>
+			</div>
+		</div>
+	</div>
+
+	<main class="container">
+		<div class="content-wrapper">
+			<section class="post-content">
+				<Content />
+			</section>
+		</div>
+	</main>
+</BaseLayout>

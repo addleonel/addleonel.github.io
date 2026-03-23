@@ -1,0 +1,127 @@
+.ci-container {
+	font-family: 'Space Mono', monospace;
+	padding: 2rem;
+	max-width: 800px;
+	margin: auto;
+	background-color: var(--bg);
+}
+
+.ci-section {
+	background-color: var(--card-bg);
+	border: 3px solid var(--border-color);
+	padding: 1.5rem;
+	margin-bottom: 2rem;
+	transition: background-color 0.2s;
+}
+
+.ci-section h2 {
+	font-family: 'Inter', sans-serif;
+	font-weight: 900;
+	text-transform: uppercase;
+	color: var(--fg);
+	margin-top: 0;
+	font-size: 1.4rem;
+	border-bottom: 3px solid var(--border-color);
+	padding-bottom: 0.75rem;
+}
+
+.ci-section p {
+	margin-bottom: 1rem;
+	font-size: 0.9rem;
+	color: var(--fg);
+}
+
+.ci-indicator {
+	margin-bottom: 1.5rem;
+	border-bottom: 2px solid var(--border-color);
+	padding-bottom: 1rem;
+}
+
+.ci-indicator h3 {
+	font-family: 'Inter', sans-serif;
+	font-weight: 900;
+	text-transform: uppercase;
+	color: var(--fg);
+	font-size: 1rem;
+}
+
+.ci-input-group {
+	margin-bottom: 0.75rem;
+}
+
+.ci-input-group label {
+	display: block;
+	font-weight: 700;
+	margin-bottom: 0.3rem;
+	font-size: 0.85rem;
+	text-transform: uppercase;
+	letter-spacing: 0.03em;
+	color: var(--fg);
+}
+
+.ci-input-group input {
+	width: 100%;
+	padding: 0.5rem;
+	font-size: 1rem;
+	font-family: 'Space Mono', monospace;
+	border: 3px solid var(--border-color);
+	border-radius: 0;
+	background: var(--card-bg);
+	color: var(--fg);
+	transition: border-color 0.15s, background-color 0.2s;
+}
+
+.ci-input-group input:focus {
+	outline: none;
+	border-color: var(--accent);
+}
+
+.ci-result {
+	font-weight: 700;
+	color: #0a0a0a;
+	margin-top: 0.75rem;
+	font-size: 1rem;
+	background: #00ff41;
+	display: inline-block;
+	padding: 0.25rem 0.75rem;
+	border: 2px solid var(--border-color);
+}
+
+.ci-average {
+	font-size: 1.1rem;
+	margin-top: 1rem;
+	font-weight: 700;
+	color: var(--fg);
+	background: var(--bg);
+	border: 3px solid var(--border-color);
+	padding: 0.75rem 1rem;
+	text-transform: uppercase;
+}
+
+.ci-result {
+	text-align: center;
+	margin-top: 2rem;
+}
+
+.total-score {
+	font-family: 'Inter', sans-serif;
+	font-size: 3rem;
+	color: var(--fg);
+	font-weight: 900;
+}
+
+.ci-progress-bar {
+	height: 24px;
+	background-color: var(--card-bg);
+	border: 3px solid var(--border-color);
+	border-radius: 0;
+	overflow: hidden;
+	margin: 1rem auto;
+	width: 90%;
+}
+
+.ci-progress-fill {
+	height: 100%;
+	background-color: var(--accent);
+	transition: width 0.3s ease;
+}

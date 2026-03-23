@@ -1,0 +1,20 @@
+---
+import '../styles/components/post-preview.scss';
+
+interface Props {
+	title: string;
+	content: string;
+	date: string;
+	href: string;
+}
+
+const { title, content, date, href } = Astro.props;
+---
+
+<section class="post-preview">
+	<a class="post-link" href={href}>
+		<h3 class="post-title">{title}</h3>
+		<p class="post-subtitle">{content}</p>
+	</a>
+	<p class="post-meta">{date}</p>
+</section>

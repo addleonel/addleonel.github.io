@@ -1,0 +1,39 @@
+@use '../global' as *;
+
+.contact-links {
+	list-style: none;
+	padding: 0;
+	margin: 2rem 0;
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+}
+
+.contact-link {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.75rem;
+	font-family: 'Space Mono', monospace;
+	font-weight: 700;
+	font-size: 1rem;
+	text-transform: uppercase;
+	letter-spacing: 0.05em;
+	text-decoration: none;
+	color: $fg;
+	border: $border;
+	padding: 1rem 1.5rem;
+	transition: all 0.15s;
+
+	&:hover {
+		background: $fg;
+		color: $bg;
+		box-shadow: 6px 6px 0px 0px var(--accent);
+		transform: translate(-3px, -3px);
+	}
+}
+
+.contact-icon {
+	width: 24px;
+	height: 24px;
+	flex-shrink: 0;
+}

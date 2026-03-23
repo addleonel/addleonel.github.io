@@ -1,0 +1,22 @@
+@use '../global' as *;
+
+.lang-switch {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-family: 'Space Mono', monospace;
+	font-size: 0.8rem;
+	font-weight: 700;
+	text-transform: uppercase;
+	letter-spacing: 0.05em;
+	text-decoration: none;
+	padding: 0 1rem;
+	color: $fg;
+	border-left: $border;
+	transition: background 0.15s, color 0.15s;
+
+	&:hover {
+		background: var(--accent);
+		color: #ffffff;
+	}
+}

@@ -1,0 +1,56 @@
+@use '../global' as *;
+
+.hero {
+	border-bottom: $border;
+	padding: 2rem 0;
+	margin-bottom: 3rem;
+}
+
+.last-posts {
+	font-family: 'Inter', sans-serif;
+	font-weight: 900;
+	font-size: 0.85rem;
+	text-transform: uppercase;
+	letter-spacing: 0.1em;
+	border-bottom: $border;
+	padding-bottom: 0.75rem;
+	margin-bottom: 2rem;
+	position: relative;
+
+	&::after {
+		content: '';
+		position: absolute;
+		bottom: -6px;
+		left: 0;
+		width: 60px;
+		height: 3px;
+		background: $accent;
+	}
+}
+
+.more-post {
+	margin: 3rem auto;
+	overflow: hidden;
+}
+
+.more-post__link {
+	display: inline-block;
+	float: right;
+	font-family: 'Space Mono', monospace;
+	font-weight: 700;
+	font-size: 0.85rem;
+	text-transform: uppercase;
+	letter-spacing: 0.05em;
+	text-decoration: none;
+	color: $fg;
+	border: $border;
+	padding: 0.75rem 2rem;
+	transition: all 0.15s;
+
+	&:hover {
+		background: $fg;
+		color: $bg;
+		box-shadow: 6px 6px 0px 0px var(--accent);
+		transform: translate(-3px, -3px);
+	}
+}

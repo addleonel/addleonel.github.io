@@ -1,0 +1,16 @@
+---
+import { switchLocalePath, getLocaleFromPath } from '../i18n/utils';
+import '../styles/components/lang-switcher.scss';
+
+interface Props {
+	currentPath: string;
+}
+
+const { currentPath } = Astro.props;
+const locale = getLocaleFromPath(currentPath);
+const switchPath = switchLocalePath(currentPath);
+---
+
+<a class="lang-switch" href={switchPath} aria-label="Switch language">
+	{locale === 'en' ? 'ES' : 'EN'}
+</a>

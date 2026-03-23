@@ -1,0 +1,67 @@
+---
+import '../styles/components/header.scss';
+import ThemeToggle from './ThemeToggle.astro';
+import LanguageSwitcher from './LanguageSwitcher.astro';
+import { getLocaleFromPath, t, localizedPath } from '../i18n/utils';
+
+interface Props {
+	currentPath: string;
+}
+
+const { currentPath } = Astro.props;
+const locale = getLocaleFromPath(currentPath);
+const tr = t(locale);
+const prefix = locale === 'en' ? '' : '/es';
+
+const links = [
+	{ href: `${prefix}/`, label: tr.nav.home },
+	{ href: `${prefix}/posts/`, label: tr.nav.posts },
+	{ href: `${prefix}/about/`, label: tr.nav.about },
+	{ href: `${prefix}/contact/`, label: tr.nav.contact },
+];
+
+function isActive(linkHref: string, current: string): boolean {
+	if (linkHref === '/' || linkHref === '/es/') {
+		return current === linkHref || current === linkHref.slice(0, -1);
+	}
+	return current.startsWith(linkHref);
+}
+---
+
+<nav id="mainNav">
+	<div class="nav-container">
+		<a class="navbar-brand" href={`${prefix}/`}>Leunel</a>
+		<button class="navbar-toggler" type="button" aria-label="Toggle navigation">
+			&#9776;
+		</button>
+		<div class="nav-right">
+			<ul class="nav-links">
+				{links.map((link) => {
+					const active = isActive(link.href, currentPath);
+					return (
+						<li>
+							<a
+								class:list={['nav-link', { active }]}
+								href={link.href}
+							>
+								{link.label}
+							</a>
+						</li>
+					);
+				})}
+			</ul>
+			<div class="nav-actions">
+				<ThemeToggle />
+				<LanguageSwitcher currentPath={currentPath} />
+			</div>
+		</div>
+	</div>
+</nav>
+
+<script>
+	const toggler = document.querySelector('.navbar-toggler');
+	const navRight = document.querySelector('.nav-right');
+	toggler?.addEventListener('click', () => {
+		navRight?.classList.toggle('open');
+	});
+</script>

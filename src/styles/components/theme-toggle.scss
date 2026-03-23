@@ -1,0 +1,30 @@
+@use '../global' as *;
+
+.theme-toggle {
+	display: flex;
+	gap: 0;
+}
+
+.theme-btn {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 36px;
+	height: 36px;
+	background: none;
+	border: $border;
+	margin-right: -3px;
+	cursor: pointer;
+	color: $fg;
+	transition: background 0.15s, color 0.15s;
+
+	&:hover {
+		background: var(--hover-bg);
+	}
+
+	&.active {
+		background: var(--accent);
+		color: #ffffff;
+		border-color: var(--accent);
+	}
+}

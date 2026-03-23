@@ -1,0 +1,15 @@
+.vector-space {
+	width: 100%;
+	height: 400px;
+
+	canvas {
+		display: block;
+		width: 100%;
+		height: 100%;
+		cursor: grab;
+
+		&:active {
+			cursor: grabbing;
+		}
+	}
+}
