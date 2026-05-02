@@ -1,0 +1,162 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Neuroemociones — Marian Rojas">
+	<main class="container">
+		<div class="neu-wrapper">
+			<h1 class="page-title">Neuroemociones</h1>
+			<p class="neu-author">Resumen del video de Marian Rojas</p>
+
+			<div class="neu-video">
+				<iframe
+					src="https://www.youtube.com/embed/TjqrualxgkI"
+					title="Marian Rojas — Neuroemociones"
+					frameborder="0"
+					allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+					referrerpolicy="strict-origin-when-cross-origin"
+					allowfullscreen
+				></iframe>
+			</div>
+
+			<section class="neu-section">
+				<h2>🎯 El propósito por encima del placer</h2>
+				<p>
+					En el video, la psiquiatra Marian Rojas nos explica que la verdadera
+					felicidad no está en placeres rápidos como el celular, sino en
+					encontrarle un propósito a nuestra vida y disfrutar los pequeños
+					momentos, incluso cuando hay dificultades.
+				</p>
+			</section>
+
+			<section class="neu-section">
+				<h2>🧠 El cerebro y la imaginación</h2>
+				<p>
+					Desde la ciencia, nos advierte algo clave: nuestro cerebro no
+					distingue entre un peligro real y uno que solo imaginamos. Por eso,
+					si vivimos preocupados, nuestro cuerpo se llena de cortisol, la
+					hormona del estrés, lo que a la larga nos agota y nos enferma.
+				</p>
+			</section>
+
+			<section class="neu-section">
+				<h2>❤️ El amor como antídoto</h2>
+				<p>
+					Para evitar esto, el mejor antídoto es el amor: sentirnos queridos y
+					tratarnos bien a nosotros mismos nos hace más fuertes. También
+					recomienda cuidar nuestro sueño, hacer ejercicio, relajarnos y evitar
+					las distracciones constantes de las pantallas para entrenar nuestra
+					voluntad.
+				</p>
+			</section>
+
+			<section class="neu-section">
+				<h2>⚡ Tu mejor versión</h2>
+				<p>
+					Finalmente, nos recuerda que alcanzamos nuestra "mejor versión"
+					uniendo nuestros conocimientos, unas metas claras y disciplina, pero,
+					sobre todo, poniéndole mucha pasión y corazón a lo que hacemos.
+				</p>
+			</section>
+
+			<section class="neu-formula">
+				<p class="neu-formula-label">Mejor versión =</p>
+				<p class="neu-formula-eq">
+					Conocimientos + Metas + Disciplina + <span>Pasión</span>
+				</p>
+			</section>
+		</div>
+	</main>
+</BaseLayout>
+
+<style lang="scss">
+	.neu-wrapper {
+		max-width: 800px;
+		margin: 0 auto;
+	}
+
+	.neu-author {
+		font-family: 'Space Mono', monospace;
+		text-transform: uppercase;
+		letter-spacing: 0.05em;
+		font-size: 0.9rem;
+		margin-bottom: 2rem;
+	}
+
+	.neu-video {
+		position: relative;
+		width: 100%;
+		aspect-ratio: 16 / 9;
+		border: 3px solid var(--border-color);
+		background: var(--card-bg);
+		margin-bottom: 2rem;
+		overflow: hidden;
+
+		iframe {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			border: 0;
+		}
+	}
+
+	.neu-section {
+		background-color: var(--card-bg);
+		border: 3px solid var(--border-color);
+		padding: 1.5rem;
+		margin-bottom: 1.5rem;
+		transition: background-color 0.2s;
+
+		h2 {
+			font-family: 'Inter', sans-serif;
+			font-weight: 900;
+			text-transform: uppercase;
+			color: var(--fg);
+			margin-top: 0;
+			font-size: 1.4rem;
+			border-bottom: 3px solid var(--border-color);
+			padding-bottom: 0.75rem;
+			margin-bottom: 1rem;
+		}
+
+		p {
+			font-size: 0.95rem;
+			line-height: 1.7;
+			color: var(--fg);
+			margin: 0;
+		}
+	}
+
+	.neu-formula {
+		background: var(--bg);
+		border: 3px solid var(--border-color);
+		padding: 1.25rem 1.5rem;
+		margin-top: 2rem;
+		text-align: center;
+
+		.neu-formula-label {
+			font-family: 'Inter', sans-serif;
+			font-weight: 900;
+			text-transform: uppercase;
+			letter-spacing: 0.05em;
+			font-size: 0.95rem;
+			margin: 0 0 0.5rem 0;
+		}
+
+		.neu-formula-eq {
+			font-family: 'Space Mono', monospace;
+			font-size: 1.05rem;
+			margin: 0;
+			line-height: 1.5;
+
+			span {
+				background: var(--accent);
+				color: #ffffff;
+				padding: 0.1em 0.4em;
+				font-weight: 700;
+			}
+		}
+	}
+</style>
