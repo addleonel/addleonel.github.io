@@ -1,0 +1,172 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="El viaje del héroe — Mario Alonso Puig">
+	<main class="container">
+		<div class="map-wrapper">
+			<h1 class="page-title">El viaje del héroe</h1>
+			<p class="map-author">Resumen del video de Mario Alonso Puig</p>
+
+			<div class="map-video">
+				<iframe
+					src="https://www.youtube.com/embed/2WaL95mNb6c"
+					title="Mario Alonso Puig — El viaje del héroe"
+					frameborder="0"
+					allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+					referrerpolicy="strict-origin-when-cross-origin"
+					allowfullscreen
+				></iframe>
+			</div>
+
+			<section class="map-section">
+				<h2>🩺 De la medicina al espíritu</h2>
+				<p>
+					Mario Alonso Puig, médico y cirujano durante 26 años, descubrió
+					que la mente y las emociones influyen directamente en el cuerpo.
+					Pero su gran salto fue darse cuenta de que hay algo aún más
+					profundo: el plano espiritual, que no es religioso, sino vivir
+					con propósito y amor.
+				</p>
+			</section>
+
+			<section class="map-section">
+				<h2>🦸 El viaje del héroe</h2>
+				<p>
+					Todos podemos hacer el "viaje del héroe": en lugar de luchar
+					contra nuestros defectos o miedos, debemos abrazarlos. Como el
+					oxígeno y el hidrógeno, que al unirse crean agua, cuando
+					aceptamos nuestra sombra surge algo nuevo: paz y creatividad.
+				</p>
+			</section>
+
+			<section class="map-section">
+				<h2>🧬 El segundo cerebro</h2>
+				<p>
+					También habla del segundo cerebro (el intestino), que afecta
+					nuestro estado de ánimo y hasta la ansiedad. Por eso, lo que
+					comemos y cómo gestionamos el estrés es clave para nuestro
+					bienestar mental y emocional.
+				</p>
+			</section>
+
+			<section class="map-section">
+				<h2>❤️ El miedo se vence con amor</h2>
+				<p>
+					Una idea poderosa: el miedo se vence con amor, no con valentía.
+					Y la felicidad no es placer o dinero, sino compartir y dar sin
+					esperar nada a cambio.
+				</p>
+			</section>
+
+			<section class="map-section">
+				<h2>🌌 ¿Universo hostil o amigable?</h2>
+				<p>
+					Finalmente, nos invita a preguntarnos si vivimos en un universo
+					hostil o amigable. La respuesta cambiará nuestra salud, nuestras
+					decisiones y nuestra vida. Como dice él: "La oscuridad no se
+					vence luchando, sino trayendo una pequeña luz".
+				</p>
+			</section>
+
+			<section class="map-formula">
+				<p class="map-formula-label">Felicidad =</p>
+				<p class="map-formula-eq">
+					Propósito + Compartir + Dar + <span>Amor</span>
+				</p>
+			</section>
+		</div>
+	</main>
+</BaseLayout>
+
+<style lang="scss">
+	.map-wrapper {
+		max-width: 800px;
+		margin: 0 auto;
+	}
+
+	.map-author {
+		font-family: 'Space Mono', monospace;
+		text-transform: uppercase;
+		letter-spacing: 0.05em;
+		font-size: 0.9rem;
+		margin-bottom: 2rem;
+	}
+
+	.map-video {
+		position: relative;
+		width: 100%;
+		aspect-ratio: 16 / 9;
+		border: 3px solid var(--border-color);
+		background: var(--card-bg);
+		margin-bottom: 2rem;
+		overflow: hidden;
+
+		iframe {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			border: 0;
+		}
+	}
+
+	.map-section {
+		background-color: var(--card-bg);
+		border: 3px solid var(--border-color);
+		padding: 1.5rem;
+		margin-bottom: 1.5rem;
+		transition: background-color 0.2s;
+
+		h2 {
+			font-family: 'Inter', sans-serif;
+			font-weight: 900;
+			text-transform: uppercase;
+			color: var(--fg);
+			margin-top: 0;
+			font-size: 1.4rem;
+			border-bottom: 3px solid var(--border-color);
+			padding-bottom: 0.75rem;
+			margin-bottom: 1rem;
+		}
+
+		p {
+			font-size: 0.95rem;
+			line-height: 1.7;
+			color: var(--fg);
+			margin: 0;
+		}
+	}
+
+	.map-formula {
+		background: var(--bg);
+		border: 3px solid var(--border-color);
+		padding: 1.25rem 1.5rem;
+		margin-top: 2rem;
+		text-align: center;
+
+		.map-formula-label {
+			font-family: 'Inter', sans-serif;
+			font-weight: 900;
+			text-transform: uppercase;
+			letter-spacing: 0.05em;
+			font-size: 0.95rem;
+			margin: 0 0 0.5rem 0;
+		}
+
+		.map-formula-eq {
+			font-family: 'Space Mono', monospace;
+			font-size: 1.05rem;
+			margin: 0;
+			line-height: 1.5;
+
+			span {
+				background: var(--accent);
+				color: #ffffff;
+				padding: 0.1em 0.4em;
+				font-weight: 700;
+			}
+		}
+	}
+</style>
