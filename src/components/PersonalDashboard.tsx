@@ -1,12 +1,15 @@
 import { useState, useEffect, useMemo, useRef } from 'react';
 import '../styles/personal.scss';
 
-const SECTIONS = [
+type Section = { id: string; label: string; code: string; href?: string };
+
+const SECTIONS: Section[] = [
 	{ id: 'indicadores', label: 'Indicadores', code: '01' },
 	{ id: 'dimensiones', label: 'Dimensiones', code: '02' },
 	{ id: 'conocido', label: 'Cómo ser conocido', code: '03' },
 	{ id: 'inteligencia', label: 'Tipo de Inteligencia', code: '04' },
 	{ id: 'capital', label: 'Capital Intelectual', code: '05' },
+	{ id: 'vision', label: 'Tablero de Visión', code: '06', href: '/myvision' },
 ];
 
 type IndStatus = 'active' | 'done' | 'paused';
@@ -240,6 +243,7 @@ export default function PersonalDashboard() {
 			{ rootMargin: '-30% 0px -60% 0px', threshold: [0, 0.25, 0.5, 0.75, 1] }
 		);
 		SECTIONS.forEach((s) => {
+			if (s.href) return;
 			const el = document.getElementById(s.id);
 			if (el) observer.observe(el);
 		});
@@ -266,17 +270,29 @@ export default function PersonalDashboard() {
 					<span>Dashboard</span>
 				</div>
 				<nav className="dash-nav">
-					{SECTIONS.map((s) => (
-						<a
-							key={s.id}
-							href={`#${s.id}`}
-							className={`dash-nav-item ${active === s.id ? 'is-active' : ''}`}
-							onClick={(e) => handleNavClick(e, s.id)}
-						>
-							<span className="dash-nav-code">{s.code}</span>
-							<span>{s.label}</span>
-						</a>
-					))}
+					{SECTIONS.map((s) =>
+						s.href ? (
+							<a
+								key={s.id}
+								href={s.href}
+								className="dash-nav-item dash-nav-item-link"
+							>
+								<span className="dash-nav-code">{s.code}</span>
+								<span>{s.label}</span>
+								<span className="dash-nav-arrow" aria-hidden>↗</span>
+							</a>
+						) : (
+							<a
+								key={s.id}
+								href={`#${s.id}`}
+								className={`dash-nav-item ${active === s.id ? 'is-active' : ''}`}
+								onClick={(e) => handleNavClick(e, s.id)}
+							>
+								<span className="dash-nav-code">{s.code}</span>
+								<span>{s.label}</span>
+							</a>
+						)
+					)}
 				</nav>
 				<div className="dash-sidebar-foot">
 					<div className="dash-kpi">

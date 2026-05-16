@@ -1,0 +1,1166 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+type Horizon = { year: string; title: string; bullets: string[] };
+type Pillar = { code: string; name: string; goal: string; level: number };
+type Milestone = { x: number; y: number; year: string; label: string };
+type BHAG = { code: string; title: string; desc: string };
+
+const horizons: Horizon[] = [
+	{
+		year: '1 año',
+		title: 'Cimientos',
+		bullets: [
+			'Dominio sólido de LLMs, RAG y agentes',
+			'Portfolio público de 3 proyectos relevantes',
+			'Rutina de salud y foco profundo consolidada',
+		],
+	},
+	{
+		year: '3 años',
+		title: 'Reconocimiento',
+		bullets: [
+			'Reconocido como AI engineer en mi red',
+			'Ingresos diversificados y estables',
+			'Hablo en eventos técnicos y publico investigación',
+		],
+	},
+	{
+		year: '5 años',
+		title: 'Autoridad',
+		bullets: [
+			'Liderando un equipo o iniciativa de IA con impacto',
+			'Base financiera para tomar riesgos',
+			'Vida en un lugar elegido — no impuesto',
+		],
+	},
+	{
+		year: '10 años',
+		title: 'Legado',
+		bullets: [
+			'Producto, libro o sistema con vida propia',
+			'Libertad de tiempo y de geografía',
+			'Familia, salud y propósito en equilibrio',
+		],
+	},
+];
+
+const pillars: Pillar[] = [
+	{ code: 'P1', name: 'Carrera', goal: 'AI engineer reconocido en LLMs/Agentes', level: 90 },
+	{ code: 'P2', name: 'Salud', goal: 'Energía física y mental sostenida', level: 95 },
+	{ code: 'P3', name: 'Relaciones', goal: 'Vínculos profundos, familia presente', level: 90 },
+	{ code: 'P4', name: 'Finanzas', goal: 'Independencia y diversificación', level: 85 },
+	{ code: 'P5', name: 'Lugar', goal: 'Vivir donde decida, no donde toque', level: 80 },
+	{ code: 'P6', name: 'Aprendizaje', goal: 'Lectura, escritura y práctica diaria', level: 95 },
+	{ code: 'P7', name: 'Impacto', goal: 'Trabajo que mejora la vida de alguien', level: 90 },
+	{ code: 'P8', name: 'Propósito', goal: 'Coherencia entre lo que digo y hago', level: 100 },
+];
+
+const milestones: Milestone[] = [
+	{ x: 60, y: 280, year: 'HOY', label: 'Punto de partida' },
+	{ x: 180, y: 230, year: '+1', label: 'Cimientos' },
+	{ x: 320, y: 170, year: '+3', label: 'Reconocimiento' },
+	{ x: 470, y: 110, year: '+5', label: 'Autoridad' },
+	{ x: 620, y: 55, year: '+10', label: 'Legado' },
+];
+
+const bhags: BHAG[] = [
+	{
+		code: 'BHAG · 01',
+		title: 'Construir un sistema de IA con miles de usuarios',
+		desc: 'Un producto que resuelva un problema real y que use lo que sé de LLMs, RAG y agentes.',
+	},
+	{
+		code: 'BHAG · 02',
+		title: 'Publicar un libro o curso técnico de referencia',
+		desc: 'Convertir mi aprendizaje en material que otros puedan usar para acelerar el suyo.',
+	},
+	{
+		code: 'BHAG · 03',
+		title: 'Vivir con libertad geográfica',
+		desc: 'Trabajar y vivir desde el lugar que elija, sin que la geografía sea una jaula.',
+	},
+	{
+		code: 'BHAG · 04',
+		title: 'Mantener salud y familia como prioridad',
+		desc: 'Que el éxito profesional nunca se cobre en cuerpo, mente o vínculos.',
+	},
+];
+
+const radarSize = 130;
+const labelOffset = radarSize + 14;
+const radarPoints = pillars
+	.map((p, i) => {
+		const angle = (i / pillars.length) * 2 * Math.PI - Math.PI / 2;
+		const r = (p.level / 100) * radarSize;
+		const x = Math.cos(angle) * r;
+		const y = Math.sin(angle) * r;
+		return `${x.toFixed(2)},${y.toFixed(2)}`;
+	})
+	.join(' ');
+
+const pillarLabels = pillars.map((p, i) => {
+	const angle = (i / pillars.length) * 2 * Math.PI - Math.PI / 2;
+	const cx = Math.cos(angle);
+	const cy = Math.sin(angle);
+	let anchor: 'start' | 'middle' | 'end' = 'middle';
+	if (cx > 0.3) anchor = 'start';
+	else if (cx < -0.3) anchor = 'end';
+	return {
+		x: cx * labelOffset,
+		y: cy * labelOffset,
+		anchor,
+		name: p.name,
+	};
+});
+---
+
+<BaseLayout title="Tablero de Visión">
+	<main class="container">
+		<div class="vision-wrapper">
+			<header class="vision-header">
+				<p class="vision-eyebrow">06 · Tablero de Visión</p>
+				<h1 class="vision-title">¿Dónde quiero estar?</h1>
+				<p class="vision-sub">
+					Mi norte, mis horizontes, mis pilares y el camino. Una guía visual de la
+					vida que quiero construir.
+				</p>
+			</header>
+
+			{/* NORTE — Vision statement */}
+			<section class="vision-section vision-north">
+				<div class="vision-section-head">
+					<span class="vision-code">01</span>
+					<h2>Norte · Mi propósito</h2>
+				</div>
+				<div class="vision-north-body">
+					<svg viewBox="0 0 120 120" class="vision-compass" aria-hidden="true">
+						<circle cx="60" cy="60" r="54" class="vc-ring" />
+						<circle cx="60" cy="60" r="40" class="vc-ring vc-ring-soft" />
+						<polygon points="60,8 68,60 60,52 52,60" class="vc-needle" />
+						<polygon points="60,112 52,60 60,68 68,60" class="vc-needle-soft" />
+						<text x="60" y="18" text-anchor="middle" class="vc-letter">N</text>
+						<text x="60" y="108" text-anchor="middle" class="vc-letter vc-letter-soft">S</text>
+						<text x="14" y="64" text-anchor="middle" class="vc-letter vc-letter-soft">W</text>
+						<text x="106" y="64" text-anchor="middle" class="vc-letter vc-letter-soft">E</text>
+						<circle cx="60" cy="60" r="3" class="vc-center" />
+					</svg>
+					<blockquote class="vision-quote">
+						Yo quiero <strong>aprender</strong> lo que me interesa, usar ese
+						conocimiento para <strong>crear</strong> algo útil para otros, y
+						<strong>alcanzar</strong> las metas que me planteo.
+					</blockquote>
+				</div>
+			</section>
+
+			{/* HORIZONTE — Time horizons */}
+			<section class="vision-section">
+				<div class="vision-section-head">
+					<span class="vision-code">02</span>
+					<h2>Horizonte · Línea del tiempo</h2>
+				</div>
+				<p class="vision-section-desc">
+					Cuatro fotos del futuro a distancias crecientes. La distancia hace el
+					detalle borroso, pero la dirección clara.
+				</p>
+				<div class="vision-horizon-grid">
+					{horizons.map((h, i) => (
+						<article class="vision-horizon-card">
+							<header>
+								<span class="vh-year">{h.year}</span>
+								<span class="vh-idx">0{i + 1}</span>
+							</header>
+							<h3>{h.title}</h3>
+							<ul>
+								{h.bullets.map((b) => (
+									<li>{b}</li>
+								))}
+							</ul>
+						</article>
+					))}
+				</div>
+			</section>
+
+			{/* PILARES — Life pillars */}
+			<section class="vision-section">
+				<div class="vision-section-head">
+					<span class="vision-code">03</span>
+					<h2>Pilares · Áreas de vida</h2>
+				</div>
+				<p class="vision-section-desc">
+					Las ocho áreas donde quiero crecer. Ninguna sola me hace pleno —
+					solo el conjunto.
+				</p>
+
+				<div class="vision-pillars-wrap">
+					<svg viewBox="-220 -180 440 360" class="vision-radar" aria-hidden="true">
+						{[0.25, 0.5, 0.75, 1].map((r) => (
+							<circle cx="0" cy="0" r={radarSize * r} class="vr-grid" />
+						))}
+						{pillars.map((_, i) => {
+							const angle = (i / pillars.length) * 2 * Math.PI - Math.PI / 2;
+							const x = Math.cos(angle) * radarSize;
+							const y = Math.sin(angle) * radarSize;
+							return (
+								<line x1="0" y1="0" x2={x.toFixed(2)} y2={y.toFixed(2)} class="vr-axis" />
+							);
+						})}
+						<polygon points={radarPoints} class="vr-data" />
+						{pillars.map((p, i) => {
+							const angle = (i / pillars.length) * 2 * Math.PI - Math.PI / 2;
+							const r = (p.level / 100) * radarSize;
+							const cx = Math.cos(angle) * r;
+							const cy = Math.sin(angle) * r;
+							return (
+								<circle cx={cx.toFixed(2)} cy={cy.toFixed(2)} r="3.5" class="vr-point" />
+							);
+						})}
+						{pillarLabels.map((l) => (
+							<text
+								x={l.x.toFixed(2)}
+								y={l.y.toFixed(2)}
+								text-anchor={l.anchor}
+								dominant-baseline="middle"
+								class="vr-label"
+							>
+								{l.name}
+							</text>
+						))}
+					</svg>
+
+					<div class="vision-pillars-list">
+						{pillars.map((p) => (
+							<div class="vp-card">
+								<div class="vp-head">
+									<span class="vp-code">{p.code}</span>
+									<span class="vp-name">{p.name}</span>
+									<span class="vp-pct">{p.level}%</span>
+								</div>
+								<p class="vp-goal">{p.goal}</p>
+								<div class="vp-bar">
+									<div class="vp-bar-fill" style={`width:${p.level}%`}></div>
+								</div>
+							</div>
+						))}
+					</div>
+				</div>
+			</section>
+
+			{/* SUEÑOS — Concrete personal dreams */}
+			<section class="vision-section">
+				<div class="vision-section-head">
+					<span class="vision-code">04</span>
+					<h2>Sueños · Mis próximos hitos</h2>
+				</div>
+				<p class="vision-section-desc">
+					Tres sueños concretos. No abstracciones, no checklists genéricas —
+					esto es lo que de verdad quiero hacer pasar.
+				</p>
+
+				<div class="vision-dreams-grid">
+					<article class="vision-dream-card">
+						<span class="vd-tag">Sueño · 01</span>
+						<div class="vd-icon">
+							<svg viewBox="0 0 64 64" aria-hidden="true">
+								<rect x="12" y="6" width="36" height="52" class="vd-shape" />
+								<line x1="18" y1="18" x2="42" y2="18" class="vd-line" />
+								<line x1="18" y1="26" x2="42" y2="26" class="vd-line" />
+								<line x1="18" y1="34" x2="40" y2="34" class="vd-line" />
+								<line x1="18" y1="42" x2="36" y2="42" class="vd-line" />
+								<rect x="38" y="42" width="18" height="14" class="vd-shape-accent" />
+								<text x="47" y="53" text-anchor="middle" class="vd-icon-text">AI</text>
+							</svg>
+						</div>
+						<h3>Publicar un artículo sobre LLMs / IA</h3>
+						<p>
+							Convertir lo que aprendo cada día en algo que otros puedan leer.
+							Un tema concreto, con criterio técnico y valor real.
+						</p>
+						<ul class="vd-steps">
+							<li>Elegir el tema</li>
+							<li>Escribir borrador</li>
+							<li>Publicar</li>
+						</ul>
+					</article>
+
+					<article class="vision-dream-card">
+						<span class="vd-tag">Sueño · 02</span>
+						<div class="vd-icon">
+							<svg viewBox="0 0 64 64" aria-hidden="true">
+								<polygon points="32,10 58,22 32,34 6,22" class="vd-shape" />
+								<polyline points="16,26 16,42 32,50 48,42 48,26" class="vd-shape" />
+								<line x1="50" y1="22" x2="50" y2="42" class="vd-line" />
+								<circle cx="50" cy="44" r="3.5" class="vd-shape-accent" />
+							</svg>
+						</div>
+						<h3>Maestría en el extranjero</h3>
+						<p>
+							Una formación seria en un entorno internacional. Salir del molde,
+							sumar red, ver el mundo desde otro ángulo.
+						</p>
+						<ul class="vd-steps">
+							<li>Decidir área / país</li>
+							<li>Aplicar a becas</li>
+							<li>Embarcar</li>
+						</ul>
+					</article>
+
+					<article class="vision-dream-card vision-dream-hero">
+						<span class="vd-badge">★ Mi mayor sueño</span>
+						<span class="vd-tag">Sueño · 03</span>
+						<div class="vd-icon">
+							<svg viewBox="0 0 64 64" aria-hidden="true">
+								<path d="M32 6 L44 26 L44 46 L20 46 L20 26 Z" class="vd-shape" />
+								<circle cx="32" cy="24" r="4.5" class="vd-shape-accent" />
+								<polygon points="20,38 10,52 20,48" class="vd-shape" />
+								<polygon points="44,38 54,52 44,48" class="vd-shape" />
+								<polygon points="24,46 32,62 40,46" class="vd-flame" />
+							</svg>
+						</div>
+						<h3>Fundar una startup</h3>
+						<p>
+							Lo más grande: construir algo desde cero — producto, equipo,
+							impacto. Convertir el conocimiento técnico en algo que viva
+							fuera de mí.
+						</p>
+						<ul class="vd-steps">
+							<li>Validar idea</li>
+							<li>MVP + primeros usuarios</li>
+							<li>Equipo + tracción</li>
+						</ul>
+					</article>
+				</div>
+			</section>
+
+			{/* MAPA — Mountain path */}
+			<section class="vision-section">
+				<div class="vision-section-head">
+					<span class="vision-code">05</span>
+					<h2>Mapa · El camino al destino</h2>
+				</div>
+				<p class="vision-section-desc">
+					Una montaña, cinco puntos. El presente, los hitos, la cima.
+				</p>
+
+				<div class="vision-map-wrap">
+					<svg viewBox="0 0 700 320" class="vision-map" preserveAspectRatio="xMidYMid meet">
+						{/* Background mountain layers */}
+						<polygon points="0,320 150,140 280,200 420,80 560,160 700,40 700,320" class="vm-mountain-back" />
+						<polygon points="0,320 120,200 260,250 380,160 520,220 700,120 700,320" class="vm-mountain-front" />
+
+						{/* Path connecting milestones */}
+						<polyline
+							points={milestones.map((m) => `${m.x},${m.y}`).join(' ')}
+							class="vm-path"
+						/>
+
+						{/* Sun / north star at the summit */}
+						<circle cx="640" cy="40" r="22" class="vm-sun" />
+						<circle cx="640" cy="40" r="32" class="vm-sun-halo" />
+
+						{/* Milestones */}
+						{milestones.map((m, i) => {
+							const isFirst = i === 0;
+							const isLast = i === milestones.length - 1;
+							return (
+								<g>
+									<line
+										x1={m.x}
+										y1={m.y}
+										x2={m.x}
+										y2={m.y - 28}
+										class="vm-flag-pole"
+									/>
+									<rect
+										x={m.x}
+										y={m.y - 40}
+										width="58"
+										height="18"
+										class={`vm-flag ${isLast ? 'vm-flag-goal' : ''} ${isFirst ? 'vm-flag-now' : ''}`}
+									/>
+									<text x={m.x + 29} y={m.y - 27} text-anchor="middle" class="vm-flag-text">
+										{m.year}
+									</text>
+									<circle cx={m.x} cy={m.y} r="6" class="vm-dot" />
+									<text x={m.x} y={m.y + 22} text-anchor="middle" class="vm-label">
+										{m.label}
+									</text>
+								</g>
+							);
+						})}
+					</svg>
+				</div>
+			</section>
+
+			{/* BHAGs — Big audacious goals */}
+			<section class="vision-section">
+				<div class="vision-section-head">
+					<span class="vision-code">06</span>
+					<h2>Metas audaces · BHAGs</h2>
+				</div>
+				<p class="vision-section-desc">
+					<em>Big Hairy Audacious Goals</em>. Lo bastante grandes para asustar,
+					lo bastante claras para guiar.
+				</p>
+
+				<div class="vision-bhag-grid">
+					{bhags.map((b) => (
+						<article class="vision-bhag-card">
+							<span class="vb-code">{b.code}</span>
+							<h3>{b.title}</h3>
+							<p>{b.desc}</p>
+						</article>
+					))}
+				</div>
+			</section>
+
+			{/* Footer mantra */}
+			<section class="vision-mantra">
+				<p class="vision-mantra-label">Mantra</p>
+				<p class="vision-mantra-text">
+					<span>Dirección</span> &gt; <span>velocidad</span>. &nbsp;
+					<span>Coherencia</span> &gt; <span>intensidad</span>. &nbsp;
+					<span>Hoy</span> es la única pieza que controlo.
+				</p>
+			</section>
+
+			<a href="/personal" class="vision-back">← Volver al Dashboard</a>
+		</div>
+	</main>
+</BaseLayout>
+
+<style lang="scss">
+	.vision-wrapper {
+		max-width: 1100px;
+		margin: 0 auto;
+		font-family: 'Space Mono', monospace;
+	}
+
+	/* ---------- Header ---------- */
+	.vision-header {
+		border-bottom: 3px solid var(--border-color);
+		padding-bottom: 1.25rem;
+		margin-bottom: 2rem;
+	}
+
+	.vision-eyebrow {
+		font-family: 'Space Mono', monospace;
+		text-transform: uppercase;
+		letter-spacing: 0.1em;
+		font-size: 0.75rem;
+		color: var(--accent);
+		margin: 0 0 0.5rem;
+		font-weight: 700;
+	}
+
+	.vision-title {
+		font-family: 'Inter', sans-serif;
+		font-weight: 900;
+		font-size: clamp(2rem, 5vw, 3.4rem);
+		margin: 0;
+		letter-spacing: -0.02em;
+		text-transform: uppercase;
+		color: var(--fg);
+	}
+
+	.vision-sub {
+		font-family: 'Space Mono', monospace;
+		font-size: 0.9rem;
+		line-height: 1.6;
+		margin: 0.75rem 0 0;
+		color: var(--fg);
+		opacity: 0.8;
+		max-width: 700px;
+	}
+
+	/* ---------- Section primitives ---------- */
+	.vision-section {
+		background: var(--card-bg);
+		border: 3px solid var(--border-color);
+		padding: 1.75rem;
+		margin-bottom: 1.75rem;
+		transition: background-color 0.2s;
+	}
+
+	.vision-section-head {
+		display: flex;
+		align-items: center;
+		gap: 0.75rem;
+		border-bottom: 3px solid var(--border-color);
+		padding-bottom: 0.85rem;
+		margin-bottom: 1.25rem;
+
+		h2 {
+			margin: 0;
+			font-family: 'Inter', sans-serif;
+			font-weight: 900;
+			text-transform: uppercase;
+			font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+			color: var(--fg);
+		}
+	}
+
+	.vision-code {
+		background: var(--accent);
+		color: #ffffff;
+		padding: 0.15rem 0.5rem;
+		font-family: 'Inter', sans-serif;
+		font-weight: 900;
+		font-size: 0.85rem;
+		letter-spacing: 0.04em;
+	}
+
+	.vision-section-desc {
+		font-size: 0.88rem;
+		line-height: 1.6;
+		color: var(--fg);
+		opacity: 0.85;
+		margin: 0 0 1.25rem;
+
+		em {
+			font-style: italic;
+			color: var(--accent);
+			font-weight: 700;
+		}
+	}
+
+	/* ---------- 01 NORTE ---------- */
+	.vision-north-body {
+		display: grid;
+		grid-template-columns: auto 1fr;
+		gap: 1.5rem;
+		align-items: center;
+
+		@media (max-width: 640px) {
+			grid-template-columns: 1fr;
+			justify-items: center;
+			text-align: center;
+		}
+	}
+
+	.vision-compass {
+		width: 140px;
+		height: 140px;
+		flex: 0 0 auto;
+
+		.vc-ring {
+			fill: var(--bg);
+			stroke: var(--border-color);
+			stroke-width: 3;
+		}
+		.vc-ring-soft {
+			stroke-width: 1;
+			stroke-dasharray: 3 4;
+			opacity: 0.5;
+		}
+		.vc-needle {
+			fill: var(--accent);
+		}
+		.vc-needle-soft {
+			fill: var(--fg);
+			opacity: 0.3;
+		}
+		.vc-letter {
+			font-family: 'Inter', sans-serif;
+			font-weight: 900;
+			font-size: 10px;
+			fill: var(--fg);
+		}
+		.vc-letter-soft {
+			opacity: 0.4;
+		}
+		.vc-center {
+			fill: var(--fg);
+		}
+	}
+
+	.vision-quote {
+		margin: 0;
+		padding: 0 0 0 1.25rem;
+		border-left: 4px solid var(--accent);
+		font-family: 'Inter', sans-serif;
+		font-weight: 500;
+		font-size: clamp(1.05rem, 2.2vw, 1.35rem);
+		line-height: 1.5;
+		color: var(--fg);
+
+		strong {
+			background: var(--accent);
+			color: #ffffff;
+			padding: 0.05em 0.3em;
+			font-weight: 900;
+		}
+
+		@media (max-width: 640px) {
+			border-left: none;
+			border-top: 4px solid var(--accent);
+			padding: 1rem 0 0;
+		}
+	}
+
+	/* ---------- 02 HORIZONTE ---------- */
+	.vision-horizon-grid {
+		display: grid;
+		grid-template-columns: repeat(4, 1fr);
+		gap: 0.75rem;
+
+		@media (max-width: 900px) {
+			grid-template-columns: repeat(2, 1fr);
+		}
+		@media (max-width: 480px) {
+			grid-template-columns: 1fr;
+		}
+	}
+
+	.vision-horizon-card {
+		border: 2px solid var(--border-color);
+		background: var(--bg);
+		padding: 1rem;
+		display: flex;
+		flex-direction: column;
+		gap: 0.6rem;
+
+		header {
+			display: flex;
+			justify-content: space-between;
+			align-items: baseline;
+			border-bottom: 2px solid var(--border-color);
+			padding-bottom: 0.4rem;
+		}
+
+		.vh-year {
+			font-family: 'Inter', sans-serif;
+			font-weight: 900;
+			color: var(--accent);
+			font-size: 1.05rem;
+			text-transform: uppercase;
+			letter-spacing: 0.03em;
+		}
+
+		.vh-idx {
+			font-family: 'Space Mono', monospace;
+			font-size: 0.7rem;
+			color: var(--fg);
+			opacity: 0.5;
+		}
+
+		h3 {
+			margin: 0;
+			font-family: 'Inter', sans-serif;
+			font-weight: 900;
+			text-transform: uppercase;
+			font-size: 0.95rem;
+			color: var(--fg);
+			letter-spacing: 0.02em;
+		}
+
+		ul {
+			margin: 0;
+			padding: 0;
+			list-style: none;
+			display: flex;
+			flex-direction: column;
+			gap: 0.4rem;
+		}
+
+		li {
+			font-size: 0.78rem;
+			line-height: 1.45;
+			color: var(--fg);
+			opacity: 0.85;
+			padding-left: 0.85rem;
+			position: relative;
+
+			&::before {
+				content: '';
+				position: absolute;
+				left: 0;
+				top: 0.55em;
+				width: 6px;
+				height: 6px;
+				background: var(--accent);
+			}
+		}
+	}
+
+	/* ---------- 03 PILARES ---------- */
+	.vision-pillars-wrap {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 1.5rem;
+		align-items: start;
+
+		@media (max-width: 820px) {
+			grid-template-columns: 1fr;
+		}
+	}
+
+	.vision-radar {
+		width: 100%;
+		height: auto;
+		border: 3px solid var(--border-color);
+		background: var(--bg);
+
+		.vr-grid {
+			fill: none;
+			stroke: var(--border-color);
+			stroke-width: 0.6;
+			opacity: 0.4;
+		}
+		.vr-axis {
+			stroke: var(--border-color);
+			stroke-width: 0.6;
+			opacity: 0.5;
+		}
+		.vr-data {
+			fill: var(--accent);
+			fill-opacity: 0.32;
+			stroke: var(--accent);
+			stroke-width: 2;
+		}
+		.vr-point {
+			fill: var(--accent);
+			stroke: var(--bg);
+			stroke-width: 1.5;
+		}
+		.vr-label {
+			font-family: 'Inter', sans-serif;
+			font-weight: 900;
+			font-size: 11px;
+			fill: var(--fg);
+			text-transform: uppercase;
+			letter-spacing: 0.03em;
+			paint-order: stroke;
+			stroke: var(--bg);
+			stroke-width: 3;
+			stroke-linejoin: round;
+		}
+	}
+
+	.vision-pillars-list {
+		display: flex;
+		flex-direction: column;
+		gap: 0.55rem;
+	}
+
+	.vp-card {
+		border: 2px solid var(--border-color);
+		background: var(--bg);
+		padding: 0.6rem 0.75rem;
+		display: flex;
+		flex-direction: column;
+		gap: 0.4rem;
+	}
+
+	.vp-head {
+		display: grid;
+		grid-template-columns: auto 1fr auto;
+		gap: 0.5rem;
+		align-items: baseline;
+	}
+
+	.vp-code {
+		font-family: 'Space Mono', monospace;
+		font-size: 0.7rem;
+		background: var(--card-bg);
+		border: 2px solid var(--border-color);
+		padding: 0.1rem 0.35rem;
+		color: var(--fg);
+		opacity: 0.8;
+	}
+
+	.vp-name {
+		font-family: 'Inter', sans-serif;
+		font-weight: 900;
+		text-transform: uppercase;
+		font-size: 0.82rem;
+		color: var(--fg);
+		letter-spacing: 0.02em;
+	}
+
+	.vp-pct {
+		font-family: 'Inter', sans-serif;
+		font-weight: 900;
+		font-size: 0.9rem;
+		color: var(--accent);
+	}
+
+	.vp-goal {
+		margin: 0;
+		font-size: 0.76rem;
+		color: var(--fg);
+		opacity: 0.78;
+		line-height: 1.4;
+	}
+
+	.vp-bar {
+		width: 100%;
+		height: 8px;
+		border: 2px solid var(--border-color);
+		background: var(--card-bg);
+	}
+
+	.vp-bar-fill {
+		height: 100%;
+		background: var(--accent);
+	}
+
+	/* ---------- 04 SUEÑOS ---------- */
+	.vision-dreams-grid {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 1rem;
+
+		@media (max-width: 900px) {
+			grid-template-columns: 1fr;
+		}
+	}
+
+	.vision-dream-card {
+		position: relative;
+		border: 3px solid var(--border-color);
+		background: var(--bg);
+		padding: 1.1rem 1.2rem 1.2rem;
+		display: flex;
+		flex-direction: column;
+		gap: 0.7rem;
+		transition: border-color 0.15s;
+
+		&:hover {
+			border-color: var(--accent);
+		}
+
+		h3 {
+			margin: 0.25rem 0 0;
+			font-family: 'Inter', sans-serif;
+			font-weight: 900;
+			text-transform: uppercase;
+			font-size: 1rem;
+			color: var(--fg);
+			line-height: 1.3;
+		}
+
+		p {
+			margin: 0;
+			font-size: 0.82rem;
+			color: var(--fg);
+			opacity: 0.85;
+			line-height: 1.55;
+		}
+	}
+
+	.vd-tag {
+		font-family: 'Space Mono', monospace;
+		font-size: 0.68rem;
+		color: var(--accent);
+		letter-spacing: 0.1em;
+		font-weight: 700;
+		text-transform: uppercase;
+	}
+
+	.vd-icon {
+		background: var(--card-bg);
+		border: 2px solid var(--border-color);
+		padding: 0.6rem;
+		width: 90px;
+		height: 90px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		align-self: flex-start;
+
+		svg {
+			width: 100%;
+			height: 100%;
+		}
+
+		.vd-shape {
+			fill: var(--bg);
+			stroke: var(--fg);
+			stroke-width: 2.5;
+			stroke-linejoin: round;
+			stroke-linecap: round;
+		}
+
+		.vd-shape-accent {
+			fill: var(--accent);
+			stroke: var(--accent);
+			stroke-width: 2.5;
+		}
+
+		.vd-line {
+			stroke: var(--fg);
+			stroke-width: 2.5;
+			stroke-linecap: round;
+			fill: none;
+		}
+
+		.vd-flame {
+			fill: var(--accent);
+			stroke: var(--accent);
+			stroke-width: 2;
+			stroke-linejoin: round;
+		}
+
+		.vd-icon-text {
+			font-family: 'Inter', sans-serif;
+			font-weight: 900;
+			font-size: 10px;
+			fill: #ffffff;
+		}
+	}
+
+	.vd-steps {
+		margin: 0.25rem 0 0;
+		padding: 0.6rem 0 0;
+		list-style: none;
+		display: flex;
+		flex-direction: column;
+		gap: 0.35rem;
+		border-top: 2px solid var(--border-color);
+
+		li {
+			font-size: 0.76rem;
+			color: var(--fg);
+			opacity: 0.85;
+			font-family: 'Space Mono', monospace;
+			padding-left: 1.1rem;
+			position: relative;
+			line-height: 1.4;
+
+			&::before {
+				content: '→';
+				position: absolute;
+				left: 0;
+				top: 0;
+				color: var(--accent);
+				font-weight: 900;
+			}
+		}
+	}
+
+	.vision-dream-hero {
+		border-color: var(--accent);
+		border-width: 4px;
+		box-shadow: 8px 8px 0 var(--accent);
+		margin-right: 8px;
+		margin-bottom: 8px;
+
+		.vd-icon {
+			background: var(--bg);
+			border-color: var(--accent);
+		}
+
+		h3 {
+			color: var(--accent);
+		}
+	}
+
+	.vd-badge {
+		position: absolute;
+		top: -14px;
+		right: -4px;
+		background: var(--accent);
+		color: #ffffff;
+		padding: 0.3rem 0.7rem;
+		font-family: 'Inter', sans-serif;
+		font-weight: 900;
+		text-transform: uppercase;
+		font-size: 0.66rem;
+		letter-spacing: 0.08em;
+		border: 3px solid var(--bg);
+		line-height: 1;
+	}
+
+	/* ---------- 05 MAPA ---------- */
+	.vision-map-wrap {
+		border: 3px solid var(--border-color);
+		background: var(--bg);
+		padding: 0.5rem;
+	}
+
+	.vision-map {
+		width: 100%;
+		height: auto;
+		display: block;
+
+		.vm-mountain-back {
+			fill: var(--card-bg);
+			stroke: var(--border-color);
+			stroke-width: 1.5;
+			opacity: 0.6;
+		}
+		.vm-mountain-front {
+			fill: var(--bg);
+			stroke: var(--border-color);
+			stroke-width: 2;
+		}
+		.vm-path {
+			fill: none;
+			stroke: var(--accent);
+			stroke-width: 3;
+			stroke-dasharray: 6 5;
+			stroke-linecap: round;
+			stroke-linejoin: round;
+		}
+		.vm-sun {
+			fill: var(--accent);
+		}
+		.vm-sun-halo {
+			fill: none;
+			stroke: var(--accent);
+			stroke-width: 1.5;
+			opacity: 0.35;
+		}
+		.vm-flag-pole {
+			stroke: var(--fg);
+			stroke-width: 2;
+		}
+		.vm-flag {
+			fill: var(--card-bg);
+			stroke: var(--fg);
+			stroke-width: 2;
+		}
+		.vm-flag-now {
+			fill: var(--fg);
+		}
+		.vm-flag-goal {
+			fill: var(--accent);
+			stroke: var(--accent);
+		}
+		.vm-flag-text {
+			font-family: 'Inter', sans-serif;
+			font-weight: 900;
+			font-size: 11px;
+			fill: var(--fg);
+			text-transform: uppercase;
+		}
+		.vm-flag-goal + .vm-flag-text,
+		.vm-flag-now + .vm-flag-text {
+			fill: #ffffff;
+		}
+		.vm-dot {
+			fill: var(--accent);
+			stroke: var(--bg);
+			stroke-width: 2;
+		}
+		.vm-label {
+			font-family: 'Space Mono', monospace;
+			font-size: 10px;
+			fill: var(--fg);
+			text-transform: uppercase;
+			letter-spacing: 0.05em;
+		}
+	}
+
+	/* ---------- 06 BHAGs ---------- */
+	.vision-bhag-grid {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		gap: 0.85rem;
+
+		@media (max-width: 720px) {
+			grid-template-columns: 1fr;
+		}
+	}
+
+	.vision-bhag-card {
+		border: 3px solid var(--border-color);
+		background: var(--bg);
+		padding: 1.1rem 1.2rem;
+		display: flex;
+		flex-direction: column;
+		gap: 0.5rem;
+		transition: border-color 0.15s, transform 0.15s;
+		position: relative;
+
+		&:hover {
+			border-color: var(--accent);
+			transform: translate(-2px, -2px);
+			box-shadow: 4px 4px 0 var(--border-color);
+		}
+
+		.vb-code {
+			font-family: 'Space Mono', monospace;
+			font-size: 0.7rem;
+			color: var(--accent);
+			letter-spacing: 0.08em;
+			font-weight: 700;
+		}
+
+		h3 {
+			margin: 0;
+			font-family: 'Inter', sans-serif;
+			font-weight: 900;
+			text-transform: uppercase;
+			font-size: 1rem;
+			color: var(--fg);
+			line-height: 1.3;
+		}
+
+		p {
+			margin: 0;
+			font-size: 0.82rem;
+			color: var(--fg);
+			opacity: 0.85;
+			line-height: 1.55;
+		}
+	}
+
+	/* ---------- Mantra ---------- */
+	.vision-mantra {
+		border: 3px solid var(--border-color);
+		background: var(--bg);
+		padding: 1.5rem;
+		margin-bottom: 1.5rem;
+		text-align: center;
+	}
+
+	.vision-mantra-label {
+		font-family: 'Inter', sans-serif;
+		font-weight: 900;
+		text-transform: uppercase;
+		letter-spacing: 0.08em;
+		font-size: 0.78rem;
+		color: var(--accent);
+		margin: 0 0 0.5rem;
+	}
+
+	.vision-mantra-text {
+		margin: 0;
+		font-family: 'Space Mono', monospace;
+		font-size: clamp(0.9rem, 2vw, 1.1rem);
+		line-height: 1.7;
+		color: var(--fg);
+
+		span {
+			font-family: 'Inter', sans-serif;
+			font-weight: 900;
+			color: var(--accent);
+			text-transform: uppercase;
+		}
+	}
+
+	/* ---------- Back link ---------- */
+	.vision-back {
+		display: inline-block;
+		margin: 0.5rem 0 2rem;
+		padding: 0.6rem 1rem;
+		border: 3px solid var(--border-color);
+		background: var(--card-bg);
+		color: var(--fg);
+		font-family: 'Inter', sans-serif;
+		font-weight: 900;
+		text-transform: uppercase;
+		letter-spacing: 0.04em;
+		font-size: 0.82rem;
+		text-decoration: none;
+		transition: background-color 0.12s, color 0.12s, border-color 0.12s;
+
+		&:hover {
+			background: var(--accent);
+			color: #ffffff;
+			border-color: var(--accent);
+		}
+	}
+</style>

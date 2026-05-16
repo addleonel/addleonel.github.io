@@ -94,6 +94,23 @@
 	border: 2px solid var(--border-color);
 }
 
+.dash-nav-item-link {
+	border-left-color: var(--accent);
+
+	.dash-nav-arrow {
+		margin-left: auto;
+		font-family: 'Inter', sans-serif;
+		font-weight: 900;
+		color: var(--accent);
+		font-size: 0.85rem;
+		line-height: 1;
+	}
+
+	&:hover .dash-nav-arrow {
+		color: inherit;
+	}
+}
+
 .dash-nav-item.is-active .dash-nav-code {
 	background: #ffffff;
 	color: var(--accent);
