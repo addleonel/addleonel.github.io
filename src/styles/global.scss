@@ -2,6 +2,7 @@
 
 :root {
 	--bg: #f5f0e8;
+	--bg-glass: rgba(245, 240, 232, 0.65);
 	--fg: #0a0a0a;
 	--accent: #1566d6;
 	--card-bg: #ffffff;
@@ -15,6 +16,7 @@
 
 [data-theme='dark'] {
 	--bg: #111111;
+	--bg-glass: rgba(17, 17, 17, 0.6);
 	--fg: #e8e6e1;
 	--card-bg: #1a1a1a;
 	--border-color: #e8e6e1;
@@ -57,6 +59,9 @@ body {
 	background-color: $bg;
 	color: $fg;
 	transition: background-color 0.2s, color 0.2s;
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
 }
 
 p {
@@ -76,8 +81,8 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 h1 { font-size: clamp(2.5rem, 6vw, 4.5rem); }
-h2 { font-size: clamp(1.8rem, 4vw, 2.8rem); }
-h3 { font-size: clamp(1.2rem, 3vw, 1.8rem); }
+h2 { font-size: clamp(1.4rem, 3vw, 2rem); }
+h3 { font-size: clamp(1.1rem, 2.5vw, 1.5rem); }
 
 a {
 	color: $fg;
@@ -129,22 +134,14 @@ pre {
 	margin: 0 auto;
 }
 
-.wrap {
-	min-height: 100vh;
-}
-
-.main {
-	padding-bottom: 160px;
+.site-main {
+	flex: 1 0 auto;
 	padding-top: 2rem;
-}
-
-.footer-wrapper {
-	position: relative;
-	margin-top: -160px;
-	min-height: 160px;
+	padding-bottom: 4rem;
 }
 
 .page-title {
+	font-size: clamp(1.5rem, 3vw, 2rem);
 	margin-bottom: 2rem;
 	padding-bottom: 1rem;
 	border-bottom: $border;

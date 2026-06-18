@@ -5,31 +5,32 @@ import VectorSpace from '../components/VectorSpace.astro';
 import '../styles/components/home.scss';
 import { t } from '../i18n/utils';
 import { getCollection } from 'astro:content';
+import { sortPostsByDate } from '../utils/posts';
 
 const tr = t('en');
 const posts = await getCollection('posts', ({ data }) => data.locale === 'en');
-const latestPost = posts[0];
+const latestPosts = sortPostsByDate(posts).slice(0, 3);
 ---
 
 <BaseLayout title="Leunel's website">
 	<section class="hero">
 		<div class="container">
 			<div class="content-wrapper">
-				<VectorSpace />
+				<VectorSpace locale="en" />
 			</div>
 		</div>
 	</section>
 	<main class="container">
 		<div class="content-wrapper">
 			<p class="last-posts">{tr.home.lastPosts}</p>
-			{latestPost && (
+			{latestPosts.map((post) => (
 				<PostPreview
-					title={latestPost.data.title}
-					content={latestPost.data.description}
-					date={`${tr.posts.postedOn} ${latestPost.data.date}`}
-					href={`/posts/${latestPost.data.slug}`}
+					title={post.data.title}
+					content={post.data.description}
+					date={`${tr.posts.postedOn} ${post.data.date}`}
+					href={`/posts/${post.data.slug}`}
 				/>
-			)}
+			))}
 		</div>
 	</main>
 	<section class="container more-post">

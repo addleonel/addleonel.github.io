@@ -78,13 +78,9 @@ const ogImageURL = new URL(image, Astro.site);
 	</head>
 	<body>
 		<Header currentPath={Astro.url.pathname} />
-		<div class="wrap">
-			<div class="main">
-				<slot />
-			</div>
+		<div class="site-main">
+			<slot />
 		</div>
-		<div class="footer-wrapper">
-			<Footer />
-		</div>
+		<Footer />
 	</body>
 </html>

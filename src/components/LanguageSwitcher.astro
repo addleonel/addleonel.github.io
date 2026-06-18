@@ -1,6 +1,6 @@
 ---
-import { switchLocalePath, getLocaleFromPath } from '../i18n/utils';
-import '../styles/components/lang-switcher.scss';
+import { getLocaleFromPath, localizedPath } from '../i18n/utils';
+import '../styles/components/dropdown.scss';
 
 interface Props {
 	currentPath: string;
@@ -8,9 +8,54 @@ interface Props {
 
 const { currentPath } = Astro.props;
 const locale = getLocaleFromPath(currentPath);
-const switchPath = switchLocalePath(currentPath);
+
+const options = [
+	{ code: 'en' as const, label: 'EN', name: 'English', href: localizedPath(currentPath, 'en') },
+	{ code: 'es' as const, label: 'ES', name: 'Español', href: localizedPath(currentPath, 'es') },
+];
+
+const chevron = '<svg class="dropdown-chevron" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="6 9 12 15 18 9"/></svg>';
 ---
 
-<a class="lang-switch" href={switchPath} aria-label="Switch language">
-	{locale === 'en' ? 'ES' : 'EN'}
-</a>
+<div class="dropdown" data-lang-dropdown>
+	<button class="dropdown-trigger dropdown-trigger--text" type="button" aria-haspopup="true" aria-expanded="false" aria-label="Change language">
+		<span class="dropdown-trigger__label">{locale.toUpperCase()}</span>
+		<Fragment set:html={chevron} />
+	</button>
+	<ul class="dropdown-menu dropdown-menu--right">
+		{options.map((opt) => (
+			<li>
+				<a class:list={['dropdown-item', { active: opt.code === locale }]} href={opt.href} hreflang={opt.code}>
+					<span class="dropdown-item__code">{opt.label}</span><span>{opt.name}</span>
+				</a>
+			</li>
+		))}
+	</ul>
+</div>
+
+<script is:inline>
+	(function() {
+		var root = document.querySelector('[data-lang-dropdown]');
+		if (!root) return;
+		var trigger = root.querySelector('.dropdown-trigger');
+
+		function closeMenu() {
+			root.classList.remove('open');
+			trigger.setAttribute('aria-expanded', 'false');
+		}
+
+		trigger.addEventListener('click', function(e) {
+			e.stopPropagation();
+			var willOpen = !root.classList.contains('open');
+			root.classList.toggle('open', willOpen);
+			trigger.setAttribute('aria-expanded', String(willOpen));
+		});
+
+		document.addEventListener('click', function(e) {
+			if (!root.contains(e.target)) closeMenu();
+		});
+		document.addEventListener('keydown', function(e) {
+			if (e.key === 'Escape') closeMenu();
+		});
+	})();
+</script>

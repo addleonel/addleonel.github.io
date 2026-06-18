@@ -1,0 +1,96 @@
+---
+import { Image } from 'astro:assets';
+import profilePhoto from '../assets/profile.png';
+import { resume } from '../data/resume';
+import type { Locale } from '../i18n/utils';
+import '../styles/components/resume.scss';
+
+interface Props {
+	locale: Locale;
+}
+
+const { locale } = Astro.props;
+const r = resume[locale];
+---
+
+<section class="resume">
+	<header class="resume-head">
+		<div class="resume-head__text">
+			<h3 class="resume-name">{r.name}</h3>
+			<p class="resume-headline">{r.headline}</p>
+			<p class="resume-location">{r.location}</p>
+		</div>
+		<Image class="resume-photo" src={profilePhoto} alt={r.name} width={160} height={160} />
+	</header>
+
+	<div class="resume-section">
+		<h4 class="resume-section__title">{r.sections.profile}</h4>
+		<p class="resume-profile">{r.profile}</p>
+	</div>
+
+	<div class="resume-section">
+		<h4 class="resume-section__title">{r.sections.skills}</h4>
+		<dl class="resume-skills">
+			{r.skills.map((g) => (
+				<div class="resume-skills__row">
+					<dt>{g.label}</dt>
+					<dd>{g.items}</dd>
+				</div>
+			))}
+		</dl>
+	</div>
+
+	<div class="resume-section">
+		<h4 class="resume-section__title">{r.sections.experience}</h4>
+		{r.experience.map((exp) => (
+			<div class="resume-item">
+				<div class="resume-item__head">
+					<span class="resume-item__role">{exp.role}</span>
+					<span class="resume-item__meta">{exp.meta}</span>
+				</div>
+				<p class="resume-item__tags">{exp.tags}</p>
+				<ul class="resume-item__points">
+					{exp.points.map((p) => <li>{p}</li>)}
+				</ul>
+			</div>
+		))}
+	</div>
+
+	<div class="resume-section">
+		<h4 class="resume-section__title">{r.sections.education}</h4>
+		{r.education.map((ed) => (
+			<div class="resume-item">
+				<div class="resume-item__head">
+					<span class="resume-item__role">{ed.title}</span>
+					<span class="resume-item__meta">{ed.meta}</span>
+				</div>
+				<p class="resume-item__tags">{ed.place}</p>
+			</div>
+		))}
+	</div>
+
+	<div class="resume-section">
+		<h4 class="resume-section__title">{r.sections.languages}</h4>
+		<dl class="resume-skills">
+			{r.languages.map((l) => (
+				<div class="resume-skills__row">
+					<dt>{l.name}</dt>
+					<dd>{l.level}</dd>
+				</div>
+			))}
+		</dl>
+	</div>
+
+	<div class="resume-section">
+		<h4 class="resume-section__title">{r.sections.certifications}</h4>
+		<ul class="resume-certs">
+			{r.certifications.map((c) => (
+				<li>
+					<span class="resume-certs__title">{c.title}</span>
+					<span class="resume-certs__place">{c.place}</span>
+					<span class="resume-certs__year">{c.year}</span>
+				</li>
+			))}
+		</ul>
+	</div>
+</section>

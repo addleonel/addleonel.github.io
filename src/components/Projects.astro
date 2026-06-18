@@ -1,0 +1,35 @@
+---
+import { projects } from '../data/resume';
+import type { Locale } from '../i18n/utils';
+import '../styles/components/projects.scss';
+
+interface Props {
+	locale: Locale;
+}
+
+const { locale } = Astro.props;
+const heading = locale === 'es' ? 'Proyectos' : 'Projects';
+const viewLabel = locale === 'es' ? 'Ver en GitHub' : 'View on GitHub';
+---
+
+<section class="projects">
+	<h3 class="projects-title">{heading}</h3>
+	<div class="projects-grid">
+		{projects.map((p) => (
+			<article class="project-card">
+				<div class="project-card__head">
+					<h4 class="project-card__name">{p.name}</h4>
+					{p.stars && <span class="project-card__stars">&#9733; {p.stars}</span>}
+				</div>
+				<p class="project-card__tagline">{p.tagline[locale]}</p>
+				<p class="project-card__desc">{p.description[locale]}</p>
+				<ul class="project-card__tech">
+					{p.tech.map((t) => <li>{t}</li>)}
+				</ul>
+				<a class="project-card__link" href={p.url} target="_blank" rel="noopener noreferrer">
+					{viewLabel} &rarr;
+				</a>
+			</article>
+		))}
+	</div>
+</section>

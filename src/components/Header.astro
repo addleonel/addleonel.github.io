@@ -51,7 +51,7 @@ function isActive(linkHref: string, current: string): boolean {
 				})}
 			</ul>
 			<div class="nav-actions">
-				<ThemeToggle />
+				<ThemeToggle locale={locale} />
 				<LanguageSwitcher currentPath={currentPath} />
 			</div>
 		</div>
@@ -64,4 +64,14 @@ function isActive(linkHref: string, current: string): boolean {
 	toggler?.addEventListener('click', () => {
 		navRight?.classList.toggle('open');
 	});
+
+	// Liquid-glass effect: turn the header translucent once the page is scrolled
+	const mainNav = document.getElementById('mainNav');
+	if (mainNav) {
+		const onScroll = () => {
+			mainNav.classList.toggle('scrolled', window.scrollY > 8);
+		};
+		onScroll();
+		window.addEventListener('scroll', onScroll, { passive: true });
+	}
 </script>

@@ -1,8 +1,15 @@
 ---
 import '../styles/components/vector-space.scss';
+import type { Locale } from '../i18n/utils';
+
+interface Props {
+	locale?: Locale;
+}
+
+const { locale = 'en' } = Astro.props;
 ---
 
-<div class="vector-space" id="vector-space"></div>
+<div class="vector-space" id="vector-space" data-locale={locale}></div>
 
 <script>
 import * as THREE from 'three';
@@ -12,6 +19,10 @@ const container = document.getElementById('vector-space');
 if (container) {
 	const width = container.clientWidth;
 	const height = container.clientHeight;
+
+	// Locale-aware link prefix for topic posts
+	const locale = container.dataset.locale === 'es' ? 'es' : 'en';
+	const prefix = locale === 'es' ? '/es' : '';
 
 	// Scene
 	const scene = new THREE.Scene();
@@ -70,14 +81,14 @@ if (container) {
 	axisGroup.add(createAxis(new THREE.Vector3(0, 0, 1), 3.5));
 	scene.add(axisGroup);
 
-	// Clusters data
+	// Clusters data (slug links each topic to an explanatory post)
 	const clustersData = [
-		{ label: 'LLMs', cx: -1.5, cy: 0.8, cz: 0.6, n: 8 },
-		{ label: 'RAG', cx: 1.2, cy: -0.7, cz: -0.5, n: 7 },
-		{ label: 'Agents', cx: 0.3, cy: 1.5, cz: -1.2, n: 6 },
-		{ label: 'Embeddings', cx: -0.8, cy: -1.3, cz: -1.0, n: 8 },
-		{ label: 'Transformers', cx: 1.6, cy: 1.0, cz: 1.2, n: 7 },
-		{ label: 'Vectors', cx: -1.3, cy: -0.5, cz: 1.5, n: 6 },
+		{ label: 'LLMs', slug: 'llms', cx: -1.5, cy: 0.8, cz: 0.6, n: 8 },
+		{ label: 'RAG', slug: 'rag', cx: 1.2, cy: -0.7, cz: -0.5, n: 7 },
+		{ label: 'Agents', slug: 'agents', cx: 0.3, cy: 1.5, cz: -1.2, n: 6 },
+		{ label: 'Embeddings', slug: 'embeddings', cx: -0.8, cy: -1.3, cz: -1.0, n: 8 },
+		{ label: 'Transformers', slug: 'transformers', cx: 1.6, cy: 1.0, cz: 1.2, n: 7 },
+		{ label: 'Vectors', slug: 'vectors', cx: -1.3, cy: -0.5, cz: 1.5, n: 6 },
 	];
 
 	const pointMeshes: THREE.Mesh[] = [];
@@ -190,6 +201,7 @@ if (container) {
 			const aspect = labelCanvas.width / labelCanvas.height;
 			const spriteScale = 0.7;
 			sprite.scale.set(spriteScale * aspect, spriteScale, 1);
+			sprite.userData.slug = c.slug;
 			scene.add(sprite);
 			labelSprites.push(sprite);
 		});
@@ -202,6 +214,38 @@ if (container) {
 		buildScene();
 	});
 	observer.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+
+	// Clickable labels: raycast against the topic sprites
+	const raycaster = new THREE.Raycaster();
+	const pointer = new THREE.Vector2();
+	const downPos = new THREE.Vector2();
+
+	function spriteAtEvent(event: PointerEvent | MouseEvent) {
+		const rect = renderer.domElement.getBoundingClientRect();
+		pointer.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
+		pointer.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
+		raycaster.setFromCamera(pointer, camera);
+		const hits = raycaster.intersectObjects(labelSprites);
+		return hits.length > 0 ? (hits[0].object as THREE.Sprite) : null;
+	}
+
+	renderer.domElement.addEventListener('pointermove', function(event) {
+		renderer.domElement.style.cursor = spriteAtEvent(event) ? 'pointer' : 'grab';
+	});
+
+	// Track press position so a drag-to-rotate doesn't trigger navigation
+	renderer.domElement.addEventListener('pointerdown', function(event) {
+		downPos.set(event.clientX, event.clientY);
+	});
+
+	renderer.domElement.addEventListener('pointerup', function(event) {
+		const moved = Math.hypot(event.clientX - downPos.x, event.clientY - downPos.y);
+		if (moved > 6) return;
+		const sprite = spriteAtEvent(event);
+		if (sprite && sprite.userData.slug) {
+			window.location.href = `${prefix}/posts/${sprite.userData.slug}/`;
+		}
+	});
 
 	// Animate
 	function animate() {

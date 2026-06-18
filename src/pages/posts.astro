@@ -3,9 +3,10 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import PostPreview from '../components/PostPreview.astro';
 import { t } from '../i18n/utils';
 import { getCollection } from 'astro:content';
+import { sortPostsByDate } from '../utils/posts';
 
 const tr = t('en');
-const posts = await getCollection('posts', ({ data }) => data.locale === 'en');
+const posts = sortPostsByDate(await getCollection('posts', ({ data }) => data.locale === 'en'));
 ---
 
 <BaseLayout title="All publications">

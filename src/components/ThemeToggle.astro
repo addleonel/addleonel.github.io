@@ -1,21 +1,62 @@
 ---
-import '../styles/components/theme-toggle.scss';
+import '../styles/components/dropdown.scss';
+import type { Locale } from '../i18n/utils';
+
+interface Props {
+	locale?: Locale;
+}
+
+const { locale = 'en' } = Astro.props;
+
+const labels = {
+	en: { light: 'Light', dark: 'Dark', system: 'System', aria: 'Change theme' },
+	es: { light: 'Claro', dark: 'Oscuro', system: 'Sistema', aria: 'Cambiar tema' },
+}[locale];
+
+const icons = {
+	light: '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>',
+	dark: '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>',
+	system: '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>',
+};
+const chevron = '<svg class="dropdown-chevron" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="6 9 12 15 18 9"/></svg>';
 ---
 
-<div class="theme-toggle" data-theme-toggle>
-	<button class="theme-btn" data-theme-value="light" aria-label="Light theme" title="Light">
-		<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+<div class="dropdown" data-theme-toggle>
+	<button class="dropdown-trigger" type="button" aria-haspopup="true" aria-expanded="false" aria-label={labels.aria}>
+		<span class="dropdown-trigger__icon" data-theme-current set:html={icons.system} />
+		<Fragment set:html={chevron} />
 	</button>
-	<button class="theme-btn" data-theme-value="dark" aria-label="Dark theme" title="Dark">
-		<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-	</button>
-	<button class="theme-btn" data-theme-value="system" aria-label="System theme" title="System">
-		<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
-	</button>
+	<ul class="dropdown-menu">
+		<li>
+			<button class="dropdown-item" type="button" data-theme-value="light">
+				<Fragment set:html={icons.light} /><span>{labels.light}</span>
+			</button>
+		</li>
+		<li>
+			<button class="dropdown-item" type="button" data-theme-value="dark">
+				<Fragment set:html={icons.dark} /><span>{labels.dark}</span>
+			</button>
+		</li>
+		<li>
+			<button class="dropdown-item" type="button" data-theme-value="system">
+				<Fragment set:html={icons.system} /><span>{labels.system}</span>
+			</button>
+		</li>
+	</ul>
 </div>
 
 <script is:inline>
 	(function() {
+		var icons = {
+			light: '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>',
+			dark: '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>',
+			system: '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>'
+		};
+		var root = document.querySelector('[data-theme-toggle]');
+		if (!root) return;
+		var trigger = root.querySelector('.dropdown-trigger');
+		var current = root.querySelector('[data-theme-current]');
+
 		function getSystemTheme() {
 			return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
 		}
@@ -23,26 +64,44 @@ import '../styles/components/theme-toggle.scss';
 		function applyTheme(pref) {
 			var theme = pref === 'system' ? getSystemTheme() : pref;
 			document.documentElement.setAttribute('data-theme', theme);
-			document.querySelectorAll('[data-theme-value]').forEach(function(btn) {
+			if (current) current.innerHTML = icons[pref] || icons.system;
+			root.querySelectorAll('[data-theme-value]').forEach(function(btn) {
 				btn.classList.toggle('active', btn.getAttribute('data-theme-value') === pref);
 			});
 		}
 
-		var stored = localStorage.getItem('theme') || 'system';
-		applyTheme(stored);
+		function closeMenu() {
+			root.classList.remove('open');
+			trigger.setAttribute('aria-expanded', 'false');
+		}
+
+		applyTheme(localStorage.getItem('theme') || 'system');
+
+		trigger.addEventListener('click', function(e) {
+			e.stopPropagation();
+			var willOpen = !root.classList.contains('open');
+			root.classList.toggle('open', willOpen);
+			trigger.setAttribute('aria-expanded', String(willOpen));
+		});
+
+		root.querySelectorAll('[data-theme-value]').forEach(function(btn) {
+			btn.addEventListener('click', function() {
+				var val = btn.getAttribute('data-theme-value');
+				localStorage.setItem('theme', val);
+				applyTheme(val);
+				closeMenu();
+			});
+		});
 
 		document.addEventListener('click', function(e) {
-			var btn = e.target.closest('[data-theme-value]');
-			if (!btn) return;
-			var val = btn.getAttribute('data-theme-value');
-			localStorage.setItem('theme', val);
-			applyTheme(val);
+			if (!root.contains(e.target)) closeMenu();
+		});
+		document.addEventListener('keydown', function(e) {
+			if (e.key === 'Escape') closeMenu();
 		});
 
 		window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function() {
-			if ((localStorage.getItem('theme') || 'system') === 'system') {
-				applyTheme('system');
-			}
+			if ((localStorage.getItem('theme') || 'system') === 'system') applyTheme('system');
 		});
 	})();
 </script>

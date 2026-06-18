@@ -1,0 +1,127 @@
+@use '../global' as *;
+
+.dropdown {
+	position: relative;
+	display: flex;
+	align-items: stretch;
+}
+
+.dropdown-trigger {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.4rem;
+	padding: 0 0.9rem;
+	background: none;
+	border: none;
+	border-left: $border;
+	color: $fg;
+	cursor: pointer;
+	font-family: 'Space Mono', monospace;
+	font-weight: 700;
+	font-size: 0.8rem;
+	transition: background 0.15s, color 0.15s;
+
+	&:hover {
+		background: var(--hover-bg);
+	}
+}
+
+.dropdown-trigger__icon {
+	display: inline-flex;
+	align-items: center;
+}
+
+.dropdown-trigger__label {
+	text-transform: uppercase;
+	letter-spacing: 0.05em;
+}
+
+.dropdown-chevron {
+	transition: transform 0.2s ease;
+	opacity: 0.7;
+}
+
+.dropdown.open .dropdown-chevron {
+	transform: rotate(180deg);
+}
+
+.dropdown-menu {
+	position: absolute;
+	top: calc(100% + 8px);
+	left: 0;
+	min-width: 168px;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	background: var(--card-bg);
+	border: $border;
+	box-shadow: 6px 6px 0 0 var(--accent);
+	opacity: 0;
+	visibility: hidden;
+	transform: translateY(-6px);
+	transition: opacity 0.15s ease, transform 0.15s ease, visibility 0.15s;
+	z-index: 200;
+}
+
+.dropdown-menu--right {
+	left: auto;
+	right: 0;
+}
+
+.dropdown.open .dropdown-menu {
+	opacity: 1;
+	visibility: visible;
+	transform: translateY(0);
+}
+
+.dropdown-item {
+	display: flex;
+	align-items: center;
+	gap: 0.6rem;
+	width: 100%;
+	padding: 0.65rem 0.9rem;
+	background: none;
+	border: none;
+	color: $fg;
+	cursor: pointer;
+	font-family: 'Space Mono', monospace;
+	font-weight: 700;
+	font-size: 0.8rem;
+	text-transform: uppercase;
+	letter-spacing: 0.03em;
+	text-align: left;
+	text-decoration: none;
+	transition: background 0.12s, color 0.12s;
+
+	svg {
+		width: 16px;
+		height: 16px;
+		flex-shrink: 0;
+	}
+
+	&:hover {
+		background: $fg;
+		color: $bg;
+	}
+
+	&.active {
+		background: var(--accent);
+		color: #ffffff;
+	}
+}
+
+.dropdown-menu li:not(:last-child) .dropdown-item {
+	border-bottom: 1px solid var(--border-color);
+}
+
+.dropdown-item__code {
+	display: inline-block;
+	min-width: 1.6em;
+	font-weight: 700;
+	color: $accent;
+}
+
+.dropdown-item:hover .dropdown-item__code,
+.dropdown-item.active .dropdown-item__code {
+	color: inherit;
+}
