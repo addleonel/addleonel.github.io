@@ -12,7 +12,10 @@ const posts = await getCollection('posts', ({ data }) => data.locale === 'es');
 const latestPosts = sortPostsByDate(posts).slice(0, 3);
 ---
 
-<BaseLayout title="Sitio web de Leunel">
+<BaseLayout
+	title="Sitio web de Leunel"
+	description="Leunel Aquino — desarrollador de software que construye sistemas de LLMs, RAG y agentes. Lee mis notas sobre ingeniería de IA y explora mis proyectos."
+>
 	<section class="hero">
 		<div class="container">
 			<div class="content-wrapper">

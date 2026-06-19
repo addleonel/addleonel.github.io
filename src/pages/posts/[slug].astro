@@ -3,6 +3,7 @@ import { getCollection, render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import '../../styles/components/post-content.scss';
 import { t } from '../../i18n/utils';
+import { parsePostDate } from '../../utils/posts';
 
 export async function getStaticPaths() {
 	const allPosts = await getCollection('posts');
@@ -16,9 +17,33 @@ export async function getStaticPaths() {
 const { post } = Astro.props;
 const { Content } = await render(post);
 const tr = t('en');
+
+const publishedISO = new Date(parsePostDate(post.data.date)).toISOString();
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const ogImage = post.data.cover ?? '/og_image.png';
+const blogPostingLd = {
+	'@context': 'https://schema.org',
+	'@type': 'BlogPosting',
+	headline: post.data.title,
+	description: post.data.description,
+	datePublished: publishedISO,
+	dateModified: publishedISO,
+	inLanguage: 'en',
+	image: new URL(ogImage, Astro.site).href,
+	author: { '@type': 'Person', name: 'Leunel Aquino Davila', url: Astro.site?.href },
+	publisher: { '@type': 'Person', name: 'Leunel Aquino Davila' },
+	mainEntityOfPage: { '@type': 'WebPage', '@id': canonicalURL.href },
+};
 ---
 
-<BaseLayout title={post.data.title} description={post.data.description}>
+<BaseLayout
+	title={post.data.title}
+	description={post.data.description}
+	type="article"
+	publishedTime={publishedISO}
+	image={ogImage}
+	jsonLd={blogPostingLd}
+>
 	<div class="container">
 		<div class="content-wrapper">
 			<div class="post-header">

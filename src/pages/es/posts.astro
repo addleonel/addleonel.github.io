@@ -9,7 +9,10 @@ const tr = t('es');
 const posts = sortPostsByDate(await getCollection('posts', ({ data }) => data.locale === 'es'));
 ---
 
-<BaseLayout title="Todas las publicaciones">
+<BaseLayout
+	title="Todas las publicaciones"
+	description="Artículos y notas de Leunel Aquino sobre LLMs, RAG, agentes, embeddings, transformers y desarrollo de software."
+>
 	<main class="container">
 		<div class="content-wrapper">
 			<h2 class="page-title">{tr.posts.title}</h2>
