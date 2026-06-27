@@ -11,6 +11,8 @@
 	height: 350px;
 	object-fit: cover;
 	border: $border;
+	border-radius: var(--radius-lg);
+	box-shadow: var(--shadow-soft);
 	margin-bottom: 2rem;
 }
 
@@ -62,9 +64,10 @@
 
 	blockquote {
 		border-left: 4px solid var(--accent);
+		border-radius: 0 var(--radius-md) var(--radius-md) 0;
 		padding: 1rem 1.5rem;
 		margin: 2rem 0;
-		background: var(--hover-bg);
+		background: var(--accent-soft);
 		font-style: italic;
 	}
 }

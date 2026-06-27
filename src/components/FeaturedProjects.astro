@@ -1,0 +1,50 @@
+---
+import { projects } from '../data/resume';
+import { t, type Locale } from '../i18n/utils';
+import '../styles/components/featured-projects.scss';
+
+interface Props {
+	locale: Locale;
+}
+
+const { locale } = Astro.props;
+const tr = t(locale);
+const prefix = locale === 'en' ? '' : '/es';
+const viewLabel = locale === 'es' ? 'Ver en GitHub' : 'View on GitHub';
+
+// Curated set shown on the home page
+const featuredNames = ['ventas.ai', 'yomismo.ia'];
+const featured = featuredNames
+	.map((name) => projects.find((p) => p.name === name))
+	.filter((p): p is NonNullable<typeof p> => Boolean(p));
+---
+
+<section class="featured-projects">
+	<p class="last-posts">{tr.home.featuredProjects}</p>
+	<div class="feature-list">
+		{featured.map((p, i) => (
+			<article class={`feature ${i % 2 === 1 ? 'feature--reverse' : ''}`}>
+				<a class="feature__media" href={p.url} target="_blank" rel="noopener noreferrer" aria-label={p.name}>
+					<img src={p.image} alt={`${p.name} — ${p.tagline[locale]}`} loading="lazy" />
+				</a>
+				<div class="feature__body">
+					<div class="feature__head">
+						<h3 class="feature__name">{p.name}</h3>
+						{p.stars && <span class="feature__stars">&#9733; {p.stars}</span>}
+					</div>
+					<p class="feature__tagline">{p.tagline[locale]}</p>
+					<p class="feature__desc">{p.description[locale]}</p>
+					<ul class="feature__tech">
+						{p.tech.map((tech) => <li>{tech}</li>)}
+					</ul>
+					<a class="feature__link" href={p.url} target="_blank" rel="noopener noreferrer">
+						{viewLabel} &rarr;
+					</a>
+				</div>
+			</article>
+		))}
+	</div>
+	<div class="featured-projects__more">
+		<a class="more-post__link" href={`${prefix}/projects/`}>{tr.home.allProjects} &rarr;</a>
+	</div>
+</section>

@@ -194,6 +194,7 @@ export interface Project {
 	description: { en: string; es: string };
 	tech: string[];
 	url: string;
+	image: string;
 	stars?: number;
 }
 
@@ -207,6 +208,7 @@ export const projects: Project[] = [
 		},
 		tech: ['Python', 'Flask', 'Pandas', 'Matplotlib', 'OpenAI/DeepSeek'],
 		url: 'https://github.com/addleonel/ventas.ai',
+		image: '/projects/ventas-ai.png',
 	},
 	{
 		name: 'ANPR-Arduino',
@@ -217,6 +219,7 @@ export const projects: Project[] = [
 		},
 		tech: ['Python', 'Django', 'Tesseract OCR', 'Arduino / IoT'],
 		url: 'https://github.com/addleonel/ANPR-Arduino',
+		image: '/projects/anpr-arduino.png',
 		stars: 14,
 	},
 	{
@@ -228,6 +231,7 @@ export const projects: Project[] = [
 		},
 		tech: ['Python', 'Django', 'JavaScript', 'Docker', 'DigitalOcean'],
 		url: 'https://github.com/addleonel/coddinang',
+		image: '/projects/coddinang.png',
 	},
 	{
 		name: 'yomismo.ia',
@@ -238,5 +242,6 @@ export const projects: Project[] = [
 		},
 		tech: ['Next.js', 'React', 'TypeScript', 'Supabase', 'DeepSeek'],
 		url: 'https://github.com/addleonel/yomismo.ia',
+		image: '/projects/yomismo-ia.png',
 	},
 ];

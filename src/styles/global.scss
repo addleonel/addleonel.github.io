@@ -2,38 +2,70 @@
 
 :root {
 	--bg: #f5f0e8;
-	--bg-glass: rgba(245, 240, 232, 0.65);
+	--bg-glass: rgba(245, 240, 232, 0.7);
 	--fg: #0a0a0a;
 	--accent: #1566d6;
+	--accent-strong: #0d4ea8;
+	--accent-soft: rgba(21, 102, 214, 0.12);
+	--accent-2: #7c5cff;
+	--accent-warm: #ff8a3d;
 	--card-bg: #ffffff;
-	--border-color: #0a0a0a;
+	--card-glass: rgba(255, 255, 255, 0.55);
+	/* Softer, low-contrast hairline borders for the subtle neo-brutalist look */
+	--border-color: rgba(10, 10, 10, 0.14);
+	--border-strong: rgba(10, 10, 10, 0.8);
 	--code-bg: #0a0a0a;
 	--code-color: #00ff41;
 	--hover-bg: rgba(0, 0, 0, 0.05);
 	--footer-bg: #0a0a0a;
 	--footer-fg: #ffffff;
+	/* Rounded corners */
+	--radius-sm: 10px;
+	--radius-md: 16px;
+	--radius-lg: 24px;
+	--radius-pill: 999px;
+	/* Soft shadows */
+	--shadow-soft: 0 10px 30px rgba(0, 0, 0, 0.08);
+	--shadow-soft-lg: 0 18px 50px rgba(0, 0, 0, 0.12);
+	--shadow-pop: 0 12px 28px rgba(21, 102, 214, 0.28);
 }
 
 [data-theme='dark'] {
 	--bg: #111111;
-	--bg-glass: rgba(17, 17, 17, 0.6);
+	--bg-glass: rgba(20, 20, 20, 0.65);
 	--fg: #e8e6e1;
+	--accent: #4d92ff;
+	--accent-strong: #2e7bf0;
+	--accent-soft: rgba(77, 146, 255, 0.16);
+	--accent-2: #a78bff;
+	--accent-warm: #ffa766;
 	--card-bg: #1a1a1a;
-	--border-color: #e8e6e1;
+	--card-glass: rgba(36, 36, 36, 0.55);
+	--border-color: rgba(232, 230, 225, 0.16);
+	--border-strong: rgba(232, 230, 225, 0.7);
 	--code-bg: #000000;
 	--code-color: #00ff41;
 	--hover-bg: rgba(255, 255, 255, 0.06);
 	--footer-bg: #000000;
 	--footer-fg: #e8e6e1;
+	--shadow-soft: 0 10px 30px rgba(0, 0, 0, 0.4);
+	--shadow-soft-lg: 0 18px 50px rgba(0, 0, 0, 0.5);
+	--shadow-pop: 0 12px 28px rgba(77, 146, 255, 0.3);
 }
 
 $accent: var(--accent);
 $bg: var(--bg);
 $fg: var(--fg);
 $card-bg: var(--card-bg);
-$border: 3px solid var(--border-color);
+$border: 1.5px solid var(--border-color);
+$border-strong: 2px solid var(--border-strong);
 $code-bg: var(--code-bg);
 $code-color: var(--code-color);
+$radius-sm: var(--radius-sm);
+$radius-md: var(--radius-md);
+$radius-lg: var(--radius-lg);
+$shadow-soft: var(--shadow-soft);
+$shadow-soft-lg: var(--shadow-soft-lg);
 
 *,
 *::before,
@@ -105,6 +137,7 @@ code {
 	color: $code-color;
 	padding: 0.15em 0.4em;
 	font-size: 0.85em;
+	border-radius: 6px;
 }
 
 pre {
@@ -113,12 +146,14 @@ pre {
 	padding: 1.5rem;
 	overflow-x: auto;
 	border: $border;
+	border-radius: $radius-md;
 	margin: 2rem 0;
 
 	code {
 		background: none;
 		padding: 0;
 		font-size: 0.85rem;
+		border-radius: 0;
 	}
 }
 
@@ -150,10 +185,11 @@ pre {
 	&::after {
 		content: '';
 		position: absolute;
-		bottom: -6px;
+		bottom: -2px;
 		left: 0;
 		width: 80px;
-		height: 3px;
-		background: $accent;
+		height: 4px;
+		border-radius: var(--radius-pill);
+		background: linear-gradient(90deg, var(--accent), var(--accent-2));
 	}
 }

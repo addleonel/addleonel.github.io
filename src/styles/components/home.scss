@@ -28,6 +28,19 @@
 	}
 }
 
+.featured-projects {
+	margin: 3.5rem 0 1rem;
+
+	.last-posts {
+		margin-bottom: 2rem;
+	}
+}
+
+.featured-projects__more {
+	margin-top: 1.75rem;
+	overflow: hidden;
+}
+
 .more-post {
 	margin: 3rem auto;
 	overflow: hidden;
@@ -44,13 +57,14 @@
 	text-decoration: none;
 	color: $fg;
 	border: $border;
+	border-radius: var(--radius-pill);
 	padding: 0.75rem 2rem;
-	transition: all 0.15s;
+	transition: all 0.2s ease;
 
 	&:hover {
-		background: $fg;
-		color: $bg;
-		box-shadow: 6px 6px 0px 0px var(--accent);
-		transform: translate(-3px, -3px);
+		background: $accent;
+		color: #fff;
+		border-color: transparent;
+		transform: translateY(-3px);
 	}
 }

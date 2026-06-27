@@ -2,14 +2,17 @@
 
 .post-preview {
 	border: $border;
+	border-radius: var(--radius-lg);
 	padding: 0;
 	margin-bottom: 2rem;
 	background: $card-bg;
-	transition: transform 0.15s, box-shadow 0.15s, background-color 0.2s;
+	overflow: hidden;
+	box-shadow: var(--shadow-soft);
+	transition: transform 0.2s ease, background-color 0.2s, border-color 0.2s;
 
 	&:hover {
-		transform: translate(-4px, -4px);
-		box-shadow: 8px 8px 0px 0px var(--accent);
+		transform: translateY(-4px);
+		border-color: var(--accent);
 	}
 }
 

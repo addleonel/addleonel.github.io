@@ -4,6 +4,13 @@
 	margin-bottom: 3rem;
 }
 
+.projects-intro {
+	margin: -1rem 0 2rem;
+	font-size: 0.95rem;
+	opacity: 0.8;
+	max-width: 60ch;
+}
+
 .projects-title {
 	font-size: 1.1rem;
 	text-transform: uppercase;
@@ -16,21 +23,49 @@
 .projects-grid {
 	display: grid;
 	grid-template-columns: repeat(2, 1fr);
-	gap: 1.25rem;
+	gap: 1.5rem;
 }
 
 .project-card {
 	display: flex;
 	flex-direction: column;
 	border: $border;
+	border-radius: var(--radius-lg);
 	background: $card-bg;
-	padding: 1.25rem;
-	transition: transform 0.15s, box-shadow 0.15s;
+	overflow: hidden;
+	box-shadow: var(--shadow-soft);
+	transition: transform 0.2s ease, border-color 0.2s ease;
 
 	&:hover {
-		transform: translate(-4px, -4px);
-		box-shadow: 8px 8px 0px 0px var(--accent);
+		transform: translateY(-5px);
+		border-color: var(--accent);
 	}
+}
+
+.project-card__media {
+	display: block;
+	aspect-ratio: 16 / 9;
+	overflow: hidden;
+	border-bottom: $border;
+	background: var(--accent-soft);
+
+	img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		transition: transform 0.35s ease;
+	}
+}
+
+.project-card:hover .project-card__media img {
+	transform: scale(1.04);
+}
+
+.project-card__body {
+	display: flex;
+	flex-direction: column;
+	flex: 1;
+	padding: 1.25rem 1.35rem 1.35rem;
 }
 
 .project-card__head {
@@ -42,17 +77,20 @@
 
 .project-card__name {
 	margin: 0;
-	font-size: 1.1rem;
+	font-size: 1.15rem;
 	text-transform: none;
 	letter-spacing: 0;
 }
 
 .project-card__stars {
 	font-family: 'Space Mono', monospace;
-	font-size: 0.75rem;
-	color: $accent;
+	font-size: 0.7rem;
+	color: var(--accent-warm);
 	font-weight: 700;
 	white-space: nowrap;
+	padding: 0.15rem 0.55rem;
+	border-radius: var(--radius-pill);
+	background: rgba(255, 138, 61, 0.14);
 }
 
 .project-card__tagline {
@@ -71,36 +109,47 @@
 
 .project-card__tech {
 	list-style: none;
-	margin: 0 0 1rem;
+	margin: 0 0 1.1rem;
 	padding: 0;
 	display: flex;
 	flex-wrap: wrap;
 	gap: 0.4rem;
 
 	li {
-		font-size: 0.7rem;
+		font-size: 0.68rem;
 		text-transform: uppercase;
 		letter-spacing: 0.03em;
-		padding: 0.2rem 0.5rem;
-		border: 1px solid var(--border-color);
+		font-weight: 700;
+		padding: 0.25rem 0.6rem;
+		border-radius: var(--radius-pill);
+		color: $accent;
+		background: var(--accent-soft);
 	}
 }
 
 .project-card__link {
 	margin-top: auto;
+	align-self: flex-start;
 	font-family: 'Space Mono', monospace;
 	font-weight: 700;
-	font-size: 0.8rem;
+	font-size: 0.78rem;
 	text-transform: uppercase;
 	letter-spacing: 0.05em;
 	color: $fg;
+	padding: 0.5rem 1rem;
+	border-radius: var(--radius-pill);
+	border: $border;
+	transition: all 0.2s ease;
 
 	&:hover {
-		color: $accent;
+		color: #fff;
+		background: $accent;
+		border-color: transparent;
+		transform: translateY(-2px);
 	}
 }
 
-@media (max-width: 560px) {
+@media (max-width: 640px) {
 	.projects-grid {
 		grid-template-columns: 1fr;
 	}

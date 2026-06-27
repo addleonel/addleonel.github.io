@@ -1,0 +1,20 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Projects from '../../components/Projects.astro';
+import { t } from '../../i18n/utils';
+
+const tr = t('es');
+---
+
+<BaseLayout
+	title="Proyectos"
+	description="Proyectos de Leunel Aquino — agentes de IA, análisis de ventas con LLMs, visión por computadora ANPR y plataformas web."
+>
+	<main class="container">
+		<div class="content-wrapper">
+			<h2 class="page-title">{tr.projects.title}</h2>
+			<p class="projects-intro">{tr.projects.intro}</p>
+			<Projects locale="es" showHeading={false} />
+		</div>
+	</main>
+</BaseLayout>

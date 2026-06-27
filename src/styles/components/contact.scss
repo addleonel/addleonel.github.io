@@ -21,14 +21,16 @@
 	text-decoration: none;
 	color: $fg;
 	border: $border;
+	border-radius: var(--radius-pill);
+	background: $card-bg;
 	padding: 1rem 1.5rem;
-	transition: all 0.15s;
+	transition: all 0.2s ease;
 
 	&:hover {
-		background: $fg;
-		color: $bg;
-		box-shadow: 6px 6px 0px 0px var(--accent);
-		transform: translate(-3px, -3px);
+		background: $accent;
+		color: #fff;
+		border-color: transparent;
+		transform: translateY(-3px);
 	}
 }
 

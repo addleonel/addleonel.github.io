@@ -1,7 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Resume from '../../components/Resume.astro';
-import Projects from '../../components/Projects.astro';
 import { t } from '../../i18n/utils';
 
 const tr = t('es');
@@ -15,7 +14,6 @@ const tr = t('es');
 		<div class="content-wrapper">
 			<h2 class="page-title">{tr.about.title}</h2>
 			<Resume locale="es" />
-			<Projects locale="es" />
 		</div>
 	</main>
 </BaseLayout>
