@@ -1,6 +1,7 @@
 ---
 title: "What are AI Agents?"
 date: "June 16, 2026"
+cover: "/posts/agents.webp"
 description: "An introduction to AI agents: LLMs that can plan, use tools and act in a loop to accomplish goals instead of just answering a single prompt."
 locale: "en"
 slug: "agents"

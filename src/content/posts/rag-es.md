@@ -1,6 +1,7 @@
 ---
 title: "¿Qué es RAG?"
 date: "17 de Junio, 2026"
+cover: "/posts/rag.webp"
 description: "La Generación Aumentada por Recuperación explicada: cómo conectar un LLM a una base de conocimiento externa produce respuestas fundamentadas, actualizadas y verificables."
 locale: "es"
 slug: "rag"

@@ -1,6 +1,7 @@
 ---
 title: "What are Transformers?"
 date: "June 14, 2026"
+cover: "/posts/transformers.webp"
 description: "The Transformer architecture and its attention mechanism are the foundation behind modern LLMs. Here is the intuition in plain terms."
 locale: "en"
 slug: "transformers"

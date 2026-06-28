@@ -1,6 +1,7 @@
 ---
 title: "¿Qué son los LLMs?"
 date: "18 de Junio, 2026"
+cover: "/posts/llms.webp"
 description: "Una introducción corta a los Grandes Modelos de Lenguaje: qué son, cómo se entrenan y por qué se han convertido en la base de las aplicaciones modernas de IA."
 locale: "es"
 slug: "llms"

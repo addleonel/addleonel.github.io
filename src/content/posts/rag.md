@@ -1,6 +1,7 @@
 ---
 title: "What is RAG?"
 date: "June 17, 2026"
+cover: "/posts/rag.webp"
 description: "Retrieval-Augmented Generation explained: how connecting an LLM to an external knowledge base produces grounded, up-to-date and verifiable answers."
 locale: "en"
 slug: "rag"

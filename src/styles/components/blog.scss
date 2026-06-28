@@ -1,0 +1,77 @@
+@use '../global' as *;
+
+/* Scrolling marquee band, like the reference layout */
+.blog-ticker {
+	overflow: hidden;
+	border-top: $border;
+	border-bottom: $border;
+	padding: 0.85rem 0;
+	margin-bottom: 2.5rem;
+	-webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+	mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+}
+
+.blog-ticker__track {
+	display: inline-flex;
+	align-items: center;
+	white-space: nowrap;
+	will-change: transform;
+	animation: blog-ticker-scroll 28s linear infinite;
+}
+
+.blog-ticker__item {
+	font-family: 'Inter', sans-serif;
+	font-weight: 900;
+	font-size: clamp(1.1rem, 2.2vw, 1.6rem);
+	text-transform: uppercase;
+	letter-spacing: 0.02em;
+	color: $fg;
+	opacity: 0.18;
+	padding: 0 1.5rem;
+
+	&:nth-child(even) {
+		color: $accent;
+		opacity: 0.45;
+	}
+}
+
+@keyframes blog-ticker-scroll {
+	from { transform: translateX(0); }
+	to { transform: translateX(-50%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.blog-ticker__track {
+		animation: none;
+	}
+}
+
+.blog-title {
+	text-align: center;
+	font-size: clamp(2.5rem, 8vw, 5rem);
+	letter-spacing: -0.03em;
+	margin-bottom: 0.5rem;
+}
+
+.blog-subtitle {
+	text-align: center;
+	font-family: 'Space Mono', monospace;
+	font-size: 0.85rem;
+	text-transform: uppercase;
+	letter-spacing: 0.08em;
+	opacity: 0.6;
+	margin: 0 auto 3rem;
+}
+
+.blog-grid {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	gap: 2rem;
+}
+
+@media (max-width: 720px) {
+	.blog-grid {
+		grid-template-columns: 1fr;
+		gap: 1.5rem;
+	}
+}

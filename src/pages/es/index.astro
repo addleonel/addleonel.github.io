@@ -1,7 +1,8 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import PostPreview from '../../components/PostPreview.astro';
+import PostCard from '../../components/PostCard.astro';
 import FeaturedProjects from '../../components/FeaturedProjects.astro';
+import HeroFragments from '../../components/HeroFragments.astro';
 import VectorSpace from '../../components/VectorSpace.astro';
 import '../../styles/components/home.scss';
 import { t } from '../../i18n/utils';
@@ -17,32 +18,35 @@ const latestPosts = sortPostsByDate(posts).slice(0, 3);
 	title="Sitio web de Leunel"
 	description="Leunel Aquino — desarrollador de software que construye sistemas de LLMs, RAG y agentes. Lee mis notas sobre ingeniería de IA y explora mis proyectos."
 >
-	<section class="hero">
+	<section class="hero-collage">
 		<div class="container">
-			<div class="content-wrapper">
-				<VectorSpace locale="es" />
-			</div>
+			<HeroFragments locale="es" />
 		</div>
 	</section>
 	<main class="container">
-		<div class="content-wrapper">
-			<p class="last-posts">{tr.home.lastPosts}</p>
-			{latestPosts.map((post) => (
-				<PostPreview
+		<p class="last-posts">{tr.home.lastPosts}</p>
+		<div class="home-posts">
+			{latestPosts.map((post, i) => (
+				<PostCard
 					title={post.data.title}
-					content={post.data.description}
+					description={post.data.description}
 					date={`${tr.posts.postedOn} ${post.data.date}`}
 					href={`/es/posts/${post.data.slug}`}
+					cover={post.data.cover}
+					index={i}
 				/>
 			))}
 		</div>
 	</main>
 	<section class="container more-post">
-		<div class="content-wrapper">
-			<a class="more-post__link" href="/es/posts/">{tr.home.allPosts} &rarr;</a>
-		</div>
+		<a class="more-post__link" href="/es/posts/">{tr.home.allPosts} &rarr;</a>
 	</section>
 	<section class="container">
 		<FeaturedProjects locale="es" />
+	</section>
+	<section class="container concept-space">
+		<p class="last-posts">{tr.home.conceptSpace}</p>
+		<VectorSpace locale="es" />
+		<p class="concept-space__hint">{tr.home.conceptSpaceHint}</p>
 	</section>
 </BaseLayout>

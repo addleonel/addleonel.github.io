@@ -1,9 +1,39 @@
 @use '../global' as *;
 
-.hero {
+.hero-collage {
+	padding: 1.5rem 0 2.5rem;
+	margin-bottom: 2.5rem;
 	border-bottom: $border;
-	padding: 2rem 0;
-	margin-bottom: 3rem;
+}
+
+/* Latest posts grid — spans the full container width, like the header */
+.home-posts {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+	gap: 1.5rem;
+
+	.post-preview,
+	.post-card {
+		margin-bottom: 0;
+	}
+}
+
+.concept-space {
+	margin-top: 1rem;
+
+	.last-posts {
+		margin-bottom: 1.5rem;
+	}
+}
+
+.concept-space__hint {
+	text-align: center;
+	font-family: 'Space Mono', monospace;
+	font-size: 0.72rem;
+	text-transform: uppercase;
+	letter-spacing: 0.06em;
+	opacity: 0.5;
+	margin: 1rem 0 0;
 }
 
 .last-posts {

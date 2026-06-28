@@ -1,27 +1,42 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import PostPreview from '../../components/PostPreview.astro';
+import PostCard from '../../components/PostCard.astro';
+import '../../styles/components/blog.scss';
 import { t } from '../../i18n/utils';
 import { getCollection } from 'astro:content';
 import { sortPostsByDate } from '../../utils/posts';
 
 const tr = t('es');
 const posts = sortPostsByDate(await getCollection('posts', ({ data }) => data.locale === 'es'));
+
+// One half of the marquee; rendered twice for a seamless loop
+const tickerHalf = Array.from({ length: 6 }, (_, i) =>
+	i % 2 === 0 ? tr.posts.ticker : tr.posts.tickerAlt,
+);
+const ticker = [...tickerHalf, ...tickerHalf];
 ---
 
 <BaseLayout
-	title="Todas las publicaciones"
+	title="Blog"
 	description="Artículos y notas de Leunel Aquino sobre LLMs, RAG, agentes, embeddings, transformers y desarrollo de software."
 >
+	<div class="blog-ticker">
+		<div class="blog-ticker__track">
+			{ticker.map((word) => <span class="blog-ticker__item">{word} &bull;</span>)}
+		</div>
+	</div>
 	<main class="container">
-		<div class="content-wrapper">
-			<h2 class="page-title">{tr.posts.title}</h2>
-			{posts.map((post) => (
-				<PostPreview
+		<h1 class="blog-title">{tr.posts.title}</h1>
+		<p class="blog-subtitle">{tr.posts.ticker} &middot; {tr.posts.tickerAlt}</p>
+		<div class="blog-grid">
+			{posts.map((post, i) => (
+				<PostCard
 					title={post.data.title}
-					content={post.data.description}
+					description={post.data.description}
 					date={`${tr.posts.postedOn} ${post.data.date}`}
 					href={`/es/posts/${post.data.slug}`}
+					cover={post.data.cover}
+					index={i}
 				/>
 			))}
 		</div>

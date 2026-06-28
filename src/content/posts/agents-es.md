@@ -1,6 +1,7 @@
 ---
 title: "¿Qué son los Agentes de IA?"
 date: "16 de Junio, 2026"
+cover: "/posts/agents.webp"
 description: "Una introducción a los agentes de IA: LLMs que pueden planificar, usar herramientas y actuar en un bucle para lograr objetivos en lugar de solo responder a un prompt."
 locale: "es"
 slug: "agents"

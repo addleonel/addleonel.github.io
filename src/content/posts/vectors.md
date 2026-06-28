@@ -1,6 +1,7 @@
 ---
 title: "Vectors and Vector Databases"
 date: "June 13, 2026"
+cover: "/posts/vectors.webp"
 description: "Vectors are how AI represents data numerically, and vector databases let you search millions of them by similarity — the storage layer behind RAG."
 locale: "en"
 slug: "vectors"

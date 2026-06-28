@@ -12,14 +12,20 @@ export const translations = {
 			allPosts: 'All posts',
 			featuredProjects: 'Featured Projects',
 			allProjects: 'All projects',
+			greeting: "Hi, I'm",
+			role: 'Software developer and Industrial Engineering student with experience in Data Science and Artificial Intelligence.',
+			conceptSpace: 'Concept Space',
+			conceptSpaceHint: 'Drag to rotate · click a node to read the post',
 		},
 		about: {
 			title: 'About',
 			bio: 'Hi, my name is Leunel, I am a software developer. LLMs, RAG, and Agents.',
 		},
 		posts: {
-			title: 'All Publications',
+			title: 'Blog',
 			postedOn: 'Published On',
+			ticker: 'Articles',
+			tickerAlt: 'Recent Articles',
 		},
 		projects: {
 			title: 'Projects',
@@ -43,14 +49,20 @@ export const translations = {
 			allPosts: 'Todos los posts',
 			featuredProjects: 'Proyectos Destacados',
 			allProjects: 'Todos los proyectos',
+			greeting: 'Hola, soy',
+			role: 'Desarrollador de software y estudiante de Ingeniería Industrial con experiencia en Ciencia de Datos e Inteligencia Artificial.',
+			conceptSpace: 'Espacio de Conceptos',
+			conceptSpaceHint: 'Arrastra para rotar · haz clic en un nodo para leer el post',
 		},
 		about: {
 			title: 'Acerca de mi',
 			bio: 'Hola, mi nombre es Leunel, soy desarrollador de software. LLMs, RAG, y Agentes.',
 		},
 		posts: {
-			title: 'Todas las Publicaciones',
+			title: 'Blog',
 			postedOn: 'Publicado el',
+			ticker: 'Artículos',
+			tickerAlt: 'Publicaciones Recientes',
 		},
 		projects: {
 			title: 'Proyectos',

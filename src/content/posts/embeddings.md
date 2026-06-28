@@ -1,6 +1,7 @@
 ---
 title: "What are Embeddings?"
 date: "June 15, 2026"
+cover: "/posts/embeddings.webp"
 description: "Embeddings turn text, images and other data into vectors that capture meaning, making semantic search and RAG possible."
 locale: "en"
 slug: "embeddings"

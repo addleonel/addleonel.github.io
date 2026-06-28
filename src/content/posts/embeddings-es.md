@@ -1,6 +1,7 @@
 ---
 title: "¿Qué son los Embeddings?"
 date: "15 de Junio, 2026"
+cover: "/posts/embeddings.webp"
 description: "Los embeddings convierten texto, imágenes y otros datos en vectores que capturan el significado, haciendo posible la búsqueda semántica y RAG."
 locale: "es"
 slug: "embeddings"

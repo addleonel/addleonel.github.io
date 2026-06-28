@@ -1,0 +1,227 @@
+---
+import '../styles/components/hero-fragments.scss';
+import { t, type Locale } from '../i18n/utils';
+
+interface Props {
+	locale?: Locale;
+}
+
+const { locale = 'en' } = Astro.props;
+const tr = t(locale);
+const prefix = locale === 'en' ? '' : '/es';
+
+const concepts = [
+	{ label: 'LLMs', slug: 'llms' },
+	{ label: 'RAG', slug: 'rag' },
+	{ label: 'Agents', slug: 'agents' },
+	{ label: 'Embeddings', slug: 'embeddings' },
+	{ label: 'Transformers', slug: 'transformers' },
+	{ label: 'Vectors', slug: 'vectors' },
+];
+---
+
+<section class="hero-fragments">
+	<div class="hero-fragments__intro">
+		<p class="hero-fragments__hi">{tr.home.greeting}</p>
+		<h1 class="hero-fragments__name">Leunel</h1>
+		<p class="hero-fragments__role">{tr.home.role}</p>
+		<ul class="hero-fragments__chips">
+			{concepts.map((c) => (
+				<li><a href={`${prefix}/posts/${c.slug}/`}>{c.label}</a></li>
+			))}
+		</ul>
+	</div>
+	<div class="hero-fragments__stage" id="hero-fragments" aria-hidden="true"></div>
+</section>
+
+<script>
+import * as THREE from 'three';
+import { RoundedBoxGeometry } from 'three/examples/jsm/geometries/RoundedBoxGeometry.js';
+
+const container = document.getElementById('hero-fragments');
+if (container) {
+	const width = container.clientWidth || 1;
+	const height = container.clientHeight || 1;
+
+	const scene = new THREE.Scene();
+	const camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 100);
+	camera.position.set(0, 0, 6);
+
+	let renderer: THREE.WebGLRenderer;
+	try {
+		renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+	} catch (e) {
+		throw e;
+	}
+	renderer.setSize(width, height);
+	renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+	container.appendChild(renderer.domElement);
+
+	// Lighting for soft gloss on the blocks
+	scene.add(new THREE.HemisphereLight(0xffffff, 0x404060, 1.1));
+	const key = new THREE.DirectionalLight(0xffffff, 1.6);
+	key.position.set(4, 6, 5);
+	scene.add(key);
+	const rim = new THREE.DirectionalLight(0xffffff, 0.6);
+	rim.position.set(-5, -2, -4);
+	scene.add(rim);
+
+	function palette() {
+		const s = getComputedStyle(document.documentElement);
+		const v = (n: string, f: string) => (s.getPropertyValue(n).trim() || f);
+		return {
+			accent: v('--accent', '#1566d6'),
+			accent2: v('--accent-2', '#7c5cff'),
+			ink: v('--fg', '#0a0a0a'),
+			cream: v('--card-bg', '#ffffff'),
+			yellow: '#f4b400',
+			red: '#e0301e',
+		} as Record<string, string>;
+	}
+
+	// 3x3x3 grid of rounded cubes that assemble into one big cube
+	const SPACING = 0.78;
+	const SIZE = 0.7;
+	const SPREAD = 1.2; // how far fragments fly out on hover
+	const geo = new RoundedBoxGeometry(SIZE, SIZE, SIZE, 4, 0.12);
+
+	const roleKeys = ['accent', 'cream', 'accent2', 'ink', 'accent', 'yellow', 'accent2', 'accent', 'cream', 'ink', 'accent', 'accent2', 'red', 'accent', 'cream', 'accent2', 'accent', 'ink', 'yellow', 'accent', 'accent2', 'cream', 'accent', 'ink', 'accent2', 'accent', 'cream'];
+
+	interface Frag {
+		mesh: THREE.Mesh;
+		base: THREE.Vector3;
+		dir: THREE.Vector3;
+		spin: THREE.Vector3;
+		role: string;
+	}
+	const frags: Frag[] = [];
+	const group = new THREE.Group();
+	scene.add(group);
+
+	let idx = 0;
+	for (let x = -1; x <= 1; x++) {
+		for (let y = -1; y <= 1; y++) {
+			for (let z = -1; z <= 1; z++) {
+				const mat = new THREE.MeshStandardMaterial({ color: 0xffffff, metalness: 0.15, roughness: 0.4 });
+				const mesh = new THREE.Mesh(geo, mat);
+				const base = new THREE.Vector3(x * SPACING, y * SPACING, z * SPACING);
+				mesh.position.copy(base);
+				const dir = base.clone();
+				if (dir.lengthSq() === 0) dir.set(0, 0.001, 0);
+				dir.normalize();
+				group.add(mesh);
+				frags.push({
+					mesh, base, dir,
+					spin: new THREE.Vector3((Math.random() - 0.5), (Math.random() - 0.5), (Math.random() - 0.5)),
+					role: roleKeys[idx % roleKeys.length],
+				});
+				idx++;
+			}
+		}
+	}
+
+	// Inner glow revealed as the cube opens: a point light + emissive core + soft halo
+	function makeGlow() {
+		const c = document.createElement('canvas');
+		c.width = c.height = 128;
+		const g = c.getContext('2d')!;
+		const grad = g.createRadialGradient(64, 64, 0, 64, 64, 64);
+		grad.addColorStop(0, 'rgba(255,255,255,1)');
+		grad.addColorStop(0.45, 'rgba(255,255,255,0.45)');
+		grad.addColorStop(1, 'rgba(255,255,255,0)');
+		g.fillStyle = grad;
+		g.fillRect(0, 0, 128, 128);
+		return new THREE.CanvasTexture(c);
+	}
+
+	const coreLight = new THREE.PointLight(0xffffff, 0, 6, 2);
+	group.add(coreLight);
+	const coreMat = new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0 });
+	const coreMesh = new THREE.Mesh(new THREE.SphereGeometry(0.24, 24, 24), coreMat);
+	group.add(coreMesh);
+	const glowMat = new THREE.SpriteMaterial({ map: makeGlow(), color: 0xffffff, transparent: true, opacity: 0, blending: THREE.AdditiveBlending, depthWrite: false });
+	const glow = new THREE.Sprite(glowMat);
+	group.add(glow);
+
+	function applyColors() {
+		const p = palette();
+		frags.forEach((f) => {
+			(f.mesh.material as THREE.MeshStandardMaterial).color.set(p[f.role] || p.accent);
+		});
+		// White inner glow
+		coreLight.color.set(0xffffff);
+		coreMat.color.set(0xffffff);
+		glowMat.color.set(0xffffff);
+	}
+	applyColors();
+
+	const observer = new MutationObserver(applyColors);
+	observer.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+
+	// Interaction state
+	const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+	const isTouch = window.matchMedia('(hover: none)').matches;
+	let explode = 0;          // current eased explosion 0..1
+	let targetExplode = 0;    // hover target
+	const parallax = { x: 0, y: 0, tx: 0, ty: 0 };
+
+	renderer.domElement.addEventListener('pointerenter', () => { if (!isTouch) targetExplode = 1; });
+	renderer.domElement.addEventListener('pointerleave', () => { targetExplode = 0; parallax.tx = 0; parallax.ty = 0; });
+	renderer.domElement.addEventListener('pointermove', (e) => {
+		const r = renderer.domElement.getBoundingClientRect();
+		parallax.tx = (((e.clientX - r.left) / r.width) * 2 - 1) * 0.5;
+		parallax.ty = (((e.clientY - r.top) / r.height) * 2 - 1) * 0.5;
+	});
+
+	const clock = new THREE.Clock();
+
+	function animate() {
+		requestAnimationFrame(animate);
+		const dt = Math.min(clock.getDelta(), 0.05);
+		const tm = clock.elapsedTime;
+
+		// On touch devices, gently pulse the explosion so the effect is visible
+		if (isTouch) targetExplode = (Math.sin(tm * 0.7) * 0.5 + 0.5) * 0.85;
+
+		explode += (targetExplode - explode) * Math.min(1, dt * 6);
+		parallax.x += (parallax.tx - parallax.x) * 0.08;
+		parallax.y += (parallax.ty - parallax.y) * 0.08;
+
+		if (!reduceMotion) group.rotation.y += dt * 0.35;
+		group.rotation.x = parallax.y * 0.5 + (reduceMotion ? 0 : Math.sin(tm * 0.4) * 0.08);
+		group.rotation.y += parallax.x * 0.02;
+
+		const e = explode;
+		const eo = e * e * (3 - 2 * e); // smoothstep
+		frags.forEach((f) => {
+			f.mesh.position.copy(f.base).addScaledVector(f.dir, eo * SPREAD);
+			const r = eo * Math.PI * 0.6;
+			f.mesh.rotation.set(f.spin.x * r, f.spin.y * r, f.spin.z * r);
+			f.mesh.scale.setScalar(1 - eo * 0.12);
+		});
+
+		// Subtle interior glow — faint when closed, brighter as fragments part
+		const pulse = reduceMotion ? 1 : 0.92 + Math.sin(tm * 2.2) * 0.08;
+		coreLight.intensity = (0.1 + eo * 1.5) * pulse;
+		coreMat.opacity = 0.12 + eo * 0.5;
+		coreMesh.scale.setScalar((0.5 + eo * 0.7) * pulse);
+		glowMat.opacity = eo * 0.45 * pulse;
+		glow.scale.setScalar(1.3 + eo * 1.9);
+
+		renderer.render(scene, camera);
+	}
+	animate();
+
+	function resize() {
+		const w = container.clientWidth || 1;
+		const h = container.clientHeight || 1;
+		camera.aspect = w / h;
+		// pull the camera back so the explosion stays within the frame
+		camera.position.z = w / h < 1 ? 7.6 : 6.6;
+		camera.updateProjectionMatrix();
+		renderer.setSize(w, h);
+	}
+	resize();
+	window.addEventListener('resize', resize);
+}
+</script>

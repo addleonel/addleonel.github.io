@@ -1,6 +1,7 @@
 ---
 title: "What are LLMs?"
 date: "June 18, 2026"
+cover: "/posts/llms.webp"
 description: "A short introduction to Large Language Models: what they are, how they are trained, and why they have become the backbone of modern AI applications."
 locale: "en"
 slug: "llms"

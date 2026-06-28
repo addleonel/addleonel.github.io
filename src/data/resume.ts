@@ -208,7 +208,7 @@ export const projects: Project[] = [
 		},
 		tech: ['Python', 'Flask', 'Pandas', 'Matplotlib', 'OpenAI/DeepSeek'],
 		url: 'https://github.com/addleonel/ventas.ai',
-		image: '/projects/ventas-ai.png',
+		image: '/projects/ventas-ai.webp',
 	},
 	{
 		name: 'ANPR-Arduino',
@@ -219,7 +219,7 @@ export const projects: Project[] = [
 		},
 		tech: ['Python', 'Django', 'Tesseract OCR', 'Arduino / IoT'],
 		url: 'https://github.com/addleonel/ANPR-Arduino',
-		image: '/projects/anpr-arduino.png',
+		image: '/projects/anpr-arduino.webp',
 		stars: 14,
 	},
 	{
@@ -231,7 +231,7 @@ export const projects: Project[] = [
 		},
 		tech: ['Python', 'Django', 'JavaScript', 'Docker', 'DigitalOcean'],
 		url: 'https://github.com/addleonel/coddinang',
-		image: '/projects/coddinang.png',
+		image: '/projects/coddinang.webp',
 	},
 	{
 		name: 'yomismo.ia',
@@ -242,6 +242,6 @@ export const projects: Project[] = [
 		},
 		tech: ['Next.js', 'React', 'TypeScript', 'Supabase', 'DeepSeek'],
 		url: 'https://github.com/addleonel/yomismo.ia',
-		image: '/projects/yomismo-ia.png',
+		image: '/projects/yomismo-ia.webp',
 	},
 ];

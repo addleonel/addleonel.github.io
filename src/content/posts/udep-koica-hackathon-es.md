@@ -1,6 +1,7 @@
 ---
 title: "Hackathon de Innovación de la Región Norte en UDEP (KOICA)"
 date: "18 de Noviembre, 2023"
+cover: "/posts/udep-koica-hackathon.webp"
 description: "Un resumen rápido del Hackathon de Innovación de la Región Norte organizado por la Universidad de Piura junto a KOICA, donde 30 estudiantes construimos soluciones IoT, inmersivas y móviles para agroindustria, cambio climático y gobernanza."
 locale: "es"
 slug: "udep-koica-hackathon"

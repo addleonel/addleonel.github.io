@@ -1,6 +1,7 @@
 ---
 title: "¿Qué son los Transformers?"
 date: "14 de Junio, 2026"
+cover: "/posts/transformers.webp"
 description: "La arquitectura Transformer y su mecanismo de atención son la base detrás de los LLMs modernos. Aquí va la intuición en términos simples."
 locale: "es"
 slug: "transformers"

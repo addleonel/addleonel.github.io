@@ -1,6 +1,7 @@
 ---
 title: "Vectores y Bases de Datos Vectoriales"
 date: "13 de Junio, 2026"
+cover: "/posts/vectors.webp"
 description: "Los vectores son la forma en que la IA representa datos de manera numérica, y las bases de datos vectoriales permiten buscar millones de ellos por similitud — la capa de almacenamiento detrás de RAG."
 locale: "es"
 slug: "vectors"
