@@ -46,6 +46,9 @@ if (container) {
 	const scene = new THREE.Scene();
 	const camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 100);
 	camera.position.set(0, 0, 6);
+	// Resting camera distance; the camera dollies back as the cube explodes so
+	// the parted fragments never get clipped by the edges of the canvas.
+	let baseZ = 6.6;
 
 	let renderer: THREE.WebGLRenderer;
 	try {
@@ -193,6 +196,10 @@ if (container) {
 
 		const e = explode;
 		const eo = e * e * (3 - 2 * e); // smoothstep
+
+		// Dolly the camera back while exploding so fragments stay inside the frame
+		camera.position.z = baseZ + eo * 1.7;
+
 		frags.forEach((f) => {
 			f.mesh.position.copy(f.base).addScaledVector(f.dir, eo * SPREAD);
 			const r = eo * Math.PI * 0.6;
@@ -216,8 +223,8 @@ if (container) {
 		const w = container.clientWidth || 1;
 		const h = container.clientHeight || 1;
 		camera.aspect = w / h;
-		// pull the camera back so the explosion stays within the frame
-		camera.position.z = w / h < 1 ? 7.6 : 6.6;
+		// Resting distance — taller/narrow frames need a little more room
+		baseZ = w / h < 1 ? 7.6 : 6.6;
 		camera.updateProjectionMatrix();
 		renderer.setSize(w, h);
 	}

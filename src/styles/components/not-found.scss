@@ -1,0 +1,98 @@
+@use '../global' as *;
+
+.nf-ticker {
+	overflow: hidden;
+	border-top: $border;
+	border-bottom: $border;
+	padding: 0.85rem 0;
+	margin-bottom: 3rem;
+	-webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+	mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+}
+
+.nf-ticker__track {
+	display: inline-flex;
+	align-items: center;
+	white-space: nowrap;
+	will-change: transform;
+	animation: nf-ticker-scroll 28s linear infinite;
+}
+
+.nf-ticker__item {
+	font-family: 'Inter', sans-serif;
+	font-weight: 900;
+	font-size: clamp(1.1rem, 2.2vw, 1.6rem);
+	text-transform: uppercase;
+	letter-spacing: 0.02em;
+	color: $fg;
+	opacity: 0.18;
+	padding: 0 1.5rem;
+
+	&:nth-child(even) {
+		color: $accent;
+		opacity: 0.45;
+	}
+}
+
+@keyframes nf-ticker-scroll {
+	from { transform: translateX(0); }
+	to { transform: translateX(-50%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.nf-ticker__track {
+		animation: none;
+	}
+}
+
+.nf {
+	text-align: center;
+	padding: 2rem 0 5rem;
+}
+
+.nf__code {
+	font-size: clamp(5rem, 22vw, 12rem);
+	line-height: 0.9;
+	letter-spacing: -0.05em;
+	margin: 0;
+	background: linear-gradient(135deg, var(--accent), var(--accent-2, #7c5cff));
+	-webkit-background-clip: text;
+	background-clip: text;
+	color: transparent;
+}
+
+.nf__heading {
+	font-size: clamp(1.5rem, 4vw, 2.25rem);
+	letter-spacing: -0.02em;
+	margin: 0.5rem 0 0.75rem;
+}
+
+.nf__message {
+	font-family: 'Space Mono', monospace;
+	font-size: 0.95rem;
+	opacity: 0.65;
+	margin: 0 auto 2rem;
+	max-width: 44ch;
+}
+
+.nf__home {
+	display: inline-block;
+	font-family: 'Space Mono', monospace;
+	font-weight: 700;
+	font-size: 1rem;
+	text-transform: uppercase;
+	letter-spacing: 0.05em;
+	text-decoration: none;
+	color: #fff;
+	background: $accent;
+	border: $border;
+	border-color: transparent;
+	border-radius: var(--radius-pill);
+	padding: 0.85rem 2rem;
+	transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+	&:hover {
+		transform: translateY(-3px);
+		box-shadow: var(--shadow-pop);
+	}
+}

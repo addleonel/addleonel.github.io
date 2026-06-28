@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://addleonel.github.io/sitemap-index.xml
+Sitemap: https://www.leunel.com/sitemap-index.xml

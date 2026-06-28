@@ -1,0 +1,54 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { t } from '../i18n/utils';
+import '../styles/components/not-found.scss';
+
+const en = t('en').notFound;
+const es = t('es').notFound;
+
+// One half of the marquee; rendered twice for a seamless loop
+const tickerHalf = Array.from({ length: 6 }, (_, i) =>
+	i % 2 === 0 ? en.ticker : en.tickerAlt,
+);
+const ticker = [...tickerHalf, ...tickerHalf];
+---
+
+<BaseLayout title="404" description="Page not found." noindex>
+	<div class="nf-ticker">
+		<div class="nf-ticker__track">
+			{ticker.map((word) => <span class="nf-ticker__item">{word} &bull;</span>)}
+		</div>
+	</div>
+	<main class="container nf">
+		<p class="nf__code">404</p>
+		<h1
+			class="nf__heading"
+			data-en={en.heading}
+			data-es={es.heading}
+		>{en.heading}</h1>
+		<p
+			class="nf__message"
+			data-en={en.message}
+			data-es={es.message}
+		>{en.message}</p>
+		<a
+			class="nf__home"
+			href="/"
+			data-en={en.home}
+			data-es={es.home}
+		>{en.home}</a>
+	</main>
+</BaseLayout>
+
+<script>
+	// 404.html is served for any unknown path, so localize at runtime: if the
+	// visitor was heading to an /es/ URL, swap the copy and the home link to ES.
+	if (location.pathname.startsWith('/es')) {
+		document.documentElement.lang = 'es';
+		document.querySelectorAll<HTMLElement>('[data-es]').forEach((el) => {
+			el.textContent = el.dataset.es ?? el.textContent;
+		});
+		const home = document.querySelector<HTMLAnchorElement>('.nf__home');
+		if (home) home.href = '/es/';
+	}
+</script>

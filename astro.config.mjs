@@ -3,7 +3,7 @@ import react from '@astrojs/react';
 import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
-	site: 'https://addleonel.github.io',
+	site: 'https://www.leunel.com',
 	output: 'static',
 	integrations: [react(), sitemap()],
 	vite: {
