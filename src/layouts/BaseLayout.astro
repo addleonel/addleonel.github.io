@@ -16,7 +16,7 @@ interface Props {
 }
 
 const SITE_NAME = 'Leunel';
-const DEFAULT_KEYWORDS = 'LLMs, RAG, Agents, embeddings, transformers, AI, machine learning, deep learning, software development';
+const DEFAULT_KEYWORDS = 'Leunel, Leunel Aquino, Leunel Aquino Davila, addleonel, leunel.com, LLMs, RAG, Agents, embeddings, transformers, AI, machine learning, deep learning, software development';
 
 const {
 	title,
@@ -35,6 +35,7 @@ const ogLocale = locale === 'en' ? 'en_US' : 'es_ES';
 const alternatePath = switchLocalePath(Astro.url.pathname);
 const alternateURL = new URL(alternatePath, Astro.site);
 const ogImageURL = new URL(image, Astro.site);
+const rssPath = locale === 'en' ? '/rss.xml' : '/es/rss.xml';
 
 // Title: append the site name unless it's already part of the page title.
 const fullTitle = title.includes(SITE_NAME) ? title : `${title} · ${SITE_NAME}`;
@@ -76,8 +77,16 @@ const structuredData = [websiteLd, personLd, ...(jsonLd ? (Array.isArray(jsonLd)
 		<meta name="description" content={description} />
 		<meta name="author" content="Leunel Aquino Davila" />
 		<meta name="generator" content={Astro.generator} />
-		<meta name="theme-color" content="#1566d6" />
+		<meta name="theme-color" content="#f5f0e8" media="(prefers-color-scheme: light)" />
+		<meta name="theme-color" content="#111111" media="(prefers-color-scheme: dark)" />
 		<meta name="keywords" content={keywords} />
+
+		<!-- Mobile / PWA -->
+		<meta name="mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="default" />
+		<meta name="apple-mobile-web-app-title" content="Leunel" />
+		<meta name="format-detection" content="telephone=no" />
 		<meta name="robots" content={noindex ? 'noindex, nofollow' : 'index, follow'} />
 		<meta name="googlebot" content={noindex ? 'noindex, nofollow' : 'index, follow'} />
 
@@ -87,10 +96,15 @@ const structuredData = [websiteLd, personLd, ...(jsonLd ? (Array.isArray(jsonLd)
 		<link rel="alternate" hreflang={locale === 'en' ? 'es' : 'en'} href={alternateURL.href} />
 		<link rel="alternate" hreflang="x-default" href={new URL(locale === 'en' ? Astro.url.pathname : alternatePath, Astro.site).href} />
 
-		<!-- Favicon -->
+		<!-- Favicon & app icons -->
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png" />
 		<link rel="icon" type="image/x-icon" href="/favicon.ico" />
+		<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
 		<link rel="manifest" href="/manifest.json" />
+
+		<!-- RSS feed -->
+		<link rel="alternate" type="application/rss+xml" title="Leunel — Blog" href={rssPath} />
 
 		<!-- Open Graph -->
 		<meta property="og:type" content={type} />
@@ -98,6 +112,7 @@ const structuredData = [websiteLd, personLd, ...(jsonLd ? (Array.isArray(jsonLd)
 		<meta property="og:title" content={fullTitle} />
 		<meta property="og:description" content={description} />
 		<meta property="og:image" content={ogImageURL.href} />
+		<meta property="og:image:type" content="image/png" />
 		<meta property="og:image:alt" content={title} />
 		<meta property="og:image:width" content="1200" />
 		<meta property="og:image:height" content="630" />
