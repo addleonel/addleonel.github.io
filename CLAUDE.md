@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Personal blog/portfolio site built with Astro, TypeScript, and SCSS. Subtle neo-brutalist design — soft hairline borders, rounded corners and light liquid-glass touches — with dark/light theme support and i18n (EN/ES). Uses React only for the interactive Personal Dashboard (KaTeX + custom SVG charts). Deployed to GitHub Pages at addleonel.github.io via GitHub Actions.
+Personal blog/portfolio site built with Astro, TypeScript, and SCSS. Subtle neo-brutalist design — soft hairline borders, rounded corners and light liquid-glass touches — with dark/light theme support and i18n (EN/ES). Uses React only for the interactive Personal Dashboard (KaTeX + custom SVG charts). Deployed to GitHub Pages via GitHub Actions, served from the custom domain `www.leunel.com` (`public/CNAME`). Social handle across networks is `addleonel`.
 
 ## Commands
 
@@ -16,12 +16,13 @@ Personal blog/portfolio site built with Astro, TypeScript, and SCSS. Subtle neo-
 
 - **Framework:** Astro v6 with static output, Node.js >= 22
 - **Layout:** `src/layouts/BaseLayout.astro` — wraps all pages with Header, Footer, and SEO meta tags
-- **Pages:** `src/pages/` — EN at root (`/`), ES at `/es/`. Includes `index.astro`, `about.astro`, `posts.astro`, `projects.astro`, `contact.astro`, `personal.astro`, `neuroemociones.astro`, `posts/[slug].astro`. Nav order: Home, Blog, Projects, About, Contact — the "Blog" item routes to `/posts/` (label only; routes are still `/posts/`)
+- **Pages:** `src/pages/` — EN at root (`/`), ES at `/es/`. Includes `index.astro`, `about.astro`, `posts.astro`, `projects.astro`, `contact.astro`, `personal.astro`, `neuroemociones.astro`, `posts/[slug].astro`, `404.astro` (localized, served as `404.html`), and `rss.xml.ts` (+ `es/rss.xml.ts`) blog feeds via `@astrojs/rss`. Nav order: Home, Blog, Projects, About, Contact — the "Blog" item routes to `/posts/` (label only; routes are still `/posts/`)
+- **Contact form:** `contact.astro` posts to FormSubmit.co (`https://formsubmit.co/ajax/<email>`) — no backend; first submission requires email activation
 - **Components:** `src/components/` — `Header.astro`, `Footer.astro`, `PostPreview.astro`, `Resume.astro`, `Projects.astro` (full grid, used on `/projects`), `FeaturedProjects.astro` (image-led home showcase of curated projects), `VectorSpace.astro` (Three.js), `ThemeToggle.astro`, `LanguageSwitcher.astro`, `PersonalDashboard.tsx` (React, loaded with `client:load`). Project data lives in `src/data/resume.ts`
 - **Content:** Blog posts in `src/content/posts/` as Markdown with frontmatter (locale + slug fields). Content config in `src/content.config.ts`
 - **i18n:** Translation files in `src/i18n/`. Path-based routing: `/` for EN, `/es/` for ES
 - **Styles:** SCSS files in `src/styles/` with `global.scss` and per-component styles in `src/styles/components/`. `global.scss` defines design tokens as CSS custom properties for dark/light theming: colors (`--accent` plus `--accent-2`/`--accent-warm`/`--accent-soft`), borders (`--border-color` hairline), radius scale (`--radius-sm/md/lg/pill`) and soft shadows (`--shadow-soft`/`--shadow-pop`)
-- **Static assets:** `public/` (favicon.svg, favicon.ico, og_image.png, robots.txt, manifest.json, `projects/` screenshots)
+- **Static assets:** `public/` (favicon.svg, favicon.ico, app icons `favicon-96.png`/`apple-touch-icon.png`/`icon-192.png`/`icon-512.png`/`icon-maskable-512.png`, og_image.png, robots.txt, manifest.json, `CNAME`, `projects/` screenshots). App icons are regenerated from `favicon.svg` via `node scripts/generate-icons.mjs` (uses `sharp`)
 
 ## Key Details
 
@@ -32,6 +33,7 @@ Personal blog/portfolio site built with Astro, TypeScript, and SCSS. Subtle neo-
 - Uses KaTeX (react-katex) for math rendering in the Personal Dashboard React component
 - Blog posts use native Markdown code blocks (no react-code-blocks)
 - `@astrojs/react` integration for interactive React islands
-- `@astrojs/sitemap` generates sitemap automatically
+- `@astrojs/sitemap` configured in `astro.config.mjs` with i18n hreflang (EN `en-US` / ES `es-ES`), `lastmod`/`changefreq`/`priority`, and a filter excluding the noindex `/404`
+- SEO lives in `BaseLayout.astro`: canonical + hreflang alternates, OG/Twitter, JSON-LD (WebSite/Person; BlogPosting on post pages), app icons, light/dark `theme-color`, and RSS autodiscovery links
 - GitHub Actions workflow in `.github/workflows/deploy.yml` deploys on push to `main`
 - Git branching: `main` is the production branch, `develop` is the active development branch
