@@ -8,16 +8,6 @@ interface Props {
 
 const { locale = 'en' } = Astro.props;
 const tr = t(locale);
-const prefix = locale === 'en' ? '' : '/es';
-
-const concepts = [
-	{ label: 'LLMs', slug: 'llms' },
-	{ label: 'RAG', slug: 'rag' },
-	{ label: 'Agents', slug: 'agents' },
-	{ label: 'Embeddings', slug: 'embeddings' },
-	{ label: 'Transformers', slug: 'transformers' },
-	{ label: 'Vectors', slug: 'vectors' },
-];
 ---
 
 <section class="hero-fragments">
@@ -25,11 +15,6 @@ const concepts = [
 		<p class="hero-fragments__hi">{tr.home.greeting}</p>
 		<h1 class="hero-fragments__name">Leunel</h1>
 		<p class="hero-fragments__role">{tr.home.role}</p>
-		<ul class="hero-fragments__chips">
-			{concepts.map((c) => (
-				<li><a href={`${prefix}/posts/${c.slug}/`}>{c.label}</a></li>
-			))}
-		</ul>
 	</div>
 	<div class="hero-fragments__stage" id="hero-fragments" aria-hidden="true"></div>
 </section>

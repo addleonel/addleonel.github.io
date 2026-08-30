@@ -25,7 +25,7 @@
 }
 
 .hero-fragments__name {
-	font-size: clamp(2.4rem, 6vw, 4rem);
+	font-size: clamp(1.9rem, 4.2vw, 2.9rem);
 	letter-spacing: -0.04em;
 	margin: 0;
 	line-height: 0.95;
@@ -38,35 +38,6 @@
 	opacity: 0.75;
 	margin: 1rem 0 1.75rem;
 	max-width: 42ch;
-}
-
-.hero-fragments__chips {
-	list-style: none;
-	display: flex;
-	flex-wrap: wrap;
-	gap: 0.5rem;
-	padding: 0;
-	margin: 0;
-
-	a {
-		display: inline-block;
-		font-family: 'Space Mono', monospace;
-		font-weight: 700;
-		font-size: 0.75rem;
-		text-transform: uppercase;
-		letter-spacing: 0.04em;
-		padding: 0.4rem 0.85rem;
-		border-radius: var(--radius-pill);
-		border: $border;
-		color: $fg;
-		transition: background 0.18s ease, color 0.18s ease, border-color 0.18s ease;
-
-		&:hover {
-			background: var(--accent);
-			color: #fff;
-			border-color: transparent;
-		}
-	}
 }
 
 .hero-fragments__stage {
