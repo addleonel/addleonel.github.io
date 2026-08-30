@@ -1,6 +1,7 @@
 import { defineConfig } from 'astro/config';
 import react from '@astrojs/react';
 import sitemap from '@astrojs/sitemap';
+import modulePreload from './integrations/modulepreload.mjs';
 
 export default defineConfig({
 	site: 'https://www.leunel.com',
@@ -22,6 +23,9 @@ export default defineConfig({
 				return item;
 			},
 		}),
+		// Inject <link rel="modulepreload"> for the chunks each page script
+		// statically imports, so Three.js is not discovered a round trip late.
+		modulePreload(),
 	],
 	vite: {
 		css: {

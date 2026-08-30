@@ -16,7 +16,9 @@ const tr = t(locale);
 		<h1 class="hero-fragments__name">Leunel</h1>
 		<p class="hero-fragments__role">{tr.home.role}</p>
 	</div>
-	<div class="hero-fragments__stage" id="hero-fragments" aria-hidden="true"></div>
+	<div class="hero-fragments__stage" id="hero-fragments" aria-hidden="true">
+		<div class="hero-fragments__placeholder"></div>
+	</div>
 </section>
 
 <script>
@@ -162,6 +164,7 @@ if (container) {
 	});
 
 	const clock = new THREE.Clock();
+	let ready = false;
 
 	function animate() {
 		requestAnimationFrame(animate);
@@ -201,6 +204,12 @@ if (container) {
 		glow.scale.setScalar(1.3 + eo * 1.9);
 
 		renderer.render(scene, camera);
+
+		// Fade the placeholder out once there is a real frame to look at.
+		if (!ready) {
+			ready = true;
+			container.classList.add('is-ready');
+		}
 	}
 	animate();
 

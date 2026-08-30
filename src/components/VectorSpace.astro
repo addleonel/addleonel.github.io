@@ -17,6 +17,20 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 
 const container = document.getElementById('vector-space');
 if (container) {
+	// The vector space sits at the bottom of the home page. Hold off on the
+	// WebGL context, geometry and render loop until it is about to scroll into
+	// view, so it does not compete with the hero for the main thread on load.
+	await new Promise<void>((resolve) => {
+		if (!('IntersectionObserver' in window)) return resolve();
+		const io = new IntersectionObserver((entries) => {
+			if (entries.some((e) => e.isIntersecting)) {
+				io.disconnect();
+				resolve();
+			}
+		}, { rootMargin: '300px' });
+		io.observe(container);
+	});
+
 	const width = container.clientWidth;
 	const height = container.clientHeight;
 
