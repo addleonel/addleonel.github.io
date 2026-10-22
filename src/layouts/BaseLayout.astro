@@ -77,8 +77,8 @@ const structuredData = [websiteLd, personLd, ...(jsonLd ? (Array.isArray(jsonLd)
 		<meta name="description" content={description} />
 		<meta name="author" content="Leunel Aquino Davila" />
 		<meta name="generator" content={Astro.generator} />
-		<meta name="theme-color" content="#f5f0e8" media="(prefers-color-scheme: light)" />
-		<meta name="theme-color" content="#111111" media="(prefers-color-scheme: dark)" />
+		<meta name="theme-color" content="#1c1d20" media="(prefers-color-scheme: light)" />
+		<meta name="theme-color" content="#1c1d20" media="(prefers-color-scheme: dark)" />
 		<meta name="keywords" content={keywords} />
 
 		<!-- Mobile / PWA -->
@@ -141,7 +141,7 @@ const structuredData = [websiteLd, personLd, ...(jsonLd ? (Array.isArray(jsonLd)
 		<!-- Theme script (prevent FOUC) -->
 		<script is:inline>
 			(function() {
-				var stored = localStorage.getItem('theme') || 'system';
+				var stored = localStorage.getItem('theme') || 'dark';
 				var theme = stored;
 				if (stored === 'system') {
 					theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
@@ -156,5 +156,9 @@ const structuredData = [websiteLd, personLd, ...(jsonLd ? (Array.isArray(jsonLd)
 			<slot />
 		</div>
 		<Footer />
+		<script>
+			import { initCmdButtons } from '../utils/cmd-button';
+			initCmdButtons();
+		</script>
 	</body>
 </html>

@@ -7,22 +7,18 @@ interface Props {
 	date: string;
 	href: string;
 	cover?: string;
-	index?: number;
 }
 
-const { title, description, date, href, cover, index = 0 } = Astro.props;
-// Rotate through accent tints for the placeholder / overlay when there is no cover
-const tints = ['var(--accent-soft)', 'rgba(124, 92, 255, 0.14)', 'rgba(255, 138, 61, 0.14)'];
-const tint = tints[index % tints.length];
+const { title, description, date, href, cover } = Astro.props;
 ---
 
 <article class="post-card">
 	<a class="post-card__link" href={href}>
-		<div class="post-card__media" style={`--tint:${tint}`}>
+		<div class="post-card__media">
 			{cover ? (
 				<img src={cover} alt={title} loading="lazy" />
 			) : (
-				<span class="post-card__placeholder">{title.charAt(0)}</span>
+				<span class="post-card__placeholder" aria-hidden="true">{title.charAt(0)}</span>
 			)}
 		</div>
 		<div class="post-card__body">

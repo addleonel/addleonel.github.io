@@ -20,31 +20,73 @@ const featured = featuredNames
 ---
 
 <section class="featured-projects">
-	<p class="last-posts">{tr.home.featuredProjects}</p>
-	<div class="feature-list">
+	<p class="section-label">{tr.home.featuredProjects}</p>
+
+	<!-- Unfolding index: one row is open at a time; hover/focus opens a row,
+	     on touch the first tap opens it and the second follows the link -->
+	<ul class="work-index" data-work-index>
 		{featured.map((p, i) => (
-			<article class={`feature ${i % 2 === 1 ? 'feature--reverse' : ''}`}>
-				<a class="feature__media" href={p.url} target="_blank" rel="noopener noreferrer" aria-label={p.name}>
-					<img src={p.image} alt={`${p.name} — ${p.tagline[locale]}`} loading="lazy" />
+			<li class:list={['work-item', { 'is-open': i === 0 }]}>
+				<a class="work-item__head" href={p.url} target="_blank" rel="noopener noreferrer" aria-expanded={i === 0 ? 'true' : 'false'}>
+					<span class="work-item__num">{String(i + 1).padStart(2, '0')}</span>
+					<h3 class="work-item__name">{p.name}</h3>
+					<span class="work-item__tag">{p.tagline[locale]}</span>
+					<span class="work-item__arrow" aria-hidden="true">&#8599;</span>
 				</a>
-				<div class="feature__body">
-					<div class="feature__head">
-						<h3 class="feature__name">{p.name}</h3>
-						{p.stars && <span class="feature__stars">&#9733; {p.stars}</span>}
+				<div class="work-item__body">
+					<div class="work-item__inner">
+						<div class="work-item__text">
+							<p class="work-item__desc">{p.description[locale]}</p>
+							<ul class="work-item__tech">
+								{p.tech.map((tech) => <li>{tech}</li>)}
+							</ul>
+							<a class="pill" href={p.url} target="_blank" rel="noopener noreferrer" tabindex="-1">
+								{viewLabel} <span aria-hidden="true">&rarr;</span>
+							</a>
+						</div>
+						<a class="work-item__media" href={p.url} target="_blank" rel="noopener noreferrer" tabindex="-1" aria-hidden="true">
+							<img src={p.image} alt="" loading="lazy" />
+							<span class="work-item__scan"></span>
+						</a>
 					</div>
-					<p class="feature__tagline">{p.tagline[locale]}</p>
-					<p class="feature__desc">{p.description[locale]}</p>
-					<ul class="feature__tech">
-						{p.tech.map((tech) => <li>{tech}</li>)}
-					</ul>
-					<a class="feature__link" href={p.url} target="_blank" rel="noopener noreferrer">
-						{viewLabel} &rarr;
-					</a>
 				</div>
-			</article>
+			</li>
 		))}
-	</div>
-	<div class="featured-projects__more">
-		<a class="more-post__link" href={`${prefix}/projects/`}>{tr.home.allProjects} &rarr;</a>
-	</div>
+	</ul>
+
+	<a class="pill featured-projects__more" href={`${prefix}/projects/`}>{tr.home.allProjects} <span aria-hidden="true">&rarr;</span></a>
 </section>
+
+<script>
+	document.querySelectorAll<HTMLElement>('[data-work-index]').forEach((list) => {
+		const items = [...list.querySelectorAll<HTMLElement>('.work-item')];
+		const canHover = window.matchMedia('(hover: hover)').matches;
+
+		const open = (item: HTMLElement) => {
+			items.forEach((el) => {
+				const isOpen = el === item;
+				el.classList.toggle('is-open', isOpen);
+				el.querySelector('.work-item__head')?.setAttribute('aria-expanded', String(isOpen));
+				// Links inside a folded row stay out of the tab order
+				el.querySelectorAll<HTMLAnchorElement>('.work-item__body a').forEach((a) => {
+					a.tabIndex = isOpen ? 0 : -1;
+				});
+			});
+		};
+
+		items.forEach((item) => {
+			if (canHover) item.addEventListener('mouseenter', () => open(item));
+			item.addEventListener('focusin', () => open(item));
+			// First tap on a folded row opens it instead of leaving the page
+			item.querySelector('.work-item__head')?.addEventListener('click', (e) => {
+				if (!item.classList.contains('is-open')) {
+					e.preventDefault();
+					open(item);
+				}
+			});
+		});
+
+		const initial = items.find((el) => el.classList.contains('is-open'));
+		if (initial) open(initial);
+	});
+</script>

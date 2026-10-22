@@ -5,20 +5,9 @@ import '../styles/components/not-found.scss';
 
 const en = t('en').notFound;
 const es = t('es').notFound;
-
-// One half of the marquee; rendered twice for a seamless loop
-const tickerHalf = Array.from({ length: 6 }, (_, i) =>
-	i % 2 === 0 ? en.ticker : en.tickerAlt,
-);
-const ticker = [...tickerHalf, ...tickerHalf];
 ---
 
 <BaseLayout title="404" description="Page not found." noindex>
-	<div class="nf-ticker">
-		<div class="nf-ticker__track">
-			{ticker.map((word) => <span class="nf-ticker__item">{word} &bull;</span>)}
-		</div>
-	</div>
 	<main class="container nf">
 		<p class="nf__code">404</p>
 		<h1

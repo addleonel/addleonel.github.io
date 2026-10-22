@@ -2,7 +2,7 @@
 import '../styles/components/header.scss';
 import ThemeToggle from './ThemeToggle.astro';
 import LanguageSwitcher from './LanguageSwitcher.astro';
-import { getLocaleFromPath, t, localizedPath } from '../i18n/utils';
+import { getLocaleFromPath, t } from '../i18n/utils';
 
 interface Props {
 	currentPath: string;
@@ -21,6 +21,19 @@ const links = [
 	{ href: `${prefix}/contact/`, label: tr.nav.contact },
 ];
 
+// The top bar keeps the home link on the brand mark; the menu panel lists every page
+const barLinks = links.slice(1);
+
+const socials = [
+	{ name: 'GitHub', href: 'https://github.com/addleonel' },
+	{ name: 'LinkedIn', href: 'https://www.linkedin.com/in/leunel' },
+	{ name: 'Instagram', href: 'https://www.instagram.com/addleonel/' },
+	{ name: 'YouTube', href: 'https://www.youtube.com/@addleonel' },
+];
+
+const menuLabel = locale === 'es' ? 'Menú' : 'Menu';
+const navigationLabel = locale === 'es' ? 'Navegación' : 'Navigation';
+
 function isActive(linkHref: string, current: string): boolean {
 	if (linkHref === '/' || linkHref === '/es/') {
 		return current === linkHref || current === linkHref.slice(0, -1);
@@ -29,52 +42,95 @@ function isActive(linkHref: string, current: string): boolean {
 }
 ---
 
-<nav id="mainNav">
-	<div class="nav-container">
-		<a class="navbar-brand" href={`${prefix}/`} aria-label="Leunel">
-			<img src="/favicon.svg" alt="Leunel" width="40" height="40" />
-		</a>
-		<button class="navbar-toggler" type="button" aria-label="Toggle navigation">
-			&#9776;
-		</button>
-		<div class="nav-right">
-			<ul class="nav-links">
-				{links.map((link) => {
-					const active = isActive(link.href, currentPath);
-					return (
-						<li>
-							<a
-								class:list={['nav-link', { active }]}
-								href={link.href}
-							>
-								{link.label}
-							</a>
-						</li>
-					);
-				})}
+<header id="mainNav" class="site-header">
+	<a class="brand" href={`${prefix}/`} aria-label="Leunel Aquino — home">
+		<span class="brand__prompt" aria-hidden="true">&gt;</span>
+		<span class="brand__name">leunel</span>
+		<span class="brand__suffix" aria-hidden="true">/aquino</span>
+		<span class="brand__caret" aria-hidden="true"></span>
+		<img class="brand__logo" src="/favicon.svg" alt="" width="30" height="30" />
+	</a>
+	<nav class="site-header__nav" aria-label={navigationLabel}>
+		<ul>
+			{barLinks.map((link) => (
+				<li>
+					<a class:list={['site-header__link', { active: isActive(link.href, currentPath) }]} href={link.href}>
+						{link.label}
+					</a>
+				</li>
+			))}
+		</ul>
+	</nav>
+	<div class="site-header__actions">
+		<ThemeToggle locale={locale} />
+		<LanguageSwitcher currentPath={currentPath} />
+	</div>
+</header>
+
+<button class="menu-fab" type="button" aria-label={menuLabel} aria-expanded="false" aria-controls="menu-panel">
+	<!-- 3×3 dots (the cube's front face); the diagonals become an X when open -->
+	<span class="menu-fab__grid" aria-hidden="true">
+		{Array.from({ length: 9 }, (_, i) => (
+			<span
+				class:list={['menu-fab__dot', { 'menu-fab__dot--diag': i % 2 === 0 }]}
+				style={`--x:${(i % 3) - 1};--y:${Math.floor(i / 3) - 1}`}
+			></span>
+		))}
+	</span>
+</button>
+
+<div class="menu-backdrop" aria-hidden="true"></div>
+<aside id="menu-panel" class="menu-panel" aria-label={navigationLabel} aria-hidden="true">
+	<div class="menu-panel__inner">
+		<p class="menu-panel__label">{navigationLabel}</p>
+		<ul class="menu-panel__links">
+			{links.map((link) => (
+				<li>
+					<a class:list={['menu-panel__link', { active: isActive(link.href, currentPath) }]} href={link.href} tabindex="-1">
+						{link.label}
+					</a>
+				</li>
+			))}
+		</ul>
+		<div class="menu-panel__socials">
+			<p class="menu-panel__label">Socials</p>
+			<ul>
+				{socials.map((s) => (
+					<li><a href={s.href} target="_blank" rel="noopener noreferrer" tabindex="-1">{s.name}</a></li>
+				))}
 			</ul>
-			<div class="nav-actions">
-				<ThemeToggle locale={locale} />
-				<LanguageSwitcher currentPath={currentPath} />
-			</div>
 		</div>
 	</div>
-</nav>
+</aside>
 
 <script>
-	const toggler = document.querySelector('.navbar-toggler');
-	const navRight = document.querySelector('.nav-right');
-	toggler?.addEventListener('click', () => {
-		navRight?.classList.toggle('open');
-	});
+	const fab = document.querySelector<HTMLButtonElement>('.menu-fab');
+	const panel = document.getElementById('menu-panel');
+	const backdrop = document.querySelector('.menu-backdrop');
+	const header = document.getElementById('mainNav');
 
-	// Liquid-glass effect: turn the header translucent once the page is scrolled
-	const mainNav = document.getElementById('mainNav');
-	if (mainNav) {
-		const onScroll = () => {
-			mainNav.classList.toggle('scrolled', window.scrollY > 8);
+	if (fab && panel && header) {
+		const panelLinks = panel.querySelectorAll<HTMLAnchorElement>('a');
+
+		const setOpen = (open: boolean) => {
+			document.documentElement.classList.toggle('menu-open', open);
+			fab.setAttribute('aria-expanded', String(open));
+			panel.setAttribute('aria-hidden', String(!open));
+			panelLinks.forEach((a) => (a.tabIndex = open ? 0 : -1));
 		};
-		onScroll();
-		window.addEventListener('scroll', onScroll, { passive: true });
+
+		fab.addEventListener('click', () => {
+			setOpen(!document.documentElement.classList.contains('menu-open'));
+		});
+		backdrop?.addEventListener('click', () => setOpen(false));
+		document.addEventListener('keydown', (e) => {
+			if (e.key === 'Escape') setOpen(false);
+		});
+
+		// The round menu button takes over once the top bar scrolls out of view
+		const io = new IntersectionObserver(([entry]) => {
+			document.documentElement.classList.toggle('header-away', !entry.isIntersecting);
+		});
+		io.observe(header);
 	}
 </script>

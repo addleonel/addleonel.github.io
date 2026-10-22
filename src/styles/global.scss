@@ -1,64 +1,109 @@
-@import url('https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400..600&display=swap');
 
+/*
+ * Dark editorial canvas: two tones (obsidian + white), one single-weight sans
+ * with uniform tracking, and a vivid iris accent used as rare punctuation.
+ * Elevation is a 1px inset ring only — no drop shadows anywhere.
+ */
 :root {
-	--bg: #f5f0e8;
-	--bg-glass: rgba(245, 240, 232, 0.7);
-	--fg: #0a0a0a;
-	--accent: #1566d6;
-	--accent-strong: #0d4ea8;
-	--accent-soft: rgba(21, 102, 214, 0.12);
-	--accent-2: #7c5cff;
-	--accent-warm: #ff8a3d;
-	--card-bg: #ffffff;
-	--card-glass: rgba(255, 255, 255, 0.55);
-	/* Softer, low-contrast hairline borders for the subtle neo-brutalist look */
-	--border-color: rgba(10, 10, 10, 0.14);
-	--border-strong: rgba(10, 10, 10, 0.8);
-	--code-bg: #0a0a0a;
-	--code-color: #00ff41;
-	--hover-bg: rgba(0, 0, 0, 0.05);
-	--footer-bg: #0a0a0a;
-	--footer-fg: #ffffff;
-	/* Rounded corners */
+	/* Palette */
+	--color-obsidian: #1c1d20;
+	--color-white: #ffffff;
+	--color-fog: #999d9e;
+	--color-graphite: #494a4d;
+	--color-iris: #455ce9;
+	--color-iris-deep: #334bd3;
+	--color-brand: #1566d6;
+
+	/* Typography */
+	--font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+	--font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace;
+	--weight: 450;
+	--tracking: 0.05em;
+
+	--text-caption: 0.75rem;
+	--text-body: 0.9375rem;
+	--text-body-lg: 1.0625rem;
+	--text-heading-sm: clamp(1.5rem, 2.6vw, 2.0625rem);
+	--text-heading: clamp(2.5rem, 5.5vw, 3.75rem);
+	--text-heading-lg: clamp(3rem, 8vw, 5.5rem);
+	--text-display: clamp(5.5rem, 15vw, 13.5rem);
+
+	/* Layout */
+	--gutter: clamp(1rem, 4vw, 3.5rem);
+	--section-gap: clamp(5rem, 11vw, 10rem);
+	--element-gap: 12px;
+
+	/* Shapes */
 	--radius-sm: 10px;
-	--radius-md: 16px;
-	--radius-lg: 24px;
-	--radius-pill: 999px;
-	/* Soft shadows */
-	--shadow-soft: 0 10px 30px rgba(0, 0, 0, 0.08);
-	--shadow-soft-lg: 0 18px 50px rgba(0, 0, 0, 0.12);
-	--shadow-pop: 0 12px 28px rgba(21, 102, 214, 0.28);
+	--radius-md: 10px;
+	--radius-lg: 10px;
+	--radius-pill: 36.72px;
+
+	/* Elevation — the inset ring is the entire depth vocabulary */
+	--shadow-soft: none;
+	--shadow-soft-lg: none;
+	--shadow-pop: none;
+
+	/* Semantic tokens (dark is the default ground) */
+	--bg: var(--color-obsidian);
+	--bg-glass: rgba(28, 29, 32, 0.92);
+	--fg: var(--color-white);
+	--muted: var(--color-fog);
+	--surface: #26272b;
+	--surface-strong: var(--color-graphite);
+	--ring: rgba(255, 255, 255, 0.2) 0 0 0 1px inset;
+	--ring-color: rgba(255, 255, 255, 0.2);
+	--accent: var(--color-iris);
+	/* Brand blue from the cube logo; a lighter step keeps it legible on obsidian */
+	--brand: #4d92ff;
+	--accent-strong: var(--color-iris-deep);
+	--accent-soft: rgba(69, 92, 233, 0.16);
+	--accent-2: var(--color-iris-deep);
+	--accent-warm: var(--color-fog);
+	--on-accent: #ffffff;
+	--card-bg: var(--surface);
+	--card-glass: var(--surface);
+	--border-color: rgba(255, 255, 255, 0.12);
+	--border-strong: rgba(255, 255, 255, 0.4);
+	--code-bg: #141517;
+	--code-color: #e6e6e6;
+	--hover-bg: rgba(255, 255, 255, 0.06);
+	--footer-bg: var(--color-obsidian);
+	--footer-fg: var(--color-white);
+	--scroll-thumb: rgba(255, 255, 255, 0.2);
 }
 
-[data-theme='dark'] {
-	--bg: #111111;
-	--bg-glass: rgba(20, 20, 20, 0.65);
-	--fg: #e8e6e1;
-	--accent: #4d92ff;
-	--accent-strong: #2e7bf0;
-	--accent-soft: rgba(77, 146, 255, 0.16);
-	--accent-2: #a78bff;
-	--accent-warm: #ffa766;
-	--card-bg: #1a1a1a;
-	--card-glass: rgba(36, 36, 36, 0.55);
-	--border-color: rgba(232, 230, 225, 0.16);
-	--border-strong: rgba(232, 230, 225, 0.7);
-	--code-bg: #000000;
-	--code-color: #00ff41;
-	--hover-bg: rgba(255, 255, 255, 0.06);
-	--footer-bg: #000000;
-	--footer-fg: #e8e6e1;
-	--shadow-soft: 0 10px 30px rgba(0, 0, 0, 0.4);
-	--shadow-soft-lg: 0 18px 50px rgba(0, 0, 0, 0.5);
-	--shadow-pop: 0 12px 28px rgba(77, 146, 255, 0.3);
+[data-theme='light'] {
+	--bg: #ffffff;
+	--bg-glass: rgba(255, 255, 255, 0.92);
+	--fg: var(--color-obsidian);
+	--muted: #6e7273;
+	--surface: #f1f1f1;
+	--surface-strong: #e4e4e5;
+	--ring: rgba(28, 29, 32, 0.18) 0 0 0 1px inset;
+	--ring-color: rgba(28, 29, 32, 0.18);
+	--accent-soft: rgba(69, 92, 233, 0.1);
+	--brand: var(--color-brand);
+	--card-bg: var(--surface);
+	--card-glass: var(--surface);
+	--border-color: rgba(28, 29, 32, 0.12);
+	--border-strong: rgba(28, 29, 32, 0.45);
+	--code-bg: var(--color-obsidian);
+	--hover-bg: rgba(0, 0, 0, 0.05);
+	--scroll-thumb: rgba(28, 29, 32, 0.25);
+	/* The footer stays obsidian in both themes, as a closing dark band */
+	--footer-bg: var(--color-obsidian);
+	--footer-fg: var(--color-white);
 }
 
 $accent: var(--accent);
 $bg: var(--bg);
 $fg: var(--fg);
+$muted: var(--muted);
 $card-bg: var(--card-bg);
-$border: 1.5px solid var(--border-color);
-$border-strong: 2px solid var(--border-strong);
+$border: 1px solid var(--border-color);
+$border-strong: 1px solid var(--border-strong);
 $code-bg: var(--code-bg);
 $code-color: var(--code-color);
 $radius-sm: var(--radius-sm);
@@ -66,6 +111,53 @@ $radius-md: var(--radius-md);
 $radius-lg: var(--radius-lg);
 $shadow-soft: var(--shadow-soft);
 $shadow-soft-lg: var(--shadow-soft-lg);
+
+/* Shared type roles */
+@mixin type-caption {
+	font-size: var(--text-caption);
+	line-height: 1.45;
+	color: var(--muted);
+}
+
+@mixin type-heading {
+	font-size: var(--text-heading);
+	line-height: 1.07;
+	letter-spacing: var(--tracking);
+}
+
+@mixin type-heading-lg {
+	font-size: var(--text-heading-lg);
+	line-height: 1.06;
+	letter-spacing: var(--tracking);
+}
+
+/* Pill link / button: background swap only, no lift, no shadow */
+@mixin pill {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 0.6em;
+	padding: 12px 22px;
+	font-family: var(--font-sans);
+	font-weight: var(--weight);
+	font-size: 0.875rem;
+	letter-spacing: var(--tracking);
+	line-height: 1.2;
+	color: $fg;
+	background: transparent;
+	border: none;
+	border-radius: var(--radius-pill);
+	box-shadow: var(--ring);
+	text-decoration: none;
+	cursor: pointer;
+	transition: background-color 0.25s ease, color 0.25s ease, box-shadow 0.25s ease;
+
+	&:hover {
+		background: var(--accent);
+		color: var(--on-accent);
+		box-shadow: none;
+	}
+}
 
 *,
 *::before,
@@ -75,6 +167,45 @@ $shadow-soft-lg: var(--shadow-soft-lg);
 	padding: 0;
 }
 
+/* Scrollbar: a thin floating pill on the canvas; widens and turns brand blue on hover */
+::-webkit-scrollbar {
+	width: 12px;
+	height: 12px;
+}
+
+::-webkit-scrollbar-track,
+::-webkit-scrollbar-corner {
+	background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+	// The transparent border insets the pill so it floats off the edge
+	border: 3px solid transparent;
+	border-radius: var(--radius-pill);
+	background: var(--scroll-thumb) padding-box;
+	min-height: 48px;
+
+	&:hover {
+		border-width: 2px;
+		background-color: var(--brand);
+	}
+
+	&:active {
+		border-width: 2px;
+		background-color: var(--color-brand);
+	}
+}
+
+// Firefox ignores the pseudo-elements above; Chromium ignores them if this is set,
+// so only apply the standard properties where the pseudo-elements don't exist
+@supports not selector(::-webkit-scrollbar) {
+	html,
+	pre {
+		scrollbar-width: thin;
+		scrollbar-color: var(--scroll-thumb) transparent;
+	}
+}
+
 ::selection {
 	background: var(--accent);
 	color: #ffffff;
@@ -82,39 +213,59 @@ $shadow-soft-lg: var(--shadow-soft-lg);
 
 html {
 	scroll-behavior: smooth;
+	background-color: $bg;
+	overflow-x: clip;
 }
 
 body {
-	font-family: 'Space Mono', monospace;
-	font-size: 16px;
-	line-height: 1.6;
+	font-family: var(--font-sans);
+	font-weight: var(--weight);
+	font-size: var(--text-body);
+	letter-spacing: var(--tracking);
+	line-height: 1.66;
 	background-color: $bg;
 	color: $fg;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
 	transition: background-color 0.2s, color 0.2s;
 	display: flex;
 	flex-direction: column;
 	min-height: 100vh;
+	// Off-canvas pieces (menu drawer, bleeding display type) never cause a sideways scroll
+	overflow-x: clip;
+}
+
+/* One weight is the system — controls inherit it too */
+button,
+input,
+textarea,
+select {
+	font: inherit;
+	letter-spacing: inherit;
 }
 
 p {
 	color: $fg;
-	line-height: 1.7;
+	line-height: 1.66;
 	margin: 1.25rem 0;
-	font-size: 1rem;
+	font-size: var(--text-body);
 }
 
 h1, h2, h3, h4, h5, h6 {
-	font-family: 'Inter', sans-serif;
-	font-weight: 900;
+	font-family: var(--font-sans);
+	font-weight: var(--weight);
 	color: $fg;
-	text-transform: uppercase;
-	letter-spacing: -0.02em;
-	line-height: 1.1;
+	letter-spacing: var(--tracking);
+	line-height: 1.07;
 }
 
-h1 { font-size: clamp(2.5rem, 6vw, 4.5rem); }
-h2 { font-size: clamp(1.4rem, 3vw, 2rem); }
-h3 { font-size: clamp(1.1rem, 2.5vw, 1.5rem); }
+h1 { font-size: var(--text-heading); }
+h2 { font-size: var(--text-heading-sm); line-height: 1.2; }
+h3 { font-size: clamp(1.15rem, 2vw, 1.5rem); line-height: 1.2; }
+
+strong, b {
+	font-weight: 600;
+}
 
 a {
 	color: $fg;
@@ -126,16 +277,22 @@ a {
 	}
 }
 
+:focus-visible {
+	outline: 1px solid var(--accent);
+	outline-offset: 3px;
+}
+
 img {
 	max-width: 100%;
 	display: block;
 }
 
 code {
-	font-family: 'Space Mono', monospace;
-	background: $code-bg;
-	color: $code-color;
-	padding: 0.15em 0.4em;
+	font-family: var(--font-mono);
+	letter-spacing: 0;
+	background: var(--surface);
+	color: $fg;
+	padding: 0.15em 0.45em;
 	font-size: 0.85em;
 	border-radius: 6px;
 }
@@ -145,51 +302,197 @@ pre {
 	color: $code-color;
 	padding: 1.5rem;
 	overflow-x: auto;
-	border: $border;
-	border-radius: $radius-md;
+	box-shadow: var(--ring);
+	border-radius: var(--radius-lg);
 	margin: 2rem 0;
 
 	code {
 		background: none;
+		color: inherit;
 		padding: 0;
 		font-size: 0.85rem;
 		border-radius: 0;
 	}
 }
 
+/* Full-bleed editorial frame: no max-width, content anchors to the left gutter */
 .container {
-	max-width: 1100px;
 	width: 100%;
 	margin: 0 auto;
-	padding: 0 1.5rem;
+	padding: 0 var(--gutter);
 }
 
 .content-wrapper {
-	max-width: 720px;
-	margin: 0 auto;
+	max-width: 760px;
 }
 
 .site-main {
 	flex: 1 0 auto;
-	padding-top: 2rem;
-	padding-bottom: 4rem;
+	padding-bottom: var(--section-gap);
 }
 
+/* Section headline block: type alone defines the section */
 .page-title {
-	font-size: clamp(1.5rem, 3vw, 2rem);
-	margin-bottom: 2rem;
-	padding-bottom: 1rem;
-	border-bottom: $border;
-	position: relative;
+	@include type-heading-lg;
+	margin: clamp(2rem, 6vw, 5rem) 0 clamp(2.5rem, 6vw, 4.5rem);
+}
 
-	&::after {
+/* Command button: an iris bar with an inset ↵ keycap. Magnetic pull and the
+   decoding label come from src/utils/cmd-button.ts */
+.cmd {
+	--pull-x: 0px;
+	--pull-y: 0px;
+	position: relative;
+	isolation: isolate;
+	overflow: hidden;
+	display: inline-flex;
+	align-items: center;
+	gap: 1.5rem;
+	min-height: 4.25rem;
+	padding: 0.65rem 0.65rem 0.65rem 1.6rem;
+	border: none;
+	border-radius: 14px;
+	background: var(--accent);
+	color: #ffffff;
+	font-size: var(--text-body-lg);
+	line-height: 1;
+	white-space: nowrap;
+	cursor: pointer;
+	box-shadow: rgba(255, 255, 255, 0.2) 0 0 0 1px inset;
+	transform: translate(var(--pull-x), var(--pull-y));
+	transition: transform 0.45s cubic-bezier(0.2, 0.9, 0.25, 1), background-color 0.3s ease;
+
+	// Sheen that sweeps across on hover
+	&::before {
 		content: '';
 		position: absolute;
-		bottom: -2px;
-		left: 0;
-		width: 80px;
-		height: 4px;
-		border-radius: var(--radius-pill);
-		background: linear-gradient(90deg, var(--accent), var(--accent-2));
+		inset: 0;
+		z-index: -1;
+		background: linear-gradient(105deg, transparent 30%, rgba(255, 255, 255, 0.28) 50%, transparent 70%);
+		transform: translateX(-110%);
+		transition: transform 0.9s cubic-bezier(0.2, 0.8, 0.2, 1);
+	}
+
+	&:hover {
+		color: #ffffff;
+		background: var(--accent-strong);
+
+		&::before {
+			transform: translateX(110%);
+		}
+
+		.cmd__key {
+			transform: translateY(2px);
+			background: #ffffff;
+			color: var(--accent-strong);
+			box-shadow: rgba(0, 0, 0, 0.12) 0 0 0 1px inset;
+		}
+	}
+
+	// Pressed like a key
+	&:active {
+		transform: translate(var(--pull-x), calc(var(--pull-y) + 2px)) scale(0.98);
+	}
+
+	&:disabled {
+		opacity: 0.6;
+		cursor: progress;
+	}
+}
+
+.cmd__label {
+	display: inline-block;
+	text-align: left;
+	overflow: hidden;
+}
+
+.cmd__key {
+	display: grid;
+	place-items: center;
+	width: 2.95rem;
+	height: 2.95rem;
+	flex-shrink: 0;
+	border-radius: 9px;
+	background: rgba(255, 255, 255, 0.14);
+	font-size: 1.35rem;
+	box-shadow:
+		rgba(255, 255, 255, 0.25) 0 0 0 1px inset,
+		rgba(0, 0, 0, 0.25) 0 -3px 0 0 inset;
+	transition: transform 0.25s ease, background-color 0.25s ease, color 0.25s ease, box-shadow 0.25s ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.cmd,
+	.cmd::before,
+	.cmd__key {
+		transition: none;
+	}
+}
+
+/* Small fog label with a hairline: the only "eyebrow" a list section gets */
+.section-label {
+	@include type-caption;
+	margin: 0 0 clamp(2rem, 4vw, 3rem);
+	padding-bottom: 1.5rem;
+	border-bottom: $border;
+}
+
+/* Screen-reader-only text */
+.visually-hidden {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	overflow: hidden;
+	clip-path: inset(50%);
+	white-space: nowrap;
+}
+
+/* Metadata caption */
+.caption {
+	@include type-caption;
+}
+
+.pill {
+	@include pill;
+}
+
+/* Big quiet marquee band used to open a page */
+.marquee {
+	overflow: hidden;
+	white-space: nowrap;
+	margin: clamp(1rem, 4vw, 3rem) 0 clamp(2rem, 5vw, 4rem);
+	user-select: none;
+}
+
+.marquee__track {
+	display: inline-flex;
+	will-change: transform;
+	animation: marquee-scroll 32s linear infinite;
+}
+
+.marquee__item {
+	font-size: var(--text-heading-lg);
+	line-height: 1.06;
+	letter-spacing: var(--tracking);
+	padding-right: 0.5em;
+	color: $fg;
+
+	&:nth-child(even) {
+		color: var(--muted);
+	}
+}
+
+@keyframes marquee-scroll {
+	from { transform: translateX(0); }
+	to { transform: translateX(-50%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+	html {
+		scroll-behavior: auto;
+	}
+
+	.marquee__track {
+		animation: none;
 	}
 }

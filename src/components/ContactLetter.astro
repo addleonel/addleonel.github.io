@@ -1,0 +1,150 @@
+---
+import { t, type Locale } from '../i18n/utils';
+
+interface Props {
+	locale: Locale;
+	email: string;
+}
+
+const { locale, email } = Astro.props;
+const tr = t(locale);
+const l = tr.contact.letter;
+const topicLegend = locale === 'es' ? 'Motivo' : 'Topic';
+---
+
+<!-- A letter with blanks: the form reads as one sentence you complete -->
+<form id="contact-form" class="letter" data-email={email}>
+	<p class="letter__line">{l.greeting}</p>
+	<p class="letter__line">
+		{l.nameIntro}
+		<label class="letter__slot">
+			<span class="visually-hidden">{tr.contact.name}</span>
+			<input type="text" name="name" required autocomplete="name" placeholder={l.namePlaceholder} data-autosize />
+		</label>
+		{l.topicIntro}
+	</p>
+	<fieldset class="letter__topics">
+		<legend class="visually-hidden">{topicLegend}</legend>
+		{l.topics.map((topic, i) => (
+			<label class="letter__topic">
+				<input type="radio" name="topic" value={topic} checked={i === 0} />
+				<span>{topic}</span>
+			</label>
+		))}
+	</fieldset>
+	<p class="letter__line">
+		{l.emailIntro}
+		<label class="letter__slot">
+			<span class="visually-hidden">{tr.contact.email}</span>
+			<input type="email" name="email" required autocomplete="email" placeholder={l.emailPlaceholder} data-autosize />
+		</label>.
+	</p>
+	<p class="letter__line">{l.messageIntro}</p>
+	<label class="letter__message">
+		<span class="visually-hidden">{tr.contact.message}</span>
+		<textarea name="message" rows="2" required placeholder={l.messagePlaceholder}></textarea>
+	</label>
+
+	<div class="letter__footer">
+		<p class="letter__sign">
+			&mdash; <span data-signature data-fallback={l.namePlaceholder}>{l.namePlaceholder}</span>
+		</p>
+		<button type="submit" class="cmd form-submit" data-cmd
+			data-label={tr.contact.send}
+			data-sending={tr.contact.sending}
+		>
+			<span class="cmd__label">{tr.contact.send}</span>
+			<span class="cmd__key" aria-hidden="true">&#8629;</span>
+		</button>
+	</div>
+	<p class="form-status" role="status"
+		data-success={tr.contact.success}
+		data-error={tr.contact.error}
+	></p>
+</form>
+
+<script>
+	const form = document.getElementById('contact-form') as HTMLFormElement | null;
+	if (form) {
+		const email = form.dataset.email;
+		const button = form.querySelector('.form-submit') as HTMLButtonElement;
+		const buttonLabel = button.querySelector('.cmd__label') as HTMLElement;
+		const setLabel = (text: string) => {
+			buttonLabel.textContent = text;
+			buttonLabel.dataset.text = text;
+		};
+		const status = form.querySelector('.form-status') as HTMLParagraphElement;
+		const signature = form.querySelector<HTMLElement>('[data-signature]');
+		const textarea = form.querySelector('textarea');
+
+		// Inline blanks grow with what is typed, so the sentence never breaks oddly
+		// Measured with a hidden mirror span that shares the input's typography
+		const mirror = document.createElement('span');
+		mirror.setAttribute('aria-hidden', 'true');
+		mirror.style.cssText = 'position:absolute;visibility:hidden;white-space:pre;left:-9999px';
+		form.appendChild(mirror);
+		const autosize = (input: HTMLInputElement) => {
+			const cs = getComputedStyle(input);
+			mirror.style.font = cs.font;
+			mirror.style.letterSpacing = cs.letterSpacing;
+			mirror.textContent = input.value || input.placeholder;
+			const pad = parseFloat(cs.paddingLeft) + parseFloat(cs.paddingRight);
+			input.style.width = `${Math.ceil(mirror.offsetWidth + pad + 4)}px`;
+		};
+		form.querySelectorAll<HTMLInputElement>('[data-autosize]').forEach((input) => {
+			autosize(input);
+			input.addEventListener('input', () => autosize(input));
+		});
+
+		// Footer prompts link here with ?topic=<index> to preselect the reason
+		const topicIndex = Number(new URLSearchParams(location.search).get('topic'));
+		const topicInputs = form.querySelectorAll<HTMLInputElement>('input[name="topic"]');
+		if (Number.isInteger(topicIndex) && topicInputs[topicIndex]) topicInputs[topicIndex].checked = true;
+
+		// The sign-off mirrors the name as it is typed
+		const nameInput = form.querySelector<HTMLInputElement>('input[name="name"]');
+		nameInput?.addEventListener('input', () => {
+			if (signature) signature.textContent = nameInput.value.trim() || signature.dataset.fallback || '';
+		});
+
+		const growTextarea = () => {
+			if (!textarea) return;
+			textarea.style.height = 'auto';
+			textarea.style.height = `${textarea.scrollHeight}px`;
+		};
+		textarea?.addEventListener('input', growTextarea);
+
+		form.addEventListener('submit', async (e) => {
+			e.preventDefault();
+			status.textContent = '';
+			status.classList.remove('is-success', 'is-error');
+			button.disabled = true;
+			setLabel(button.dataset.sending ?? '…');
+
+			try {
+				const res = await fetch(`https://formsubmit.co/ajax/${email}`, {
+					method: 'POST',
+					headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+					body: JSON.stringify(Object.fromEntries(new FormData(form))),
+				});
+				const data = await res.json();
+				if (res.ok && data.success) {
+					status.textContent = status.dataset.success ?? '';
+					status.classList.add('is-success');
+					form.reset();
+					form.querySelectorAll<HTMLInputElement>('[data-autosize]').forEach(autosize);
+					growTextarea();
+					if (signature) signature.textContent = signature.dataset.fallback ?? '';
+				} else {
+					throw new Error('request failed');
+				}
+			} catch {
+				status.textContent = status.dataset.error ?? '';
+				status.classList.add('is-error');
+			} finally {
+				button.disabled = false;
+				setLabel(button.dataset.label ?? '');
+			}
+		});
+	}
+</script>

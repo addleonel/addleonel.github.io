@@ -1,16 +1,12 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import ContactLetter from '../../components/ContactLetter.astro';
 import { t } from '../../i18n/utils';
 import '../../styles/components/contact.scss';
 
 const tr = t('es');
 const email = 'adleonel3633@gmail.com';
 
-// One half of the marquee; rendered twice for a seamless loop
-const tickerHalf = Array.from({ length: 6 }, (_, i) =>
-	i % 2 === 0 ? tr.contact.ticker : tr.contact.tickerAlt,
-);
-const ticker = [...tickerHalf, ...tickerHalf];
 
 const socials = [
 	{
@@ -48,15 +44,9 @@ const socials = [
 	title="Contacto"
 	description="Ponte en contacto con Leunel Aquino — encuéntrame en GitHub, LinkedIn, YouTube e Instagram."
 >
-	<div class="contact-ticker">
-		<div class="contact-ticker__track">
-			{ticker.map((word) => <span class="contact-ticker__item">{word} &bull;</span>)}
-		</div>
-	</div>
 	<main class="container">
 		<header class="contact-head">
-			<h1 class="contact-title">{tr.contact.title}</h1>
-			<!-- <p class="contact-subtitle">{tr.contact.subtitle}</p> -->
+			<h1 class="page-title contact-title">{tr.contact.subtitle}</h1>
 		</header>
 
 		<div class="contact-layout">
@@ -83,70 +73,8 @@ const socials = [
 
 			<section class="contact-card">
 				<h2 class="contact-card__title">{tr.contact.formTitle}</h2>
-				<form id="contact-form" class="contact-form" data-email={email}>
-					<div class="form-row">
-						<label class="form-field">
-							<span>{tr.contact.name}</span>
-							<input type="text" name="name" required autocomplete="name" placeholder="Juan Pérez" />
-						</label>
-						<label class="form-field">
-							<span>{tr.contact.email}</span>
-							<input type="email" name="email" required autocomplete="email" placeholder="juan@correo.com" />
-						</label>
-					</div>
-					<label class="form-field">
-						<span>{tr.contact.message}</span>
-						<textarea name="message" rows="5" required placeholder="Hola Leunel, …"></textarea>
-					</label>
-					<button type="submit" class="form-submit"
-						data-label={tr.contact.send}
-						data-sending={tr.contact.sending}
-					>{tr.contact.send}</button>
-					<p class="form-status" role="status"
-						data-success={tr.contact.success}
-						data-error={tr.contact.error}
-					></p>
-				</form>
+				<ContactLetter locale="es" email={email} />
 			</section>
 		</div>
 	</main>
 </BaseLayout>
-
-<script>
-	const form = document.getElementById('contact-form') as HTMLFormElement | null;
-	if (form) {
-		const email = form.dataset.email;
-		const button = form.querySelector('.form-submit') as HTMLButtonElement;
-		const status = form.querySelector('.form-status') as HTMLParagraphElement;
-
-		form.addEventListener('submit', async (e) => {
-			e.preventDefault();
-			status.textContent = '';
-			status.classList.remove('is-success', 'is-error');
-			button.disabled = true;
-			button.textContent = button.dataset.sending ?? 'Enviando…';
-
-			try {
-				const res = await fetch(`https://formsubmit.co/ajax/${email}`, {
-					method: 'POST',
-					headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-					body: JSON.stringify(Object.fromEntries(new FormData(form))),
-				});
-				const data = await res.json();
-				if (res.ok && data.success) {
-					status.textContent = status.dataset.success ?? '';
-					status.classList.add('is-success');
-					form.reset();
-				} else {
-					throw new Error('request failed');
-				}
-			} catch {
-				status.textContent = status.dataset.error ?? '';
-				status.classList.add('is-error');
-			} finally {
-				button.disabled = false;
-				button.textContent = button.dataset.label ?? '';
-			}
-		});
-	}
-</script>

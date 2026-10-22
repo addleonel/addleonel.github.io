@@ -1,7 +1,38 @@
 ---
+import { getLocaleFromPath } from '../i18n/utils';
 import '../styles/components/footer.scss';
 
 const currentYear = new Date().getFullYear();
+const locale = getLocaleFromPath(Astro.url.pathname);
+const prefix = locale === 'en' ? '' : '/es';
+
+// Each suggestion opens the contact letter with its topic preselected (?topic=<index>)
+const copy = {
+	en: {
+		index: '(∞) What’s next',
+		title: 'Let’s work together',
+		hint: 'Suggested prompts',
+		suggestions: ['Start a project with me', 'I have a role for you', 'Let’s collaborate', 'Just saying hi'],
+		cta: 'Get in touch',
+		local: 'Local time',
+		version: 'Version',
+		edition: 'Edition',
+		socials: 'Socials',
+		back: 'Back to top',
+	},
+	es: {
+		index: '(∞) Lo que sigue',
+		title: 'Trabajemos juntos',
+		hint: 'Prompts sugeridos',
+		suggestions: ['Empecemos un proyecto', 'Tengo un puesto para ti', 'Colaboremos', 'Solo quería saludar'],
+		cta: 'Hablemos',
+		local: 'Hora local',
+		version: 'Versión',
+		edition: 'Edición',
+		socials: 'Redes',
+		back: 'Volver arriba',
+	},
+}[locale];
 
 const socials = [
 	{
@@ -31,24 +62,121 @@ const socials = [
 ];
 ---
 
-<footer class="footer-container">
-	<div class="footer-content">
-		<div class="footer-brand">
-			<span class="footer-name">Leunel</span>
-			<span class="footer-tag">Software · LLMs · RAG · Agents</span>
+<footer class="footer">
+	<div class="footer__prompt">
+		<p class="footer__index">{copy.index}</p>
+		<h2 class="footer__title" data-type-on-view>
+			<span class="footer__chevron" aria-hidden="true">&gt;</span>
+			<span><span class="footer__title-text">{copy.title}</span><span class="footer__caret" aria-hidden="true"></span></span>
+		</h2>
+
+		<div class="footer__actions">
+			<div class="footer__suggest">
+				<p class="footer__label">{copy.hint}</p>
+				<ul class="footer__chips">
+					{copy.suggestions.map((text, i) => (
+						<li>
+							<a class="footer__chip" href={`${prefix}/contact/?topic=${i}`}>
+								<span aria-hidden="true">&#8627;</span>{text}
+							</a>
+						</li>
+					))}
+				</ul>
+			</div>
+			<a class="cmd footer__cta" href={`${prefix}/contact/`} data-cmd>
+				<span class="cmd__label">{copy.cta}</span>
+				<span class="cmd__key" aria-hidden="true">&#8629;</span>
+			</a>
 		</div>
-		<ul class="footer-icons">
-			{socials.map((s) => (
-				<li>
-					<a class="footer-link" href={s.href} target="_blank" rel="noopener noreferrer" aria-label={s.name}>
-						<svg class="footer-icon" aria-hidden="true" focusable="false" role="img" xmlns="http://www.w3.org/2000/svg" viewBox={s.viewBox}><path fill="currentColor" d={s.path}></path></svg>
-					</a>
-				</li>
-			))}
-		</ul>
 	</div>
-	<div class="footer-bottom">
-		<p class="footer-text">&copy; {currentYear} Leunel</p>
-		<p class="footer-text footer-text--muted"></p>
+
+	<div class="footer__bottom">
+		<div class="footer__meta">
+			<div>
+				<p class="footer__label">{copy.version}</p>
+				<p>{currentYear} &copy; {copy.edition}</p>
+			</div>
+			<div>
+				<p class="footer__label">{copy.local}</p>
+				<p data-footer-time>Lima, GMT−5</p>
+			</div>
+			<div>
+				<p class="footer__label">Leunel</p>
+				<a href="#mainNav">{copy.back} &uarr;</a>
+			</div>
+		</div>
+		<div>
+			<p class="footer__label">{copy.socials}</p>
+			<ul class="footer__socials">
+				{socials.map((s) => (
+					<li>
+						<a href={s.href} target="_blank" rel="noopener noreferrer">
+							<svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox={s.viewBox}><path fill="currentColor" d={s.path}></path></svg>
+							<span>{s.name}</span>
+						</a>
+					</li>
+				))}
+			</ul>
+		</div>
+	</div>
+
+	<!-- Ghost wordmark; a spotlight under the cursor fills it in -->
+	<div class="footer__wordmark" aria-hidden="true" data-spotlight>
+		<span class="footer__wordmark-outline">leunel</span>
+		<span class="footer__wordmark-fill">leunel</span>
 	</div>
 </footer>
+
+<script>
+	const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+	// Type the headline out the first time the footer scrolls into view. Characters
+	// are only hidden, never removed, so the heading text stays whole in the DOM
+	const title = document.querySelector<HTMLElement>('[data-type-on-view]');
+	const titleText = title?.querySelector<HTMLElement>('.footer__title-text');
+	if (title && titleText && !reduceMotion && 'IntersectionObserver' in window) {
+		// Keep the final size reserved so nothing below jumps while typing
+		title.style.minHeight = `${title.offsetHeight}px`;
+		const chars = [...(titleText.textContent ?? '')].map((c) => {
+			const span = document.createElement('span');
+			span.textContent = c;
+			span.hidden = true;
+			return span;
+		});
+		titleText.replaceChildren(...chars);
+		const io = new IntersectionObserver(([entry]) => {
+			if (!entry.isIntersecting) return;
+			io.disconnect();
+			title.classList.add('is-typing');
+			let i = 0;
+			const typeNext = () => {
+				chars[i++].hidden = false;
+				if (i < chars.length) setTimeout(typeNext, 40 + Math.random() * 70);
+				else title.classList.remove('is-typing');
+			};
+			typeNext();
+		}, { threshold: 0.6 });
+		io.observe(title);
+	}
+
+	// Local time in Lima
+	const time = document.querySelector<HTMLElement>('[data-footer-time]');
+	if (time) {
+		const fmt = new Intl.DateTimeFormat(document.documentElement.lang || 'en', {
+			hour: '2-digit', minute: '2-digit', timeZone: 'America/Lima',
+		});
+		const tick = () => (time.textContent = `${fmt.format(new Date())} GMT−5`);
+		tick();
+		setInterval(tick, 30_000);
+	}
+
+	// Spotlight position follows the pointer over the wordmark
+	const wordmark = document.querySelector<HTMLElement>('[data-spotlight]');
+	wordmark?.addEventListener('pointermove', (e) => {
+		const r = wordmark.getBoundingClientRect();
+		wordmark.style.setProperty('--spot-x', `${e.clientX - r.left}px`);
+		wordmark.style.setProperty('--spot-y', `${e.clientY - r.top}px`);
+		wordmark.classList.add('is-lit');
+	});
+	wordmark?.addEventListener('pointerleave', () => wordmark.classList.remove('is-lit'));
+</script>

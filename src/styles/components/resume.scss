@@ -1,67 +1,63 @@
 @use '../global' as *;
 
 .resume {
-	margin-bottom: 3rem;
+	margin-bottom: 2rem;
 }
 
 .resume-head {
 	display: flex;
-	align-items: flex-start;
+	align-items: center;
 	justify-content: space-between;
-	gap: 1.5rem;
-	border: $border;
-	border-radius: var(--radius-lg);
-	background: $card-bg;
-	padding: 1.75rem;
-	margin-bottom: 2rem;
-	box-shadow: var(--shadow-soft);
+	gap: 2rem;
+	margin-bottom: clamp(3rem, 7vw, 5.5rem);
 }
 
 .resume-name {
 	margin: 0;
-	font-size: clamp(1.2rem, 3vw, 1.5rem);
+	font-size: var(--text-heading-sm);
+	line-height: 1.2;
 }
 
 .resume-headline {
-	margin: 0.5rem 0 0;
-	font-size: 0.85rem;
-	color: $accent;
-	font-weight: 700;
+	margin: 0.75rem 0 0;
+	font-size: var(--text-body-lg);
+	color: var(--muted);
 }
 
+/* Location rendered as a small pill tag */
 .resume-location {
-	margin: 0.35rem 0 0;
-	font-size: 0.8rem;
-	text-transform: uppercase;
-	letter-spacing: 0.05em;
-	opacity: 0.6;
+	display: inline-block;
+	margin: 1.25rem 0 0;
+	padding: 0.4rem 1rem;
+	font-size: var(--text-caption);
+	border-radius: var(--radius-pill);
+	box-shadow: var(--ring);
 }
 
 .resume-photo {
-	width: 110px;
-	height: 110px;
+	width: clamp(110px, 16vw, 160px);
+	height: auto;
+	aspect-ratio: 1;
 	object-fit: cover;
-	border: $border;
 	border-radius: 50%;
 	flex-shrink: 0;
 }
 
 .resume-section {
-	margin-bottom: 2rem;
+	margin-bottom: clamp(3rem, 6vw, 4.5rem);
 }
 
 .resume-section__title {
-	font-size: 0.9rem;
-	text-transform: uppercase;
-	letter-spacing: 0.05em;
+	@include type-caption;
+	padding-bottom: 1.25rem;
+	margin-bottom: 1.5rem;
 	border-bottom: $border;
-	padding-bottom: 0.5rem;
-	margin-bottom: 1rem;
 }
 
 .resume-profile {
 	margin: 0;
-	font-size: 0.95rem;
+	font-size: var(--text-heading-sm);
+	line-height: 1.35;
 }
 
 .resume-skills {
@@ -70,78 +66,74 @@
 
 .resume-skills__row {
 	display: grid;
-	grid-template-columns: 160px 1fr;
+	grid-template-columns: 180px 1fr;
 	gap: 1rem;
-	padding: 0.5rem 0;
-	border-bottom: 1px dashed var(--border-color);
+	padding: 0.9rem 0;
+	border-bottom: $border;
 
 	&:last-child {
 		border-bottom: none;
 	}
 
 	dt {
-		font-weight: 700;
-		font-size: 0.85rem;
-		text-transform: uppercase;
-		color: $accent;
+		font-size: 0.875rem;
+		color: var(--muted);
 	}
 
 	dd {
 		margin: 0;
-		font-size: 0.9rem;
+		font-size: var(--text-body);
 	}
 }
 
 .resume-item {
-	margin-bottom: 1.5rem;
+	padding: 1.5rem 0;
+	border-bottom: $border;
+
+	&:first-of-type {
+		padding-top: 0;
+	}
 
 	&:last-child {
-		margin-bottom: 0;
+		border-bottom: none;
 	}
 }
 
 .resume-item__head {
 	display: flex;
 	justify-content: space-between;
+	align-items: baseline;
 	gap: 1rem;
 	flex-wrap: wrap;
 }
 
 .resume-item__role {
-	font-family: 'Inter', sans-serif;
-	font-weight: 900;
-	font-size: 1rem;
+	font-size: var(--text-body-lg);
 }
 
 .resume-item__meta {
-	font-size: 0.75rem;
-	text-transform: uppercase;
-	letter-spacing: 0.05em;
-	opacity: 0.6;
+	@include type-caption;
 	white-space: nowrap;
 }
 
 .resume-item__tags {
-	margin: 0.25rem 0 0.5rem;
-	font-size: 0.8rem;
-	font-style: italic;
-	color: $accent;
+	margin: 0.35rem 0 0.75rem;
+	font-size: 0.875rem;
+	color: var(--muted);
 }
 
 .resume-item__points {
 	margin: 0;
-	padding-left: 1.2rem;
+	padding-left: 1.1rem;
 
 	li {
-		font-size: 0.9rem;
-		margin-bottom: 0.35rem;
+		font-size: var(--text-body);
+		margin-bottom: 0.4rem;
 	}
 }
 
 .resume-certs {
 	list-style: none;
-	margin: 0;
-	padding: 0;
 
 	li {
 		display: grid;
@@ -149,9 +141,9 @@
 		grid-template-areas:
 			'title year'
 			'place place';
-		gap: 0 1rem;
-		padding: 0.6rem 0;
-		border-bottom: 1px dashed var(--border-color);
+		gap: 0.15rem 1rem;
+		padding: 0.9rem 0;
+		border-bottom: $border;
 
 		&:last-child {
 			border-bottom: none;
@@ -161,28 +153,24 @@
 
 .resume-certs__title {
 	grid-area: title;
-	font-weight: 700;
-	font-size: 0.9rem;
+	font-size: var(--text-body);
 }
 
 .resume-certs__place {
 	grid-area: place;
-	font-size: 0.8rem;
-	opacity: 0.65;
+	font-size: 0.8125rem;
+	color: var(--muted);
 }
 
 .resume-certs__year {
 	grid-area: year;
-	font-size: 0.8rem;
-	color: $accent;
-	font-weight: 700;
+	@include type-caption;
 }
 
 @media (max-width: 560px) {
 	.resume-head {
 		flex-direction: column-reverse;
-		align-items: center;
-		text-align: center;
+		align-items: flex-start;
 	}
 
 	.resume-skills__row {

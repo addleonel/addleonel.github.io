@@ -1,25 +1,11 @@
 ---
 import '../styles/components/hero-fragments.scss';
-import { t, type Locale } from '../i18n/utils';
-
-interface Props {
-	locale?: Locale;
-}
-
-const { locale = 'en' } = Astro.props;
-const tr = t(locale);
 ---
 
-<section class="hero-fragments">
-	<div class="hero-fragments__intro">
-		<p class="hero-fragments__hi">{tr.home.greeting}</p>
-		<h1 class="hero-fragments__name">Leunel</h1>
-		<p class="hero-fragments__role">{tr.home.role}</p>
-	</div>
-	<div class="hero-fragments__stage" id="hero-fragments" aria-hidden="true">
-		<div class="hero-fragments__placeholder"></div>
-	</div>
-</section>
+<!-- 3×3×3 cube of rounded blocks that parts on hover (Three.js) -->
+<div class="hero-fragments__stage" id="hero-fragments" aria-hidden="true">
+	<div class="hero-fragments__placeholder"></div>
+</div>
 
 <script>
 import * as THREE from 'three';
@@ -60,12 +46,12 @@ if (container) {
 		const s = getComputedStyle(document.documentElement);
 		const v = (n: string, f: string) => (s.getPropertyValue(n).trim() || f);
 		return {
-			accent: v('--accent', '#1566d6'),
+			accent: v('--color-brand', '#1566d6'),
 			accent2: v('--accent-2', '#7c5cff'),
 			ink: v('--fg', '#0a0a0a'),
 			cream: v('--card-bg', '#ffffff'),
-			yellow: '#f4b400',
-			red: '#e0301e',
+			graphite: v('--color-graphite', '#494a4d'),
+			fog: v('--color-fog', '#999d9e'),
 		} as Record<string, string>;
 	}
 
@@ -75,7 +61,7 @@ if (container) {
 	const SPREAD = 1.2; // how far fragments fly out on hover
 	const geo = new RoundedBoxGeometry(SIZE, SIZE, SIZE, 4, 0.12);
 
-	const roleKeys = ['accent', 'cream', 'accent2', 'ink', 'accent', 'yellow', 'accent2', 'accent', 'cream', 'ink', 'accent', 'accent2', 'red', 'accent', 'cream', 'accent2', 'accent', 'ink', 'yellow', 'accent', 'accent2', 'cream', 'accent', 'ink', 'accent2', 'accent', 'cream'];
+	const roleKeys = ['accent', 'cream', 'accent2', 'ink', 'accent', 'graphite', 'accent2', 'accent', 'cream', 'ink', 'accent', 'accent2', 'fog', 'accent', 'cream', 'accent2', 'accent', 'ink', 'graphite', 'accent', 'accent2', 'cream', 'accent', 'ink', 'accent2', 'accent', 'cream'];
 
 	interface Frag {
 		mesh: THREE.Mesh;

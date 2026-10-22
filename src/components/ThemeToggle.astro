@@ -75,7 +75,7 @@ const chevron = '<svg class="dropdown-chevron" xmlns="http://www.w3.org/2000/svg
 			trigger.setAttribute('aria-expanded', 'false');
 		}
 
-		applyTheme(localStorage.getItem('theme') || 'system');
+		applyTheme(localStorage.getItem('theme') || 'dark');
 
 		trigger.addEventListener('click', function(e) {
 			e.stopPropagation();
@@ -101,7 +101,7 @@ const chevron = '<svg class="dropdown-chevron" xmlns="http://www.w3.org/2000/svg
 		});
 
 		window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function() {
-			if ((localStorage.getItem('theme') || 'system') === 'system') applyTheme('system');
+			if ((localStorage.getItem('theme') || 'dark') === 'system') applyTheme('system');
 		});
 	})();
 </script>

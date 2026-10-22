@@ -47,7 +47,7 @@ const blogPostingLd = {
 	<div class="container">
 		<div class="content-wrapper">
 			<div class="post-header">
-				<h2>{post.data.title}</h2>
+				<h1 class="post-title">{post.data.title}</h1>
 				<p class="post-meta-inside">{tr.posts.postedOn} {post.data.date}</p>
 			</div>
 			{post.data.cover && <img class="post-image" src={post.data.cover} alt={post.data.title} />}

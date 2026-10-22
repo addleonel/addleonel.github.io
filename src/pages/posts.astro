@@ -9,34 +9,25 @@ import { sortPostsByDate } from '../utils/posts';
 const tr = t('en');
 const posts = sortPostsByDate(await getCollection('posts', ({ data }) => data.locale === 'en'));
 
-// One half of the marquee; rendered twice for a seamless loop
-const tickerHalf = Array.from({ length: 6 }, (_, i) =>
-	i % 2 === 0 ? tr.posts.ticker : tr.posts.tickerAlt,
-);
-const ticker = [...tickerHalf, ...tickerHalf];
 ---
 
 <BaseLayout
 	title="Blog"
 	description="Articles and notes by Leunel Aquino on LLMs, RAG, agents, embeddings, transformers and software development."
 >
-	<div class="blog-ticker">
-		<div class="blog-ticker__track">
-			{ticker.map((word) => <span class="blog-ticker__item">{word} &bull;</span>)}
-		</div>
-	</div>
 	<main class="container">
-		<h1 class="blog-title">{tr.posts.title}</h1>
-		<p class="blog-subtitle">{tr.posts.ticker} &middot; {tr.posts.tickerAlt}</p>
+		<header class="blog-head">
+			<h1 class="page-title">{tr.posts.title}</h1>
+			<p class="section-label">{tr.posts.tickerAlt} ({posts.length})</p>
+		</header>
 		<div class="blog-grid">
-			{posts.map((post, i) => (
+			{posts.map((post) => (
 				<PostCard
 					title={post.data.title}
 					description={post.data.description}
 					date={`${tr.posts.postedOn} ${post.data.date}`}
 					href={`/posts/${post.data.slug}`}
 					cover={post.data.cover}
-					index={i}
 				/>
 			))}
 		</div>

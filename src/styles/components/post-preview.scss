@@ -34,7 +34,7 @@
 }
 
 .post-title {
-	font-family: 'Inter', sans-serif;
+	font-family: var(--font-sans);
 	font-weight: 900;
 	font-size: 1.3rem;
 	text-transform: uppercase;
@@ -50,7 +50,7 @@
 }
 
 .post-meta {
-	font-family: 'Space Mono', monospace;
+	font-family: var(--font-sans);
 	font-size: 0.75rem;
 	text-transform: uppercase;
 	letter-spacing: 0.05em;

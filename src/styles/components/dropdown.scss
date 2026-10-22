@@ -10,36 +10,34 @@
 	display: inline-flex;
 	align-items: center;
 	gap: 0.4rem;
-	padding: 0.45rem 0.7rem;
+	padding: 0.5rem 0.8rem;
 	background: none;
 	border: none;
 	border-radius: var(--radius-pill);
 	color: $fg;
 	cursor: pointer;
-	font-family: 'Space Mono', monospace;
-	font-weight: 700;
-	font-size: 0.8rem;
-	transition: background 0.15s, color 0.15s;
+	font-size: 0.875rem;
+	transition: box-shadow 0.2s ease, background-color 0.2s ease;
 
-	&:hover {
-		background: var(--accent-soft);
-		color: $accent;
+	&:hover,
+	.dropdown.open & {
+		box-shadow: var(--ring);
 	}
 }
 
 .dropdown-trigger__icon {
 	display: inline-flex;
 	align-items: center;
-}
 
-.dropdown-trigger__label {
-	text-transform: uppercase;
-	letter-spacing: 0.05em;
+	svg {
+		stroke-width: 1.5;
+	}
 }
 
 .dropdown-chevron {
 	transition: transform 0.2s ease;
-	opacity: 0.7;
+	opacity: 0.6;
+	stroke-width: 1.5;
 }
 
 .dropdown.open .dropdown-chevron {
@@ -53,14 +51,12 @@
 	min-width: 168px;
 	list-style: none;
 	margin: 0;
-	padding: 0.35rem;
-	background: var(--card-glass);
-	-webkit-backdrop-filter: blur(16px) saturate(180%);
-	backdrop-filter: blur(16px) saturate(180%);
-	border: $border;
-	border-radius: var(--radius-md);
-	box-shadow: var(--shadow-soft);
-	overflow: hidden;
+	padding: 6px;
+	background: var(--bg-glass);
+	-webkit-backdrop-filter: blur(12px);
+	backdrop-filter: blur(12px);
+	box-shadow: var(--ring);
+	border-radius: var(--radius-lg);
 	opacity: 0;
 	visibility: hidden;
 	transform: translateY(-6px);
@@ -84,30 +80,27 @@
 	align-items: center;
 	gap: 0.6rem;
 	width: 100%;
-	padding: 0.55rem 0.75rem;
+	padding: 0.55rem 0.85rem;
 	background: none;
 	border: none;
-	border-radius: var(--radius-sm);
+	border-radius: var(--radius-pill);
 	color: $fg;
 	cursor: pointer;
-	font-family: 'Space Mono', monospace;
-	font-weight: 700;
-	font-size: 0.8rem;
-	text-transform: uppercase;
-	letter-spacing: 0.03em;
+	font-size: 0.875rem;
 	text-align: left;
 	text-decoration: none;
-	transition: background 0.12s, color 0.12s;
+	transition: background-color 0.15s, color 0.15s;
 
 	svg {
 		width: 16px;
 		height: 16px;
 		flex-shrink: 0;
+		stroke-width: 1.5;
 	}
 
 	&:hover {
-		background: var(--accent-soft);
-		color: $accent;
+		background: var(--hover-bg);
+		color: $fg;
 	}
 
 	&.active {
@@ -119,8 +112,7 @@
 .dropdown-item__code {
 	display: inline-block;
 	min-width: 1.6em;
-	font-weight: 700;
-	color: $accent;
+	color: var(--muted);
 }
 
 .dropdown-item:hover .dropdown-item__code,

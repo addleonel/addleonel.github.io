@@ -1,0 +1,86 @@
+---
+import HeroFragments from './HeroFragments.astro';
+import '../styles/components/hero.scss';
+import { t, type Locale } from '../i18n/utils';
+
+interface Props {
+	locale?: Locale;
+}
+
+const { locale = 'en' } = Astro.props;
+const tr = t(locale);
+const prefix = locale === 'en' ? '' : '/es';
+---
+
+<section class="hero">
+	<div class="hero__copy">
+		<p class="hero__kicker">
+			<span class="hero__index">(01)</span>
+			{tr.home.kicker}
+		</p>
+		<h1 class="hero__title">
+			<span class="hero__name">Leunel</span>
+			<span class="hero__stream" data-stream={JSON.stringify(tr.home.stream)}>
+				<span class="hero__stream-text">{tr.home.stream[0]}</span><span class="hero__caret" aria-hidden="true"></span>
+			</span>
+		</h1>
+	</div>
+
+	<figure class="hero__visual">
+		<HeroFragments />
+		<figcaption>{tr.home.figure}</figcaption>
+	</figure>
+
+</section>
+
+<section class="hero-intro container">
+	<p class="hero-intro__statement">{tr.home.intro}</p>
+	<div class="hero-intro__side">
+		<p class="hero-intro__role">{tr.home.role}</p>
+		<a class="cmd hero-intro__cta" href={`${prefix}/about/`} data-cmd>
+			<span class="cmd__label">{tr.home.aboutMe}</span>
+			<span class="cmd__key" aria-hidden="true">&#8629;</span>
+		</a>
+	</div>
+</section>
+
+<script>
+	const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+	/* ── Second headline line streams in token by token, like an LLM ─── */
+	const stream = document.querySelector<HTMLElement>('[data-stream]');
+	const streamText = stream?.querySelector<HTMLElement>('.hero__stream-text');
+	if (stream && streamText && !reduceMotion) {
+		const phrases: string[] = JSON.parse(stream.dataset.stream ?? '[]');
+		const wait = (ms: number) => new Promise((r) => setTimeout(r, ms));
+		// Split into sub-word chunks of 1–4 characters to mimic tokenizer output
+		const tokenize = (s: string) => {
+			const out: string[] = [];
+			for (let i = 0; i < s.length; ) {
+				const n = 1 + Math.floor(Math.random() * 4);
+				out.push(s.slice(i, i + n));
+				i += n;
+			}
+			return out;
+		};
+		(async () => {
+			let i = 0;
+			await wait(2600);
+			for (;;) {
+				// Erase the current phrase
+				while (streamText.textContent) {
+					streamText.textContent = streamText.textContent.slice(0, -2);
+					await wait(22);
+				}
+				i = (i + 1) % phrases.length;
+				stream.classList.add('is-generating');
+				for (const tok of tokenize(phrases[i])) {
+					streamText.textContent += tok;
+					await wait(45 + Math.random() * 110);
+				}
+				stream.classList.remove('is-generating');
+				await wait(2800);
+			}
+		})();
+	}
+</script>

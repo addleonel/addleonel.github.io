@@ -2,7 +2,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PostCard from '../../components/PostCard.astro';
 import FeaturedProjects from '../../components/FeaturedProjects.astro';
-import HeroFragments from '../../components/HeroFragments.astro';
+import Hero from '../../components/Hero.astro';
 import VectorSpace from '../../components/VectorSpace.astro';
 import '../../styles/components/home.scss';
 import { t } from '../../i18n/utils';
@@ -18,34 +18,27 @@ const latestPosts = sortPostsByDate(posts).slice(0, 3);
 	title="Sitio web de Leunel"
 	description="Leunel Aquino — desarrollador de software que construye sistemas de LLMs, RAG y agentes. Lee mis notas sobre ingeniería de IA y explora mis proyectos."
 >
-	<section class="hero-collage">
-		<div class="container">
-			<HeroFragments locale="es" />
-		</div>
-	</section>
-	<main class="container">
-		<p class="last-posts">{tr.home.lastPosts}</p>
+	<Hero locale="es" />
+	<main class="container home-section">
+		<p class="section-label">{tr.home.lastPosts}</p>
 		<div class="home-posts">
-			{latestPosts.map((post, i) => (
+			{latestPosts.map((post) => (
 				<PostCard
 					title={post.data.title}
 					description={post.data.description}
-					date={`${tr.posts.postedOn} ${post.data.date}`}
+					date={post.data.date}
 					href={`/es/posts/${post.data.slug}`}
 					cover={post.data.cover}
-					index={i}
 				/>
 			))}
 		</div>
+		<a class="pill home-more" href="/es/posts/">{tr.home.allPosts} <span aria-hidden="true">&rarr;</span></a>
 	</main>
-	<section class="container more-post">
-		<a class="more-post__link" href="/es/posts/">{tr.home.allPosts} &rarr;</a>
-	</section>
-	<section class="container">
+	<section class="container home-section">
 		<FeaturedProjects locale="es" />
 	</section>
-	<section class="container concept-space">
-		<p class="last-posts">{tr.home.conceptSpace}</p>
+	<section class="container home-section concept-space">
+		<p class="section-label">{tr.home.conceptSpace}</p>
 		<VectorSpace locale="es" />
 		<p class="concept-space__hint">{tr.home.conceptSpaceHint}</p>
 	</section>
